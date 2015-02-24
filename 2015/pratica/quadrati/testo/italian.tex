@@ -1,0 +1,89 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\createsection{\Grader}{Grader di prova}
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+  
+Il professore di disegno tecnico di Gabriele è un uomo stravagante. I ragazzi hanno scoperto che il professore ama moltissimo i quadrati, e che spesso per prendere un buon voto in un compito è sufficiente che la tavola ne contenga uno. Tuttavia non tutti i quadrati sono uguali agli occhi del professore: sono per lui gradevoli alla vista solo quelli con area compresa tra i valori $A$ e $B$ (inclusi).
+
+Quanti sono i quadrati diversi che il professore trova gradevoli?
+
+\InputFile
+Il file \inputfile{} ha questo formato:
+\begin{itemize}[nolistsep,itemsep=2mm]
+\item Riga $1$: contiene gli interi $A$ e $B$.
+\end{itemize}
+
+\OutputFile
+Il file \outputfile{} ha questo formato:
+\begin{itemize}[nolistsep,itemsep=2mm]
+\item Riga $1$: contiene la risposta al problema.
+\end{itemize}
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{quadrati.c}, \texttt{quadrati.cpp}, \texttt{quadrati.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int conta(int A, int B);|\\
+\hline
+Pascal & \verb|function conta(A, B: longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+La funzione riceverà come parametri i valori $A$ e $B$ e dovrà ritornare la risposta al problema, che verrà stampata sul file di output.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+\item $1 \le A \le B \le 1\,000\,000 $.
+\end{itemize}
+
+\pagebreak
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $A \le B \le 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $A \le B \le 1\,000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+6 16
+}{ %
+2
+} %
+\end{example}
+\begin{example}
+\exmp{
+4 5
+}{ %
+1
+} %
+\end{example}

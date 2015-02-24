@@ -1,0 +1,5 @@
+memory_limit: 256
+name: sommelier
+time_limit: 1.0
+title: Corso per sommelier
+token_mode: infinite

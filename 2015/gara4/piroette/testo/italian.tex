@@ -1,0 +1,104 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Uno dei tanti passatempi di Giorgio è quello del coreografo. Di recente si è occupato di curare la coreografia della scena più importante di un balletto, in cui i ballerini eseguono un certo numero $P$ di piroette, ovvero di mezzigiri su una gamba. Giorgio nel copione aveva specificato la quantità di gradi che i ballerini dovevano compiere nella rotazione, cioè la quantità $G = 180\cdot P$.
+
+A causa di un guasto alla stampante, ogni volta che i copioni vengono stampati le cifre di $G$ vengono permutate casualmente. Per questo, ogni ballerino ha ricevuto un copione che specifica una quantità di gradi diversi. Lo spettacolo sta per debuttare, e restano pochi minuti per trovare una soluzione. Per mettere tutti d'accordo, Giorgio stabilisce che il numero di gradi da compiere è pari al massimo numero divisibile per 180 che si ottiene ripermutando le cifre del numero scritto sui copioni.
+
+In altre, parole, preso un numero $G$, è necessario trovare il più grande numero $\tilde{G}$ divisibile per 180 ottenibile permutando le cifre di $G$. Il tempo stringe, aiuta Giorgio a risolvere la situazione!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{piroette.c}, \texttt{piroette.cpp}, \texttt{piroette.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|void permuta(int N, int G[], int Gtilde[]);|\\
+\hline
+Pascal & \verb|procedure permuta(N: longint; var G, Gtilde: array of longint);|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di cifre di $G$.
+  \item L'array \texttt{G}, indicizzato da $0$ a $N-1$, contiene le cifre di $G$. La cifra più significativa è contenuta nella posizione $0$ \emph{(ad esempio, se $G = 630$, si ha $N = 3$ e $\texttt{G}[0] = 6, \texttt{G}[1] = 3, \texttt{G}[2] = 0$).}
+  \item La funzione dovrà scrivere in \texttt{Gtilde} la permutazione di \texttt{G} che garantisce il massimo intero divisibile per 180, secondo la convezione che la cifra più significativa si trova nella posizione $0$.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene l'unico intero $N$. La seconda riga contiene gli $N$ interi $\texttt{G}[i]$ separati da uno spazio, secondo la convezione che la cifra più significativa si trova nella posizione $0$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente $N$ interi, le cifre di \texttt{Gtilde}, secondo la convezione che la cifra più significativa si trova nella posizione $0$.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $3 \le N \le 100\,000$.
+	\item $0 \le \texttt{G}[i] \le 9$ per ogni $i=0\ldots N-1$.
+	\item La prima cifra di $G$ non è 0.
+	\item Esiste almeno una permutazione delle cifre di $G$ che conduce ad un numero divisibile per 180.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [30 punti]}: $N \leq 8$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [20 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+3
+6 3 0
+}{%
+3 6 0
+}%
+\end{example}
+\begin{example}
+\exmp{
+4
+4 2 0 3
+}{%
+4 3 2 0
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio} l'unica permutazione delle cifre che conduce ad un numero divisibile per 180 è 360.\\[2mm]
+Nel \textbf{secondo caso di esempio} esistono 4 permutazioni delle cifre che portano ad un numero divisibile per 180:
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item 2340,
+	\item 3240,
+	\item 3420,
+	\item 4320.
+\end{itemize}
+Il massimo tra questi numeri è 4320.

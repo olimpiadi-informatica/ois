@@ -1,0 +1,91 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Gabriele si è recentemente appassionato al linguaggio C$--$ (in particolare, C$--$11), in cui le uniche variabili ammesse sono array $D$-dimensionali con tutte le dimensioni uguali tra loro $M$ (una variabile siffatta conterrà quindi $M^D$ celle di memoria). Una delle novità introdotte dal C$--$11 rispetto al C$--$99, è che d'ora in poi sarà ammesso dichiarare un'unica variabile, che inoltre deve avere dimensione $D$ almeno pari a 2.
+
+	Gabriele sta aggiornando il suo vecchio codice ai nuovi standard, e sta riscontrando qualche difficoltà con la gestione della memoria in alcuni dei suoi programmi più complessi. Sapendo che il suo computer ha una capacità di $N$ celle di memoria, quante ne potrà al massimo sfruttare con un programma di C$--$11 (e quindi con un'unica variabile di dimensione una potenza $M^D$ con esponente almeno 2)?
+
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{potenze.c}, \texttt{potenze.cpp}, \texttt{potenze.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int alloca(int N);|\\
+\hline
+Pascal & \verb|function alloca(N: longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di celle di memoria presenti nel computer di Gabriele.
+  \item La funzione dovrà restituire il massimo numero di celle allocabile in C$--$11 (e quindi la più grande potenza $M^D$ minore o uguale a $N$ con $D \ge 2$), che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da un'unica riga contenente l'unico intero $N$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 100\,000$.
+\end{itemize}
+
+\pagebreak
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+10
+}{%
+9
+}%
+\end{example}
+\begin{example}
+\exmp{
+32
+}{%
+32
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, la potenza più grande minore o uguale a 10 è $9 = 3^2$.\\[2mm]
+Nel \textbf{secondo caso di esempio}, la potenza più grande minore o uguale a 32 è $32 = 2^5$.

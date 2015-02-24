@@ -1,0 +1,99 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Gabriele vuole laurearsi il prima possibile! Ogni anno deve compilare il cosiddetto ``piano degli studi'', dove indica i corsi che intende frequentare per quell'anno accademico. Ogni corso, oltre alla data di inizio e fine lezioni, ha associato anche un numero (intero) di crediti. Per potersi laureare, Gabriele sa che deve accumulare un certo numero di crediti, ottenuti superando gli esami dei corsi che sceglie di frequentare.
+
+Per non essere troppo stressato, Gabriele stabilisce che tra i corsi che sceglierà non dovranno esserci sovrapposizioni, ovvero non dovrà succedere che i periodi di erogazione dei corsi abbiano intersezione, neanche eventualmente per un solo giorno. Data la lista dei corsi, aiuta Gabriele a scegliere il sottoinsieme di corsi che garantisce il massimo numero di crediti.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{pianostudi.c}, \texttt{pianostudi.cpp}, \texttt{pianostudi.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int pianifica(int N, int da[], int a[], int crediti[]);|\\
+\hline
+Pascal & \verb|function pianifica(N: longint; var da, a, crediti: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero totale di corsi erogati dall'università di Gabriele.
+  \item Gli array \texttt{da} e \texttt{a}, indicizzati da $0$ a $N-1$, contengono le date di inizio e di fine dei corsi, rappresentate con dei numeri interi. Il periodo di erogazione del corso $i$ è quindi quello che va dal giorno $\texttt{da}[i]$ al giorno $\texttt{a}[i]$, estremi inclusi.
+  \item L'array \texttt{crediti}, indicizzato da $0$ a $N-1$, contiene alla posizione $i$ il numero di crediti ottenuti dalla frequentazione del corso $i$.
+  \item La funzione dovrà restituire il massimo numero di crediti che Gabriele può ottenere in totale, sotto la condizione che tra i corsi scelti non vi sia sovrapposizione. Il valore ritornato verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da $N+1$ righe. La prima riga contiene l'unico intero $N$. Le successive $N$ righe contengono le informazioni sui corsi: la $i$-esima di queste contiene i tre interi $\texttt{da}[i], \texttt{a}[i], \texttt{crediti}[i]$, separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, il massimo numero di crediti a cui Gabriele può puntare.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 100\,000$.
+	\item $1 \le \texttt{da}[i], \texttt{a}[i] \le 100\,000\,000$ per ogni $i=0\ldots N-1$.
+	\item $1 \le \texttt{crediti}[i] \le 10\,000$ per ogni $i=0\ldots N-1$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [10 punti]}: $N \le 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [20 punti]}: $N \leq 1000$ e tutti i corsi valgono lo stesso numero di crediti.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: $N \leq 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+2
+5 8 1
+1 5 2
+}{%
+2
+}%
+\end{example}
+\begin{example}
+\exmp{
+3
+3 9 30
+2 4 10
+5 6 15
+}{%
+30
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio} i due corsi si sovrappongono nel giorno 5, quindi Gabriele può frequentarne solo uno, e sceglie il secondo corso, per un valore totale di 2 crediti.\\[2mm]
+Nel \textbf{secondo caso di esempio} la scelta ottima è frequentare solo il corso da 30 crediti.

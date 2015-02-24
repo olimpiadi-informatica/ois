@@ -1,0 +1,5 @@
+memory_limit: 256
+name: taxi
+time_limit: 1.0
+title: Viaggio in taxi
+token_mode: infinite

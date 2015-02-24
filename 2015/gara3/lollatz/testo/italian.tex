@@ -1,0 +1,92 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Da qualche tempo, Giorgio si è interessato alla congettura di \emph{Lollatz}. Questa congettura afferma che, dato un quadrato perfetto $N$, ripetendo i seguenti due passaggi:
+	\begin{itemize}
+		\item moltiplichi il numero per la sua $(\text{cifra delle unità} - 1)$
+		\item dividi per due, arrotondando per difetto
+	\end{itemize}
+	prima o poi si arriva a un multiplo di 10. Giorgio, tuttavia, non riesce ad interpretare i passaggi della dimostrazione del dottor Lollatz, che sembra essere composta unicamente da abbreviazioni poco leggibili, e quindi si fida poco di questo risultato. Aiutalo a dirimere i suoi dubbi scrivendo un programma che verifichi questa congettura!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{lollatz.c}, \texttt{lollatz.cpp}, \texttt{lollatz.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int afaikdiyrotfl(int N);|\\
+\hline
+Pascal & \verb|function afaikdiyrotfl(N: longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il quadrato perfetto di partenza.
+  \item La funzione dovrà restituire $-1$ se la congettura non è vera per $N$, altrimenti dovrà restituire il multiplo di 10 che si ottiene alla fine del procedimento. Il valore restituito verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da un'unica riga contenente l'unico intero $N$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 1\,000\,000$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+4
+}{%
+30
+}%
+\end{example}
+\begin{example}
+\exmp{
+100
+}{%
+100
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, dopo il primo passaggio otteniamo $4 \times (4-1)/2 = 6$. Proseguiamo quindi ottenendo $6 \times (6-1)/2 = 15$. Procediamo ancora ottenendo $15 \times (5-1)/2 = 30$, e qui ci possiamo fermare. \\[2mm]
+Nel \textbf{secondo caso di esempio}, il numero è già un multiplo di 10 quindi l'algoritmo si ferma subito.

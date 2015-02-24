@@ -1,0 +1,7 @@
+memory_limit: 256
+infile: "input.txt"
+outfile: "output.txt"
+name: collatz
+time_limit: 1.0
+title: La congettura di Collatz
+token_mode: infinite

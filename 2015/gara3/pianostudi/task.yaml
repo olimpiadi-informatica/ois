@@ -1,0 +1,5 @@
+memory_limit: 256
+name: pianostudi
+time_limit: 1.0
+title: Piano degli studi
+token_mode: infinite

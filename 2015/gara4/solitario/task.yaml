@@ -1,0 +1,5 @@
+memory_limit: 256
+name: solitario
+time_limit: 1.0
+title: Tris in solitaria
+token_mode: infinite

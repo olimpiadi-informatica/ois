@@ -1,0 +1,5 @@
+memory_limit: 256
+name: festa
+time_limit: 1.0
+title: Inviti alla festa
+token_mode: infinite

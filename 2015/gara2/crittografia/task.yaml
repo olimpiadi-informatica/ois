@@ -1,0 +1,5 @@
+memory_limit: 256
+name: crittografia
+time_limit: 1.0
+title: Crittografia riflessa
+token_mode: infinite

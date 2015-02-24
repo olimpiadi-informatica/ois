@@ -1,0 +1,123 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Dopo l'ultimo seminario di teoria dei numeri, Giorgio è rimasto affascinato dallo studio della sequenza dei numeri di Fibonacci. Pertanto, per non essere da meno, introduce una nuova sequenza di numeri secondo lui ancora più interessante: i numeri di \emph{Figonacci}. Come per i loro quasi-omonimi, l'$(n+1)$-esimo numero di Figonacci $G_{n+1}$ si calcola a partire dai precedenti (eccezion fatta per i primi due numeri di Figonacci, che sono valori fissati a $G_0 = -1$ e $G_1 = 0$). La regola che stabilisce il valore di $G_{n+1}$, tuttavia, è diversa da quella dei numeri di Fibonacci: $G_{n+1}$ è pari alla somma di tutte le possibili differenze tra il numero di Figonacci immediatamente precedente e quelli ancora prima. In formule:
+	\[
+	\begin{split}
+		G_{n+1} &= \sum_{i=0}^{n-1} (G_n - G_i)\\
+		 &= (G_n - G_{n-1}) + (G_n - G_{n-2}) + \ldots + (G_n - G_2) + (G_n - G_1) + (G_n - G_0)
+	\end{split}
+	\]
+	I primi numeri che si ottengono da questa sequenza sono quindi $-1, 0, 1, 3, 9, \ldots$ ed è facile vedere che crescono molto rapidamente. Ma questo non è un problema per Giorgio, che è interessato ad usarli per problemi di teoria dei numeri, e a cui quindi interessa soltanto il valore modulo $M$ di questi numeri.
+	
+	Aiuta la sua ricerca calcolando il valore dell'$N$-esimo numero di Figonacci $G_N$ modulo $M$.
+
+\InputFile
+Il file \inputfile{} è composto da un'unica riga contenente i due numeri interi $N$ ed $M$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{figonacci.c}, \texttt{figonacci.cpp}, \texttt{figonacci.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int enumera(int N, int M);|\\
+\hline
+Pascal & \verb|function enumera(N, M: longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta l'indice del numero di Figonacci a cui Giorgio è interessato.
+  \item L'intero $M$ rappresenta il modulo con il quale va ridotto quel numero.
+  \item La funzione dovrà restituire il valore di $G_N$ modulo $M$, che verrà stampato sul file di output.
+\end{itemize}
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+\item $2 \le N \le 1\,000\,000$.
+\item $2 \le M \le 40\,000$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+3 10
+}{%
+3
+}%
+\end{example}
+\begin{example}
+\exmp{
+4 3
+}{%
+0
+}%
+\end{example}
+\begin{example}
+\exmp{
+5 9
+}{%
+6
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, $G_3 = 3$ che modulo 10 resta 3.\\[2mm]
+Nel \textbf{secondo caso di esempio}, $G_4 = 9$ che modulo 3 fa 0.\\[2mm]
+Nel \textbf{terzo caso di esempio}, $G_5 = 33$ che modulo 9 fa 6.
+
+
+\Notes
+L'operazione di modulo si calcola con l'operatore \texttt{\%} in C/C++ e \texttt{mod} in Pascal. Notare che in entrambi i casi può dare risultati non corretti se l'argomento è negativo (il che può succedere per diversi motivi). Un modo per risolvere questo problema è usare il seguente codice:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \texttt{(GN \% M + M) \% M}\\
+\hline
+Pascal & \texttt{(GN mod M + M) mod M}\\
+\hline
+\end{tabularx}\end{center}
+L'operazione di modulo, inoltre, ha le seguenti proprietà (molto utili per evitare \emph{integer overflow} quando si vogliono calcolare numeri molto grandi):
+\begin{itemize}[nolistsep]
+	\item $(A + B) \bmod M = (A \bmod M + B \bmod M) \bmod M$
+	\item $(A \cdot B) \bmod M = (A \bmod M \cdot B \bmod M) \bmod M$
+\end{itemize}

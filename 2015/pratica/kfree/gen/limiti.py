@@ -1,0 +1,4 @@
+MAXN = 100000
+MINN = 1
+MAXK = 1000
+MINK = 1

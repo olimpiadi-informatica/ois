@@ -1,0 +1,7 @@
+memory_limit: 256
+name: topologia
+time_limit: 1.0
+title: Topologia di rete
+token_mode: infinite
+infile: input.txt
+outfile: output.txt

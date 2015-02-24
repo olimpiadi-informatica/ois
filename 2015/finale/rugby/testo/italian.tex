@@ -1,0 +1,114 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	La \emph{SteamPower S.P.A.}, azienda leader mondiale nel campo delle macchine a vapore portatili, grazie ai tagli al personale, agli espedienti di finanza creativa e alle operazioni di immagine recentemente effettuate sembra essere momentaneamente fuori pericolo. Tuttavia, il fallimento è sempre dietro l'angolo e il \emph{CEO} non vuole farsi cogliere impreparato. Per recuperare popolarità e ottenere un po' di pubblicità gratuita, ha quindi deciso di impegnare alcuni dei suoi dipendenti nel \emph{Torneo Intercostale} di Rugby, una competizione che coinvolge squadre provenienti da zone costiere di tutto il mondo.
+
+	L'incarico di formare la squadra è stato affidato al consulente di fiducia dell'azienda, Gabriele, che ha iniziato effettuando dei test attitudinali individuando la bravura $B_i$ degli $N$ dipendenti dell'azienda. Gabriele sa bene che la bravura di una squadra si ottiene molto semplicemente sommando i valori di bravura dei suoi componenti. Ma sa anche che ancor più della bravura dei singoli conta lo spirito di squadra: e questo si perde completamente se due dei componenti della squadra sono in \emph{conflitto di interessi}, e cioè uno il capo (diretto o indiretto) dell'altro nella gerarchia dell'azienda.
+
+	Pertanto Gabriele si è anche procurato l'organigramma (cioè il grafico ad albero in cui tutti i dipendenti dell'azienda sono organizzati secondo le relazioni di dipendenza), e conosce quindi il capo diretto $C_i$ di ogni dipendente $i$. Per convenzione, il presidente dell'azienda è segnato al numero $0$ e ha $C_i = -1$ per indicare l'assenza di un capo diretto. Aiuta Gabriele a trovare la squadra più forte (con massima somma della bravura dei componenti) senza conflitti di interessi!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{rugby.c}, \texttt{rugby.cpp}, \texttt{rugby.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int recluta(int N, int B[], int C[]);|\\
+\hline
+Pascal & \verb|function recluta(N: longint; var B, C: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero totale di dipendenti dell'azienda.
+  \item L'array \texttt{B}, indicizzato da $0$ a $N-1$, contiene i valori di bravura $B_i$ dei dipendenti.
+  \item L'array \texttt{C}, indicizzato da $0$ a $N-1$, contiene gli indici dei capi diretti $C_i$ (sempre da 0 a $N-1$) dei dipendenti corrispondenti. Il valore $C_0$ è garantito essere pari a $-1$ e indica che il presidente è sempre il dipendente numero $0$.
+  \item La funzione dovrà restituire la massima bravura per una squadra senza conflitti di interessi, che verrà stampata sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da $N+1$ righe. La prima riga contiene l'unico intero $N$. Le successive $N$ righe contengono ciascuna due interi separati da uno spazio, i valori $B_i$ e $C_i$ del dipendente $i$-esimo.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 10\,000$.
+	\item $1 \le B_i \le 100\,000$ per ogni $i=0\ldots N-1$.
+	\item $0 \le C_i \le N-1$ per ogni $i=1\ldots N-1$, mentre $C_0 = -1$.
+	\item \`E garantito che l'organigramma rappresenti effettivamente un albero, e cioè che risalendo di capo in capo a partire da ogni dipendente $i$ si arrivi sempre al presidente $0$.
+	\item Non ci sono limiti minimi o massimi per la dimensione di una squadra nel Torneo Intercostale.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [30 punti]}: Con l'eccezione del presidente, tutti gli altri dipendenti hanno al massimo un dipendente diretto.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [40 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+4
+7 -1
+2 0
+3 0
+1 0
+}{%
+7
+}%
+\end{example}
+\begin{example}
+\exmp{
+7
+4 -1
+5 0
+1 4
+2 4
+6 0
+3 1
+5 4
+}{%
+13
+}%
+\end{example} 
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, la squadra più forte consiste del solo presidente, come evidenziato nel seguente organigramma in cui i numeri bianchi nei riquadri scuri rappresentano il valore di bravura dei dipendenti.
+\begin{figure}[H]%
+\centering\includegraphics[scale = 1.7]{asy_rugby/fig1.pdf}%
+\end{figure}\\[2mm]
+Nel \textbf{secondo caso di esempio}, la squadra più forte è evidenziata nel seguente organigramma.
+\begin{figure}[H]%
+\centering\includegraphics[scale = 1.7]{asy_rugby/fig2.pdf}%
+\end{figure}

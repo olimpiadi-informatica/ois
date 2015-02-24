@@ -1,0 +1,5 @@
+memory_limit: 256
+name: tris
+time_limit: 1.0
+title: Gioco del tris
+token_mode: infinite

@@ -1,0 +1,5 @@
+memory_limit: 256
+name: magneti
+time_limit: 1.0
+title: Allineamento magnetico
+token_mode: infinite

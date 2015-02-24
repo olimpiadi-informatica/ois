@@ -1,0 +1,7 @@
+memory_limit: 256
+infile: "input.txt"
+outfile: "output.txt"
+name: quadrati
+time_limit: 1.0
+title: Quadrati gradevoli
+token_mode: infinite

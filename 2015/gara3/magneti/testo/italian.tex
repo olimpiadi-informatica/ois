@@ -1,0 +1,99 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+\newcommand{\mpm}{(\textcolor{blue}{+}\textcolor{red}{-})}
+\newcommand{\mmp}{(\textcolor{red}{-}\textcolor{blue}{+})}
+Gabriele, nonostante la sua età, ama moltissimo giocare con i magneti. Una delle sue costruzioni preferite è il cosiddetto ``serpente di magneti'', cioè una lunga linea di magneti. Ovviamente, affinchè i magneti rimangano accostati, è necessario che al polo positivo di un magnete corrisponda sempre il polo negativo del successivo, e viceversa. Ad esempio, sono serpenti di magneti validi le successioni di magneti
+$$\mpm\mpm\mpm\mpm\mpm\quad\text{e}\quad\mmp\mmp\mmp,$$
+mentre non lo sono
+$$\mpm\mmp\mmp\mmp\quad\text{e}\quad\mmp\mpm\mmp.$$
+Data una generica successione (non necessariamente stabile) di magneti, Gabriele si chiede quale è il minimo numero di magneti da girare affinchè la successione risultante sia un serpente di magneti.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{magneti.c}, \texttt{magneti.cpp}, \texttt{magneti.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int gira(int N, char descrizione[]);|\\
+\hline
+Pascal & \verb|function gira(N: longint; var descrizione: array of char): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di caratteri della stringa \texttt{descrizione}.
+  \item La stringa \texttt{descrizione}, array di caratteri indicizzato da $0$ a $N-1$, contiene la descrizione della situazione iniziale dei magneti, nello stesso formato degli esempi appena fatti (si veda la sezione \textbf{Esempi di input/output} per due ulteriori esemplificazioni del formato della stringa).
+  \item La funzione dovrà restituire il minimo numero di magneti che è necessario girare, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene l'unico intero $N$. La seconda riga contiene la stringa \texttt{descrizione}, composta da $N$ caratteri.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, il minimo numero di magneti che è necessario ruotare per rendere la successione un serpente di magneti.
+
+\newpage
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $4 \le N \le 100\,000$.
+	\item La stringa \texttt{descrizione} è formata solo dai caratteri \texttt{(},\texttt{+},\texttt{-},\texttt{)} ed è una stringa ben formata. Questo implica tra le altre cose che \textbf{$N$ è multiplo di 4}.
+	\item Nel caso in cui la successione iniziale di magneti sia già stabile e non ci sia quindi bisogno di girare alcun magnere, rispondere il valore 0.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 20$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+8
+(+-)(-+)
+}{%
+1
+}%
+\end{example}
+\begin{example}
+\exmp{
+12
+(+-)(+-)(-+)
+}{%
+1
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio} è sufficiente ruotare il primo magnete.\\[2mm]
+Nel \textbf{secondo caso di esempio} è sufficiente ruotare l'ultimo magnete.

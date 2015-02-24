@@ -1,0 +1,7 @@
+name: interrogazioni
+time_limit: 1.0
+memory_limit: 256
+title: Interrogazioni equilibrate
+token_mode: infinite
+infile: input.txt
+outfile: output.txt

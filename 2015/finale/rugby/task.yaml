@@ -1,0 +1,5 @@
+memory_limit: 256
+name: rugby
+time_limit: 1.0
+title: Torneo di rugby
+token_mode: infinite

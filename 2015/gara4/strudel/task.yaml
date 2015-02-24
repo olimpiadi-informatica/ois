@@ -1,0 +1,5 @@
+memory_limit: 256
+name: strudel
+time_limit: 1.0
+title: Fette di strudel
+token_mode: infinite

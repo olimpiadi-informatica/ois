@@ -1,0 +1,5 @@
+memory_limit: 256
+name: medaglie
+time_limit: 1.0
+title: Oro, argento e bronzo
+token_mode: infinite

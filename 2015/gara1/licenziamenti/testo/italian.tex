@@ -1,0 +1,116 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	La \emph{SteamPower S.P.A.}, azienda leader mondiale nel campo delle macchine a vapore portatili, sta attraversando un brutto periodo di crisi e per tenerla in piedi nell'attesa che l'economia riparta la dirigenza ha stabilito un regime di forti tagli al personale.
+
+	Per stabilire chi deve essere licenziato, il reparto personale ha distribuito un test con cui ha stabilito accuratamente di ognuno degli $N$ dipendenti il suo personale valore di bravura $B_i$. Inoltre si baserà anche sullo studio dell'organigramma (cioè il grafico ad albero in cui tutti i dipendenti dell'azienda sono organizzati secondo le relazioni di dipendenza), e conosce quindi il capo diretto $C_i$ di ogni dipendente $i$. Per convenzione, il presidente dell'azienda è segnato al numero $0$ e ha $C_i = -1$ per indicare l'assenza di un capo diretto.
+
+	Le direttive presidenziali hanno stabilito che per cominciare verranno licenziati tutti i dipendenti \emph{inadeguati}, e cioè quelli che hanno valore di bravura $B_i$ strettamente maggiore di quello di uno dei loro capi (diretti o indiretti). Aiuta il reparto personale a determinare quante persone dovranno essere licenziate!
+
+\InputFile
+Il file \inputfile{} è composto da $N+1$ righe. La prima riga contiene l'unico intero $N$. Le successive $N$ righe contengono ciascuna due interi separati da uno spazio, i valori $B_i$ e $C_i$ del dipendente $i$-esimo.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{licenziamenti.c}, \texttt{licenziamenti.cpp}, \texttt{licenziamenti.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int licenzia(int N, int B[], int C[]);|\\
+\hline
+Pascal & \verb|function licenzia(N: longint; var B, C: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero totale di dipendenti dell'azienda.
+  \item L'array \texttt{B}, indicizzato da $0$ a $N-1$, contiene i valori di bravura $B_i$ dei dipendenti.
+  \item L'array \texttt{C}, indicizzato da $0$ a $N-1$, contiene gli indici dei capi diretti $C_i$ (sempre da 0 a $N-1$) dei dipendenti corrispondenti. Il valore $C_0$ è garantito essere pari a $-1$ e indica che il presidente è sempre il dipendente numero $0$.
+  \item La funzione dovrà restituire il numero di dipendenti inadeguati, che verrà stampato sul file di output.
+\end{itemize}
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 100\,000$.
+	\item $0 \le B_i \le 1\,000\,000$ per ogni $i=0\ldots N-1$.
+	\item $0 \le C_i \le N-1$ per ogni $i=1\ldots N-1$, mentre $C_0 = -1$.
+	\item \`E garantito che l'organigramma rappresenti effettivamente un albero, e cioè che risalendo di capo in capo a partire da ogni dipendente $i$ si arrivi sempre al presidente $0$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [30 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [10 punti]}: L'organigramma forma una linea retta, e quindi $C_i = i-1$ per ogni $i$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+4
+5 -1
+2 0
+8 0
+4 0
+}{%
+1
+}%
+\end{example}
+\begin{example}
+\exmp{
+7
+4 -1
+2 0
+1 4
+2 4
+6 0
+3 1
+5 4
+}{%
+3
+}%
+\end{example}
+
+
+\Explanation
+Il \textbf{primo caso di esempio} corrisponde a questo organigramma, in cui i numeri bianchi nei riquadri scuri rappresentano il valore di bravura dei dipendenti:
+\begin{figure}[H]%
+\centering\includegraphics{asy_licenziamenti/fig1.pdf}%
+\end{figure}
+Il dipendente 2 ha un valore di bravura superiore a quello del suo capo (il presidente dell'azienda), e per questo deve essere licenziato.\\[2mm]
+Il \textbf{secondo caso di esempio} corrisponde invece a questo organigramma:
+\begin{figure}[H]%
+\centering\includegraphics{asy_licenziamenti/fig2.pdf}%
+\end{figure}
+I dipendenti 4 e 5 hanno un valore di bravura maggiore dei loro rispettivi capi, e quindi vanno licenziati. Il dipendente 6 ha un valore di bravura minore di quello del suo capo, ma maggiore di quello del capo del suo capo, e quindi va licenziato.

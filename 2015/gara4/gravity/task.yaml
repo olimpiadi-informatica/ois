@@ -1,0 +1,5 @@
+memory_limit: 256
+name: gravity
+time_limit: 1.0
+title: Assenza di gravità
+token_mode: infinite

@@ -1,0 +1,98 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Il nuovo centro sportivo è pronto, e lo spettacolo di trampolini di Giorgio sta per debuttare! Come sempre, durante lo spettacolo Giorgio starà alla regia occupandosi personalmente dell'illuminazione di sala, di modo da ricreare l'atmosfera giusta in ogni momento dello spettacolo.
+
+	Il lungo e stretto palco è illuminato da una fila di $N$ lampadine (numerate da 1 a $N$) che, come richiesto da Giorgio stesso, sono controllate da altrettanti interruttori (numerati da 1 a $N$) in modo un po' peculiare. Precisamente, l'interruttore $i$-esimo si occupa di cambiare lo stato di tutte le lampadine in posizione multipla di $i$. Solo in questo modo Giorgio potrà cambiare velocemente e con precisione la luminosità globale del palco nella maniera che preferisce.
+
+	Per lo spettacolo, Giorgio ha stabilito che le lampadine partiranno tutte accese, e che successivamente verranno premuti tutti gli $N$ interruttori una singola volta. Più precisamente, Giorgio inizierà dall'interruttore $M$, e poi inizierà a fare la ``conta'': tra gli interruttori non ancora premuti selezionerà il $K$-esimo dopo $M$ (circolarmente, quindi continuando a contare dal primo interruttore ogni volta che arriva all'ultimo), poi ancora il $K$-esimo ancora non premuto dopo il precedente, e così via.
+
+	Aiuta Giorgio a  scrivere un programma che calcoli quante lampadine rimarranno accese alla fine!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{luci.c}, \texttt{luci.cpp}, \texttt{luci.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int spegni(int N, int M, int K);|\\
+\hline
+Pascal & \verb|function spegni(N, M, K: longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di lampadine e interruttori.
+  \item L'intero $M$ rappresenta il primo interruttore a venire premuto.
+  \item L'intero $K$ rappresenta ogni quanti interruttori si svolge la conta.
+  \item La funzione dovrà restituire il numero di lampadine ancora accese alla fine, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da una riga contenente i tre interi $N$, $M$, $K$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le M \le N \le 1\,000\,000\,000$.
+	\item $1 \le K \le 1\,000\,000\,000$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $K, N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [20 punti]}: $N \leq 10\,000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [20 punti]}: $N \leq 1\,000\,000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+2 1 5
+}{%
+1
+}%
+\end{example}
+\begin{example}
+\exmp{
+6 3 3
+}{%
+4
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, vengono premute le lampadine 1 e poi 2 nell'ordine e alla fine rimane accesa la lampadina numero 2.\\[2mm]
+Nel \textbf{secondo caso di esempio}, vengono premute le lampadine 3, 6, 4, 2, 5, 1 e alla fine rimangono accese tutte le lampadine tranne la numero 1 e la numero 4.

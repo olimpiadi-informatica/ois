@@ -1,0 +1,110 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\createsection{\Grader}{Grader di prova}
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Giorgio, che studia a Torino, ha deciso di far visita a Gabriele, che studia a Milano. Giorgio sa che durante il periodo che passerà con Gabriele avrà bisogno di fare $N$ viaggi sui mezzi pubblici, e per questo sta indagando sui prezzi dei biglietti. Ha scoperto che a Milano è possibile comprare un biglietto valido per una singola corsa per $A$ centesimi, oppure un carnet da $M$ viaggi, al costo di $B$ centesimi.
+
+Conoscendo $N$, $M$, $A$ e $B$, quanti centesimi al minimo deve spendere Giorgio per poter fare $N$ corse sui mezzi?
+
+\InputFile
+Il file \inputfile{} è composto da un unica riga contenente gli interi $N, M, A, B$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{biglietti.c}, \texttt{biglietti.cpp}, \texttt{biglietti.pas}) con un esempio di implementazione.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int compra(int N, int M, int A, int B);|\\
+\hline
+Pascal & \verb|function compra(N, M, A, B: longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di corse che Giorgio deve fare.
+  \item L'intero $M$ rappresenta il numero di corse che sono comprese in un carnet.
+  \item L'intero $A$ rappresenta il costo in centesimi di una corsa singola.
+  \item L'intero $B$ rappresenta il costo in centesimi di un intero carnet.
+  \item La funzione dovrà restituire il minimo numero di centesimi che è necessario spendere, che verrà stampato sul file di output.
+\end{itemize}
+
+\Constraints 
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item $1 \le N, M, A, B \le 10\,000$.
+  \item È possibile che Giorgio compri un numero di corse maggiore di $N$, se conveniente.
+\end{itemize}
+
+\newpage
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $1 \le N \le 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $1 \le N \le 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+\Examples
+\begin{example}
+\exmp{
+4 10 150 1380
+}{%
+600
+}%
+\end{example}
+\begin{example}
+\exmp{
+11 10 150 1380
+}{%
+1530
+}%
+\end{example}
+\begin{example}
+\exmp{
+10 10 150 1700
+}{%
+1500
+}%
+\end{example}
+\begin{example}
+\exmp{
+11 10 150 100
+}{%
+200
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio} conviene comprare 4 biglietti singoli.\\[2mm]
+Nel \textbf{secondo caso di esempio} conviene comprare un carnet e un biglietto.\\[2mm]
+Nel \textbf{terzo caso di esempio} conviene comprare 10 biglietti singoli.\\[2mm]
+Nel \textbf{quarto caso di esempio} conviene comprare due carnet.

@@ -1,0 +1,5 @@
+memory_limit: 256
+name: nonna
+time_limit: 1.0
+title: Pranzo dalla nonna
+token_mode: infinite

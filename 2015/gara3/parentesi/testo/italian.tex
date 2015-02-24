@@ -1,0 +1,117 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Giorgio ha scritto un programma contenente una serie di espressioni molto elaborate, formate ciascuna da un gran numero di parentesi di tutti i tipi, e cioè:
+	\begin{itemize}
+		\item angolate: \texttt{'<'} e \texttt{'>'}
+		\item tonde: \texttt{'('} e \texttt{')'}
+		\item quadrate: \texttt{'['} e \texttt{']'}
+		\item graffe: \texttt{'\{'} e \texttt{'\}'}
+	\end{itemize}
+	Purtroppo, quando ha provato ad eseguirlo, il compilatore gli ha detto che c'è un errore senza nemmeno dirgli in quale espressione si trova! Aiutalo controllando quali espressioni sono ben formate e quali no.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{parentesi.c}, \texttt{parentesi.cpp}, \texttt{parentesi.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int controlla(int N, char E[]);|\\
+\hline
+Pascal & \verb|function controlla(N: longint; var E: array of char): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta la lunghezza dell'espressione da controllare.
+  \item L'array \texttt{E}, indicizzato da $0$ a $N-1$, contiene i caratteri di cui l'espressione è composta.
+  \item La funzione dovrà restituire 0 se l'espressione è corretta, -1 altrimenti. Nel primo caso, sul file di output verrà stampata la stringa \texttt{'corretta'}, nel secondo caso la stringa \texttt{'malformata'}.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene l'unico intero $N$. La seconda riga contiene la stringa $E$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unica parola, la risposta a questo problema.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 10\,000$.
+	\item $E_i$ è uno tra i caratteri \texttt{'\{[(<>)]\}'}.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: Tutte le parentesi sono tonde.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [20 punti]}: Le espressioni corrette sono formate da parentesi ordinate gerarchicamente (vedi quarto caso di esempio).
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: $N \leq 30$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [20 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+4
+([)]
+}{%
+malformata
+}%
+\end{example}
+\begin{example}
+\exmp{
+5
+<(\{\})
+}{%
+malformata
+}%
+\end{example}
+\begin{example}
+\exmp{
+12
+()([]\{(<>)\})
+}{%
+corretta
+}%
+\end{example}
+\begin{example}
+\exmp{
+20
+\{(<><>)\{\{()[<>]<>\}\}\}
+}{%
+corretta
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, la parentesi tonda più esterna viene chiusa prima della parentesi quadra (che è più interna), e quindi l'espressione è malformata.\\[2mm]
+Nel \textbf{secondo caso di esempio}, la parentesi angolata all'inizio non viene mai chiusa.\\[2mm]
+Nel \textbf{terzo e quarto caso di esempio}, tutte le parentesi sono chiuse correttamente. Inoltre nell'ultimo viene rispettata la gerarchia tra le parentesi: le angolate sono tutte più all'interno, a seguire tonde, quadre e infine graffe più all'esterno. In altre parole, una parentesi graffa non può essere aperta all'interno di un'altro tipo di parentesi; una parentesi quadra non può essere aperta all'interno di una parentesi tonda o angolata, e una parentesi tonda non può essere aperta all'interno di una parentesi angolata.

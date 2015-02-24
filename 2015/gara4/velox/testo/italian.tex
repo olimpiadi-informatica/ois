@@ -1,0 +1,120 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Gabriele vuole mettere alla prova la sua nuova utilitaria sportiva, e sta quindi cercando il tragitto più lungo possibile da fare in un'unica graduale accelerata. Il compito è reso arduo dalla presenza di un complicato sistema di limiti di velocità e sensi unici, che Gabriele non può assolutamente permettersi di violare.
+
+	La zona di Brescia è composta di $N$ incroci tra cui corrono $M$ tratti di strada di pari lunghezza, ciascuno con il suo limite di velocità $V_i$. Trova il tragitto più lungo composto da tratti di strada con limiti di velocità strettamente crescenti!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{velox.c}, \texttt{velox.cpp}, \texttt{velox.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int accelera(int N, int M, int da[], int a[], V[]);|\\
+\hline
+Pascal & \verb|function accelera(N, M: longint; var da, a, V: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di incroci, indicizzati da $0$ a $N-1$.
+  \item L'intero $M$ rappresenta il numero di tratti di strada, indicizzati da $0$ a $M-1$.
+  \item Gli array \texttt{da}, \texttt{a}, \texttt{V}, indicizzati da $0$ a $M-1$, contengono la descrizione dei tratti di strada. Più precisamente, per ogni $i$ vi è un tratto di strada a senso unico dall'incrocio \texttt{da[$i$]} all'incrocio \texttt{a[$i$]} con limite di velocità \texttt{V[$i$]}.
+  \item La funzione dovrà restituire la massima lunghezza per un percorso lungo il quale i limiti di velocità sono strettamente crescenti, che verrà stampata sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da $M+1$ righe. La prima riga contiene i due interi $M$, $N$. Le successive $M$ righe contengono ciascuna i tre interi \texttt{da[$i$]}, \texttt{a[$i$]}, \texttt{V[$i$]} separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $2 \le N \le 10\,000$.
+	\item $1 \le M \le 100\,000$.
+	\item $1 \le V_i \le 1\,000\,000$ per ogni $i=0\ldots N-1$.
+	\item I tratti di strada sono tutti validi e non ripetuti (non hanno lo stesso \texttt{da} e lo stesso \texttt{a}).
+	\item Le strade sono da considerarsi a senso unico, a meno che vengano indicate nell'input ``due volte'' (una per senso di marcia, con \texttt{da} e \texttt{a} invertiti). I limiti di velocità nei due sensi possono differire.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [40 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [30 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [20 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+3 5
+0 1 90
+0 2 90
+1 0 90
+1 2 90
+2 0 90
+}{%
+1
+}%
+\end{example}
+\begin{example}
+\exmp{
+5 6
+0 1 60
+1 2 110
+2 1 90
+2 3 130
+3 0 70
+3 4 50
+}{%
+3
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, è possibile fare un solo tratto.\\[2mm]
+Nel \textbf{secondo caso di esempio} è possibile fare tre tratti in vari modi, 0--1--2--3 oppure 2--1--2--3, ma non è possibile farne quattro.
+
+\begin{figure}
+	\begin{center}
+		\begin{minipage}[t]{0.3\textwidth}
+			\includegraphics[width=\textwidth]{asy_limiti/esempio2_1.pdf}
+		\end{minipage}
+		\quad\quad\quad
+		\begin{minipage}[t]{0.3\textwidth}
+			\includegraphics[width=\textwidth]{asy_limiti/esempio2_2.pdf}
+		\end{minipage}
+	\end{center}
+	\caption{Percorsi ottimali per il secondo caso di esempio.}
+\end{figure}

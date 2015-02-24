@@ -1,0 +1,98 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Gabriele, stanco del duro lavoro di consulenza a cui è stato sottoposto recentemente, può finalmente rilassarsi a pranzo dalla nonna, che è molto premurosa e gli prepara sempre un succulento pranzetto composto di $N$ portate. L'unica pecca è che la nonna si lascia sovente andare un po' la mano, e le ultime volte Gabriele è poi tornato a casa tutto dolorante dai postumi di una brutta indigestione. Questa volta ha quindi deciso di prendere precauzioni, e pianificare con cura cosa mangiare e cosa no.
+
+	Dalle sue precedenti esperienze, è riuscito a stimare quanti grammi di cibo $K$ deve mangiare al minimo affinché la nonna si senta soddisfatta e non si offenda dell'inappetenza del nipotino. Inoltre, appena arrivato in casa, è riuscito a sbirciare il menù scoprendo quale peso $P_i$ ha ciascuna portata. Aiuta Gabriele a trovare l'insieme di portate con peso totale minimo possibile ma almeno $K$!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{nonna.c}, \texttt{nonna.cpp}, \texttt{nonna.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int mangia(int N, int K, int P[]);|\\
+\hline
+Pascal & \verb|function mangia(N, K: longint; var P: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di portate.
+  \item L'intero $K$ rappresenta il peso minimo da mangiare per non offendere la nonna.
+  \item L'array \texttt{P}, indicizzato da $0$ a $N-1$, contiene i pesi $P_i$ delle portate preparate oggi dalla nonna.
+  \item La funzione dovrà restituire il peso minimo per un insieme di portate di peso almeno $K$, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene i due interi $N$ e $K$. La seconda riga contiene gli $N$ interi $P_i$ separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 5000$.
+	\item $1 \le K \le 5000$.
+	\item $1 \le P_i \le 1\,000\,000$ per ogni $i=0\ldots N-1$.
+	\item È sempre possibile mangiare $K$ grammi di cibo (il peso totale di tutte le portate è almeno $K$).
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [30 punti]}: $N, K \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [20 punti]}: $K, P_i \leq 1000$ per ogni $i$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [20 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+3 500
+230 260 230
+}{%
+720
+}%
+\end{example}
+\begin{example}
+\exmp{
+8 600
+140 160 180 220 20 100 40 80
+}{%
+600
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, Gabriele è costretto a mangiare tutte e tre le portate (due non bastano ad accontentare la nonna).\\[2mm]
+Nel \textbf{secondo caso di esempio}, Gabriele può mangiare le portate di pesi 140, 160, 220 e 80 totalizzando proprio i 600g necessari ad accontentare la nonna.

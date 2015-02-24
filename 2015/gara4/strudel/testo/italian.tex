@@ -1,0 +1,99 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Il dolce preferito di Giorgio è lo strudel, e ne è talmente goloso che sarebbe capace di mangiarne una quantità potenzialmente infinita. Gabriele conosce bene l'amore di Giorgio per lo strudel e per questo, nel famoso viaggio in taxi verso Pinerolo, ha portato con sé uno strudel gigantesco, composto di $N$ sezioni di differente composizione.
+
+Purtroppo Gabriele non sapeva che Giorgio odia le mandorle, e credendo di fare cosa gradita le ha inserite nell'impasto. Per fortuna non tutto è perduto: Giorgio ama così tanto lo strudel che è disposto a mangiarne una fetta a patto che la quantità di cannella sia superiore alla quantità di mandorle in quella fetta, di modo da celarne l'odiato sapore.
+
+Per questo, dopo una meticolosa ispezione, gli amici hanno determinato quante mandorle \texttt{mandorle[$i$]} e quanta cannella \texttt{cannella[$i$]} sono presenti in ognuna delle $N$ sezioni di strudel. Sta ora a Giorgio tagliare la sua fetta di strudel, cioè una parte composta da un numero intero di sezioni contigue. Quanto può essere lunga al massimo questa fetta, sapendo che la  quantità totale di cannella presente nella fetta scelta non deve essere inferiore alla quantità totale di mandorle?
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{strudel.c}, \texttt{strudel.cpp}, \texttt{strudel.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int porziona(int N, int mandorle[], int cannella[]);|\\
+\hline
+Pascal & \small\verb|function porziona(N: longint; var mandorle, cannella: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di sezioni in cui è diviso lo strudel.
+  \item L'array \texttt{mandorle}, indicizzato da $0$ a $N-1$, contiene la quantità di mandorle (in milligrammi) presenti in ogni sezione di strudel.
+  \item L'array \texttt{cannella}, indicizzato da $0$ a $N-1$, contiene la quantità di cannella (in milligrammi) presente in ogni sezione di strudel.
+  \item La funzione dovrà restituire la massima lunghezza della fetta che Giorgio può mangiare, che verrà stampata sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da tre righe. La prima riga contiene l'unico intero $N$. La seconda riga contiene gli $N$ interi $\texttt{mandorle}[i]$ separati da uno spazio. La terza riga contiene gli $N$ interi $\texttt{cannella}[i]$ separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 100\,000$.
+	\item $0 \le \texttt{mandorle}[i], \texttt{cannella}[i] \le 10\,000$ per ogni $i=0\ldots N-1$.
+	\item Esiste sempre una fetta mangiabile da Giorgio.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+3
+2 2 5
+1 4 3 
+}{%
+2
+}%
+\end{example}
+\begin{example}
+\exmp{
+6
+8 3 3 5 0 6
+2 4 1 8 2 1
+}{%
+4
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio} Giorgio può prendere le prime due sezioni (4mg di mandorle e 5mg di cannella) o le ultime due sezioni (7mg di mandorle e 7mg di cannella), ma non tutte e tre (9mg di mandorle e 8mg di cannella).\\[2mm]
+Nel \textbf{secondo caso di esempio} Giorgio può prendere le quattro sezioni centrali (11mg di mandorle e 15mg di cannella).

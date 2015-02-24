@@ -1,0 +1,109 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Dopo il successo dello spettacolo con le piroette, Giorgio si è assicurato una brillante carriera nel mondo della coreografia. Per il prossimo spettacolo Giorgio sta pensando a qualcosa di decisamente più audace e dinamico: una lunghissima fila di trampolini elastici, ognuno a un metro di distanza dal precedente. Al termine della fila di trampolini è posto un tappetone elastico.
+
+Ogni trampolino elastico è dotato di una elasticità $E$, che rappresenta il numero massimo di metri di lunghezza che è possibile compiere con un salto su quel trampolino. Ad esempio, se $E = 1$, l'acrobata dopo un balzo può trovarsi solo al trampolino successivo, mentre se il trampolino corrente ha $E = 3$ l'atleta può dosare la forza del salto e trovarsi in uno dei 3 trampolini successivi al corrente.
+
+Data la sequenza dei trampolini e delle loro elasticità, aiuta Giorgio a determinare quale è il minimo numero di salti che è necessario che compiano gli acrobati per terminare sul tappetone, sapendo che il primo balzo avviene obbligatoriamente sul primo trampolino.
+
+\Implementation
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{trampolino.c}, \texttt{trampolino.cpp}, \texttt{trampolino.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int salta(int N, int E[]);|\\
+\hline
+Pascal & \verb|function salta(N: longint; var E: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di trampolini presenti in scena.
+  \item L'array \texttt{E}, indicizzato da $0$ a $N-1$, contiene l'elasticità dei trampolini.
+  \item La funzione dovrà restituire il minimo numero di salti necessari per finire sul tappetone, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene l'unico intero $N$. La seconda riga contiene gli $N$ interi $E_i$ separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 100\,000$.
+	\item $1 \le E_i \le 100\,000$ per ogni $i=0\ldots N-1$.
+	\item Non è possibile saltare all'indietro.
+	\item È obbligatorio che il primo salto avvenga sul primo trampolino.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+4
+2 3 1 1
+}{%
+2
+}%
+\end{example}
+\begin{example}
+\exmp{
+5
+5 2 3 4 5
+}{%
+1
+}%
+\end{example}
+\begin{example}
+\exmp{
+8
+4 2 3 1 1 2 1 2
+}{%
+4
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio} conviene dosare il salto sul primo trampolino in modo da arrivare al secondo trampolino e da qui arrivare al tappetone. Saltare dal primo trampolino al terzo sarebbe costato 3 salti invece di 2.\\[2mm]
+Nel \textbf{secondo caso di esempio} gli atleti saltano dal primo trampolino direttamente sul tappetone.\\[2mm]
+Il \textbf{terzo caso di esempio} corrisponde alla figura. Il colore del centro dei trampolini ha intensità proporzionale all'elasticità.
+\begin{center}
+	\centering\includegraphics[scale=.8]{asy_trampolino/es3.pdf}
+\end{center}

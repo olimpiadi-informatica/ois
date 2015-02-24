@@ -1,0 +1,7 @@
+name: biglietti
+time_limit: 1.0
+memory_limit: 256
+title: Biglietti a Milano
+token_mode: infinite
+infile: input.txt
+outfile: output.txt

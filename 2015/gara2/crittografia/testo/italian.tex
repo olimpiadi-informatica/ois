@@ -1,0 +1,90 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Giorgio si è appassionato alla crittografia, e dopo aver studiato con attenzione tutti i più importanti algoritmi di crittografia simmetrica, ha pensato bene di introdurre un nuovo tipo di crittografia: la \emph{crittografia riflessa}.
+	
+	Più precisamente, per codificare i suoi messaggi Giorgio intende utilizzare una funzione che dato un numero $N$, ne calcola il numero speculare (con tutte le cifre invertite dall'ultima alla prima) e lo somma al numero di partenza. Aiuta Giorgio a scrivere la funzione di codifica!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{crittografia.c}, \texttt{crittografia.cpp}, \texttt{crittografia.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int codifica(int N);|\\
+\hline
+Pascal & \verb|function codifica(N: longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero da codificare.
+  \item La funzione dovrà restituire la somma tra il numero $N$ e il suo riflesso, che verrà stampata sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da un'unica riga contenente l'unico intero $N$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 1\,000\,000\,000$.
+\end{itemize}
+
+\pagebreak
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 99$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: Tutte le cifre di $N$ sono $0$ oppure $1$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+1023
+}{%
+4224
+}%
+\end{example}
+\begin{example}
+\exmp{
+56390
+}{%
+65755
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, $1023 + 3201$ fa $4224$.\\[2mm]
+Nel \textbf{secondo caso di esempio}, $56\,390 + 09\,365$ fa $65\,755$.

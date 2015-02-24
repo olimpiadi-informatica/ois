@@ -1,0 +1,91 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Gabriele ha deciso di buttarsi nel mondo della musica trash. Per questo, ha scritto un software in grado di prendere un normale testo e remixarlo. Il processo è semplice, dal momento che tutto quello che fa il software è inserire nel testo un certo numero di effetti musicali, identificati dalle stringhe `PaH' e `TuNZ'. Ad esempio, un testo formato dalle parole `Sette Otto' può essere trasformato nel testo `TuNZTuNZSettePaHPaHTuNZOtto'.
+In generale, gli effetti sonori \textit{possono} essere inseriti prima dell'inizio del testo e dopo la fine, ma non sono obbligatori, mentre tra due parole consecutive è sempre inserito almeno un effetto sonoro.
+
+Giorgio non è un grande fan di questo genere musicale, e non riesce a distinguere bene le parole che formano il testo originale. Per questo è interessato a ripulire la musica dagli effetti sonori e ricostruire il testo originale. Aiutalo!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{remix.c}, \texttt{remix.cpp}, \texttt{remix.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|void ripulisci(int N, char remix[], char testo[]);|\\
+\hline
+Pascal & \verb|procedure ripulisci(N: longint; var remix, testo: array of char);|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di caratteri del remix del testo.
+  \item La stringa \texttt{remix}, indicizzata da $0$ a $N-1$, contiene il testo remixato.
+  \item La funzione dovrà scrivere nella stringa \texttt{testo} il testo originale, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene l'unico intero $N$. La seconda riga contiene la stringa \texttt{remix}.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente una stringa, la risposta a questo problema.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 100\,000$.
+	\item Il testo originale non contiene le parole `PaH' e `TuNZ'.
+	\item Il testo contiene almeno una parola.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+27
+TuNZTuNZSettePaHPaHTuNZOtto
+}{%
+Sette Otto
+}%
+\end{example}
+\begin{example}
+\exmp{
+12
+PaHXXPaHTuNZ
+}{%
+XX
+}%
+\end{example}

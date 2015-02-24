@@ -1,0 +1,94 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\createsection{\Grader}{Grader di prova}
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+  
+Consideriamo il seguente algoritmo, che prende in ingresso un intero positivo $N$:
+\begin{enumerate}[nolistsep, itemsep=2mm]
+\item Se $N$ vale $1$, l’algoritmo termina.
+\item Se $N$ è pari, dividi $N$ per $2$, altrimenti (se $N$ è dispari) moltiplicalo per $3$ e aggiungi $1$.
+\end{enumerate}
+
+Per esempio, applicato al valore $N=6$, l’algoritmo produce la seguente sequenza (di lunghezza $9$, contando anche il valore iniziale $N=6$ e il valore finale $1$):
+$$6, 3, 10, 5, 16, 8, 4, 2, 1.$$
+La congettura di Collatz, chiamata anche ``congettura $3N+1$'', afferma che l’algoritmo appena descritto termina per qualsiasi valore $N$; in altri termini, preso un qualsiasi numero intero maggiore di $1$ applicare la regola numero 2 conduce sempre al numero $1$.
+
+Riferendosi a questa celebre congettura il famoso matematico Erdős ha commentato che questioni semplici ma elusive come questa mettono in evidenza quanto poco sia facile accedere ai misteri del ``grande Libro''.
+
+Giorgio sta cercando di dimostrare la congettura, ed è interessato alla lunghezza della sequenza. Il vostro compito è quello di aiutare Giorgio scrivendo una funzione che, ricevuto in ingresso il numero $N$, calcoli la lunghezza della sequenza che si ottiene a partire da $N$, seguendo le regole spiegate.
+
+\InputFile
+Il file \inputfile{} è composto da una riga contenente l'intero $N$.
+
+\OutputFile
+Il file \outputfile{} è composto da una sola riga contenente la lunghezza della sequenza a partire da $N$.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{collatz.c}, \texttt{collatz.cpp}, \texttt{collatz.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int congettura(int N);|\\
+\hline
+Pascal & \verb|function congettura(N: longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+La funzione riceverà come parametro il valori $N$ e dovrà ritornare la risposta al problema, che verrà stampata sul file di output.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+\item $2 \le N \le 1\,000 $.
+\item È noto che, per qualsiasi $N$ minore di $1000$, la lunghezza della sequenza è minore di $200$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \le 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \le 500$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+6
+}{ %
+9
+} %
+\end{example}
+\begin{example}
+\exmp{
+24
+}{ %
+11
+} %
+\end{example}

@@ -1,0 +1,5 @@
+memory_limit: 256
+name: ponti
+time_limit: 1.0
+title: Ponti e isole
+token_mode: infinite

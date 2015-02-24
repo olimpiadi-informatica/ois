@@ -1,0 +1,99 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Giorgio è in visita a Toronto, città famosa per il suo skyline di $N$ grattacieli di varia altezza tutti disposti lungo un'unica fila. Giorgio è appassionato di grattacieli, e quindi intende salire su uno di essi e approfittare dell'altezza per ammirare il panorama (e cioè, gli altri grattacieli). Giorgio sa che dalla cima di un grattacielo ammirerà appieno tutti i grattacieli (compreso quello su cui si trova) che non sono coperti da un altro grattacielo. Un grattacielo viene coperto da un altro (più vicino di questo al grattacielo su cui Giorgio si trova) se questo altro grattacielo è sia alto almeno quanto il grattacielo che copre e sia alto almeno quanto il grattacielo su cui Giorgio si trova.
+
+	Ad esempio, consideriamo questo skyline:
+	\begin{figure}[H]
+	\centering\includegraphics[scale = .9]{asy_grattacieli/fig1.pdf}
+	\end{figure}
+	In questo scenario, se Giorgio salisse sul grattacielo 3, di altezza 5, sarebbe in grado di osservare solo i grattacieli da 1 a 6 compresi. Infatti il grattacielo 0 è coperto dal grattacielo 1, alto 5; i grattacieli 7 e 8 sono coperti alla vista dal grattacielo 6.
+
+	Aiuta Giorgio a scegliere su quale grattacielo salire, calcolando qual è il massimo numero di grattacieli che Giorgio può ammirare se sceglie nel modo ottimo il grattacielo su cui salire.
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene l'unico intero $N$. La seconda riga contiene $N$ interi separati da uno spazio, le altezze $H_i$ dei grattacieli.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{grattacieli.c}, \texttt{grattacieli.cpp}, \texttt{grattacieli.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int osserva(int N, int H[]);|\\
+\hline
+Pascal & \verb|function osserva(N: longint; var H: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di grattacieli presenti nella skyline.
+  \item L'array \texttt{H}, indicizzato da $0$ a $N-1$, contiene le altezze $H_i$ dei grattacieli nell'ordine in cui sono disposti lungo la skyline.
+  \item La funzione dovrà restituire il massimo numero di grattacieli che è possibile ammirare appieno, che verrà stampato sul file di output.
+\end{itemize}
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+\item $1 \le N \le 100\,000$.
+\item $1 \le H_i \le  1\,000\,000$ per ogni $i=0\ldots N-1$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N, H_i \leq 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmp{
+9
+5 5 2 5 4 3 6 2 4
+}{%
+9
+}%
+\end{example}
+\begin{example}
+\exmp{
+6
+9 4 2 9 9 7
+}{%
+5
+}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, corrispondente all'esempio del testo, è possibile ammirare appieno tutti i grattacieli salendo sul grattacielo 6, di altezza 6.\\[2mm]
+Nel \textbf{secondo caso di esempio}, è possibile ammirare al massimo 5 grattacieli, salendo sul grattacielo 3, di altezza 9.

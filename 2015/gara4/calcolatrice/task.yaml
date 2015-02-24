@@ -1,0 +1,5 @@
+memory_limit: 256
+name: calcolatrice
+time_limit: 1.0
+title: Calcolatrice d'epoca
+token_mode: infinite

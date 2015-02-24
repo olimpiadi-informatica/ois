@@ -1,0 +1,5 @@
+memory_limit: 256
+name: luci
+time_limit: 1.0
+title: Illuminazione di sala
+token_mode: infinite

@@ -1,0 +1,5 @@
+memory_limit: 256
+name: licenziamenti
+time_limit: 1.0
+title: Tagli al personale
+token_mode: infinite

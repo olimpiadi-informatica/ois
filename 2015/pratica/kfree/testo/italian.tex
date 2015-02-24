@@ -1,0 +1,85 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\createsection{\Grader}{Grader di prova}
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+
+Il professore di informatica di Gabriele, noto scienziato delle merendine, è convinto che tutti i problemi NP-completi possano essere ridotti al problema del massimo sottinsieme $K$-free. Dato un numero intero positivo $K$, un insieme $A$ di numeri interi positivi è detto $K$-free se rispetta la seguente condizione:
+\[ K\cdot a \not\in A\quad \text{per ogni } a \in A. \]
+In altre parole, se un insieme $K$-free contiene $a$, non può contenere anche $K \cdot a$.
+
+Diventa a questo punto cruciale determinare la dimensione del più grande sottoinsieme di un insieme dato, che ha la proprietà di essere $K-$free\footnote{Notare che la proprietà di un sottoinsieme di essere $K$-free è una proprietà solo del sottoinsieme, che non dipende in alcun modo dall'insieme di partenza.}.
+
+
+\InputFile
+La prima riga del file di input contiene gli interi $N$ e $K$, il numero di elementi nell'insieme iniziale e il valore di $K$. La seconda riga contiene gli $N$ interi distinti $a_1, \ldots, a_N$ dell'insieme. 
+
+\OutputFile
+In output, stampare la dimensione del più grande sottoinsieme $K-$free dell'insieme dato in input.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{kfree.c}, \texttt{kfree.cpp}, \texttt{kfree.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int trova(int N, int K, int insieme[]);|\\
+\hline
+Pascal & \verb|function trova(N, K: longint; var insieme: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+La funzione riceverà come parametri i valori $N$ e $K$ e un array di interi che rappresenta l'insieme iniziale e dovrà ritornare la risposta al problema, che verrà stampata sul file di output.
+
+\Constraints 
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item $1 \le N \le 100\,000$.
+  \item $1 \le K \le 1000$.
+  \item $1 \le a_i \le 100\,000$, per ogni $i=1,\ldots,N$.
+  \item Gli interi $a_1, \ldots, a_N$ sono distinti.
+\end{itemize}
+
+\pagebreak
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Caso d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \le 100, K = 1$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \le 500, K \le 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+\Examples
+\begin{example}
+\exmp{
+6 2
+2 3 6 5 4 10
+}{%
+3
+}%
+\end{example}
+
+\Explanation
+Nel caso di esempio un sottoinsieme $2-$free di dimensione massima è $\{4, 5, 6\}$, infatti non contiene né 8, né 10 né 12. Esistono altri sottoinsiemi $2-$free della stessa dimensione, come ad esempio $\{2, 3, 5\}$ o  $\{2, 3, 10\}$, mentre altri sottoinsiemi della stessa dimensione non sono $2-$free (come ad esempio $\{2, 3, 4\}$).

@@ -1,0 +1,90 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+
+
+\createsection{\Grader}{Grader di prova}
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Gabriele ha scritto un messaggio per Giorgio, ma arrivato alla fine si è accorto con orrore che tutto il testo ha le minuscole e le maiuscole invertite per colpa del caps lock attivo.
+
+Piuttosto che riscrivere tutto daccapo, Gabriele decide di chiederti di creare un programma che, preso il testo del messaggio, converta le maiuscole in minuscole e viceversa.
+
+Aiuta Gabriele ad aggiustare il messaggio!
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene l'unico intero $N$, il numero di caratteri del testo. La seconda riga contiene il testo del messaggio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente il testo corretto.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{capslock.c}, \texttt{capslock.cpp}, \texttt{capslock.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|void aggiusta(int N, char S[]);|\\
+\hline
+Pascal & \verb|procedure aggiusta(N: longint; var S: array of char);|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di caratteri del testo.
+  \item L'array \texttt{S}, indicizzato da $0$ a $N-1$, contiene i caratteri di cui il testo è composto. Questi possono essere:
+  \begin{itemize}[nolistsep]
+    \item una lettera (maiuscola o minuscola) dell'alfabeto;
+  	\item uno spazio;
+  	\item un segno di punteggiatura tra questi: \texttt{.,:;!?}.
+  \end{itemize}
+  \item La funzione dovrà trasformare la stringa $S$ nel testo corretto. Al termine dell'esecuzione della funzione verrà stampato sul file di output il nuovo contenuto dell'array $S$.
+\end{itemize}
+
+\Constraints 
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item $1 \le N \le 10\,000$.
+\end{itemize}
+
+\pagebreak
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $1\le N \le 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $1 \le N \le 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+\Examples
+\begin{example}
+\exmp{
+41
+eHI, TUTTO BENE? tI VA UNA PIZZA STASERA?
+}{%
+Ehi, tutto bene? Ti va una pizza stasera?
+}%
+\end{example}
+\begin{example}
+\exmp{
+23
+nA nA nA nA nA bATmAN!!
+}{%
+Na Na Na Na Na BatMan!!
+}%
+\end{example}
