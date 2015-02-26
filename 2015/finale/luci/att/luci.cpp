@@ -13,7 +13,7 @@ int main() {
     fr = fopen("input.txt", "r");
     fw = fopen("output.txt", "w");
 
-    assert(3 == fscanf(fr, "%d %d %d", &N, &M, K));
+    assert(3 == fscanf(fr, "%d %d %d", &N, &M, &K));
 
     fprintf(fw, "%d\n", spegni(N, M, K));
     fclose(fr);
