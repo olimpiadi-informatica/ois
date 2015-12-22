@@ -1,0 +1,85 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Giorgio è andato a vedere l'ultimo episodio di Star Wars uscito da poco nelle sale cinematografiche. Essendo un grande appassionato della saga, ha intenzione di commemorare in grande stile l'uscita di tale episodio. Per farlo, ha intenzione di:
+
+\begin{itemize}
+  \item Sostituire la propria immagine di profilo su Facebook con una foto del maestro Yoda.
+  \item Scrivere qualsiasi cosa ``in stile Yoda'', compresi: stati, messaggi, chat, e così via.
+\end{itemize}
+
+Il primo punto è facile, ma il secondo decisamente no. Giorgio deve infatti modificare ogni singola frase prima di premere Invio, e questo può alla lunga risultare stressante. Aiutalo scrivendo un programma che trasformi una frase nella relativa frase ``Yodizzata''.
+
+Ad esempio, se la frase fosse: ``sia grande la forza in te'', il programma dovrebbe trasformarla in: ``te in forza la grande sia''.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{yoda.c}, \texttt{yoda.cpp}, \texttt{yoda.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|void yodizza(char S[], char Y[]);|\\
+\hline
+Pascal & \verb|procedure yodizza(var S, Y: array of char);|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'array $S$ è la stringa da yodizzare.
+  \item Nel caso di C/C++, gli array saranno terminati con un carattere terminatore, quindi è possibile calcolarne la lunghezza con la funzione di libreria \texttt{strlen}. \textbf{Attenzione:} tenete a mente che la funzione \texttt{strlen} scorre tutta la stringa, quindi ha complessità lineare.
+  \item Nel caso di Pascal, si può calcolare la lunghezza degli array usando la funzione di libreria \texttt{length}.
+  \item La funzione dovrà scrivere la versione ``yodizzata'' della frase nell'array $Y$.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da un'unica riga contenente la frase $S$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente la frase $Y$.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+  \item $1 \le |S| \le 100\,000$, dove $|S|$ è la lunghezza di $S$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $|S| \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $|S| \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{yoda.input0.txt}{yoda.output0.txt}%
+\exmpfile{yoda.input1.txt}{yoda.output1.txt}%
+\end{example}

@@ -1,0 +1,30 @@
+# N     S
+
+# Subtask 1: Esempi
+#ST:10
+#COPY: testo/zeri.input0.txt
+#COPY: testo/zeri.input1.txt
+
+# Subtask 2: la moltiplicazione sta in un long long
+#ST:40
+8       9     0
+#COPY: gen/brutto2.txt
+9       10    0
+#COPY: gen/brutto3.txt
+#COPY: gen/brutto4.txt
+15      12    0
+18      28    0
+
+# Subtask 3: non ci sono cifre 5
+#ST:30
+100     12    1
+5000    12    1
+100000  12    1
+
+# Subtask 4: no limits
+#ST:20
+20      12    0
+100     20    0
+#COPY: gen/brutto1.txt
+7000    26    0
+100000  32    0

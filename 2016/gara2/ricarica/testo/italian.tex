@@ -1,0 +1,98 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Il cellulare di Giorgio ha la sua età e ormai si scarica molto velocemente. Per ogni minuto di utilizzo perde un punto di carica, proprio come per ogni minuto in cui è collegato alla corrente ne acquista uno. Se poi raggiunge zero punti di carica, va in \emph{crash} e diventa necessario portarlo all'assistenza tecnica.
+
+	Giorgio deve ora uscire di casa per una serie di commissioni di una durata complessiva di $M$ minuti, numerati da 1 a $M$. Per evitare di rimanere con il cellulare scarico, ha quindi stilato un elenco di tutti gli $N$ intervalli di minuti $(A_i, B_i)$ in cui sa che potrà collegarlo alla corrente e recuperare punti di carica. In tutti gli altri minuti, il cellulare perderà punti di carica.
+
+	Con quanti punti di carica Giorgio deve uscire di casa al minimo, per essere certo di non rimanere mai con il cellulare scarico in nessuno degli $M$ minuti?
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{ricarica.c}, \texttt{ricarica.cpp}, \texttt{ricarica.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int ricarica(int N, int M, int A[], int B[]);|\\
+\hline
+Pascal & \verb|function ricarica(N, M: longint; var A, B: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di intervalli in cui Giorgio collegherà il cellulare alla corrente.
+  \item L'intero $M$ rappresenta il numero di minuti totali delle commissioni.
+  \item Gli array \texttt{A} e \texttt{B}, indicizzati da $0$ a $N-1$, contengono gli intervalli di minuti $(A_i, B_i)$ in cui il cellulare sarà collegato alla corrente.
+  \item La funzione dovrà restituire la minima quantità di punti di carica necessari affinché il cellulare non si scarichi durante gli $M$ minuti, che verrà stampata sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da $N+1$ righe. La prima riga contiene i due interi $N$, $M$. La riga $i+1$ per $i=1 \ldots N$ contiene i due interi $A_i$, $B_i$ separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 100\,000$.
+	\item $1 \le M \le 2\,000\,000\,000$.
+	\item $1 \le A_i \le B_i \le M$ per ogni $i=0\ldots N-1$.
+	\item $B_i < A_{i+1}$ per ogni $i=0\ldots N-2$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $M \leq 10000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{ricarica.input0.txt}{ricarica.output0.txt}%
+\exmpfile{ricarica.input1.txt}{ricarica.output1.txt}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, la carica del cellulare segue questo schema:
+\begin{center}
+\begin{tabular}{ccccccccccccccc}
+	\hline
+	\multicolumn{1}{|c|}{$+$} & \multicolumn{1}{c|}{$-$} & \multicolumn{1}{c|}{$-$} & \multicolumn{1}{c|}{$-$} & \multicolumn{1}{c|}{$+$} & \multicolumn{1}{c|}{$+$} & \multicolumn{1}{c|}{$-$} & \multicolumn{1}{c|}{$+$} & \multicolumn{1}{c|}{$+$} & \multicolumn{1}{c|}{$-$} & \multicolumn{1}{c|}{$-$} & \multicolumn{1}{c|}{$+$} & \multicolumn{1}{c|}{$+$} & \multicolumn{1}{c|}{$+$} & \multicolumn{1}{c|}{$-$} \\
+	\hline
+	1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\
+\end{tabular}
+\end{center}
+La carica minore viene quindi raggiunta alla fine del quarto minuto, in cui i punti residui saranno $3 + 1 - 1 - 1 - 1 = 1$ e pertanto 3 è proprio la carica minima necessaria.\\[2mm]
+Nel \textbf{secondo caso di esempio}, se il cellulare parte con 15 punti di carica si ritrova con 9 all'inizio del settimo minuto, e poi con 19 alla fine del sedicesimo, con 8 all'inizio del ventottesimo, con 41 alla fine del sessantesimo e infine con 1 alla fine del centesimo.

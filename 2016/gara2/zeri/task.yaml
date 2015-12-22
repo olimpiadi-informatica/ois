@@ -1,0 +1,5 @@
+memory_limit: 256
+name: zeri
+time_limit: 1.0
+title: Zeri di coda
+token_mode: infinite

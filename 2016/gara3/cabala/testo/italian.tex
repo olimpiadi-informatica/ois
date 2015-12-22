@@ -1,0 +1,90 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Giorgio vuole entrare nella setta \emph{Oli-3}, in cui si studiano numeri occulti e misteriosi con cui dominare il mondo. Per essere ammesso, gli viene richiesto di provare il suo valore individuando il \emph{numero della cabala} $C$. Dopo lunghe e difficoltose ricerche, Giorgio \`e riuscito a scoprire che questo numero:
+	\begin{itemize}
+		\item ha al pi\`u $N$ cifre;
+		\item tutte le sue cifre sono multiple di 3 (ma nessuna è zero);
+		\item non vi sono due cifre adiacenti uguali;
+		\item il resto di $C$ modulo un certo numero $M$ \`e pi\`u grande possibile.
+	\end{itemize}
+	Aiuta Giorgio a trovare il numero della Cabala ed entrare quindi nella agognata setta!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{cabala.c}, \texttt{cabala.cpp}, \texttt{cabala.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|long long occulta(int N, int M);|\\
+\hline
+Pascal & \verb|function occulta(N, M: longint): int64;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di cifre di $C$.
+  \item L'intero $M$ rappresenta il modulo.
+  \item La funzione dovrà restituire il \emph{massimo resto} per un numero $C$ che rispetta i vincoli nel testo modulo $M$, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da $T+1$ righe. La prima riga contiene l'unico intero $T$, il numero di test a cui il tuo programma dovr\`a rispondere. La successive $T$ righe contengono ciascuna due interi $N$ ed $M$ separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente $T$ interi, le risposte ai test nell'ordine in cui sono stati presentati.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le T \le 50$.
+	\item $1 \le N \le 18$ per ogni test.
+	\item $2 \le M \le 10^N$ per ogni test.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 5$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 11$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{cabala.input0.txt}{cabala.output0.txt}%
+\exmpfile{cabala.input1.txt}{cabala.output1.txt}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, viene richiesto un solo test in cui il numero della cabala \`e 6.\\[2mm]
+Nel \textbf{secondo caso di esempio}, nel primo test il numero della cabala \`e 63 perch\'e 66 ha due cifre uguali consecutive, per lo stesso motivo nel secondo test \`e 969, mentre nel terzo test il resto 31 pu\`o essere ottenuto per esempio con il numero della cabala 639.

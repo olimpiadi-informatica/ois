@@ -1,0 +1,84 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+William e Giorgio stanno facendo un gioco con i cosiddetti numeri \emph{primi permissivi}. Un numero primo permissivo è un numero in cui alcune delle cifre possono essere degli asterischi. Un esempio di numero primo permissivo è $3\star$ il quale, in base al valore che sostituiremo all'asterisco, potrebbe valere $31$ oppure $37$, che sono entrambi dei numeri primi. Nessun numero primo permissivo comincia per asterisco.
+
+Aiuta i protagonisti a contare, dato un certo numero primo permissivo, a quanti numeri primi esso può corrispondere.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{primo.c}, \texttt{primo.cpp}, \texttt{primo.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int primi(char S[]);|\\
+\hline
+Pascal & \verb|function primi(var S: string): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item $S$ è una stringa che rappresenta il numero primo permissivo scelto. Per calcolarne la lunghezza si può usare la funzione \texttt{strlen} in C/C++ o la funzione \texttt{length} in Pascal.
+  \item La funzione dovrà restituire il totale di numeri primi che possono corrispondere al numero primo pemissivo dato in input. Questo totale verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da una sola riga che contiene la stringa $S$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+  \item $2 \le |S| \le 7$, dove $|S|$ è la lunghezza di $S$.
+  \item Il primo carattere non è un asterisco.
+  \item C'è sempre almeno un asterisco.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [30 punti]}: $|S| \leq 3$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [30 punti]}: $|S| \leq 5$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{primo.input0.txt}{primo.output0.txt}%
+\exmpfile{primo.input1.txt}{primo.output1.txt}%
+\exmpfile{primo.input2.txt}{primo.output2.txt}%
+\end{example}
+
+
+\Explanation
+Il \textbf{primo caso di esempio} corrisponde a quello nella descrizione del problema.\\[2mm]
+Nel \textbf{secondo caso di esempio} i seguenti primi vanno bene: $103, 113, 163, 173, 193$.

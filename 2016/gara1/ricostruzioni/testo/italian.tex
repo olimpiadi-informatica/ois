@@ -1,0 +1,98 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Ora che le gare a squadre di informatica stanno coinvolgendo sempre più la nazione, il quartier generale delle Olimpiadi ha bisogno di costruire un nuovo maxi-server in modo da gestire efficientemente la competizione. Questo maxi-server dovrà essere lungo $K$ metri, e dovrà essere collocato in un punto segreto in cui però la corrente elettrica sia facilmente disponibile. Per questo motivo William ha selezionato, tra tutte le linee elettriche italiane, la linea \emph{A/C51} che attraversa le alpi da una parte all'altra garantendo la giusta dose di riservatezza. Ora rimane solo da individuare il punto esatto in cui costruire il maxi-server!
+
+	A complicare la scelta, tuttavia, rimane il fatto che la linea \emph{A/C51} attraversa zone con altitudini molto diverse, e che per giunta cambiano molto rapidamente, mentre il maxi-server andrà costruito necessariamente in piano. William sa che nel metro $i$ della linea (lunga complessivamente $N$ metri) l'altitudine sul livello del mare è di $A_i$ metri. Sa inoltre che una volta scelto un intervallo di $K$ metri all'interno della linea, il costo per spianare quell'intervallo sarà proporzionale alla \emph{massima differenza di altitudine} presente in quell'intervallo, vale a dire la differenza tra l'altitudine più alta e quella più bassa.
+	
+	Aiuta William a trovare il punto più pianeggiante della linea \emph{A/C51}!
+
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{ricostruzioni.c}, \texttt{ricostruzioni.cpp}, \texttt{ricostruzioni.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int spiana(int N, int K, int A[]);|\\
+\hline
+Pascal & \verb|function spiana(N, K: longint; var A: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta la lunghezza totale in metri della linea \emph{A/C51}.
+  \item L'intero $K$ rappresenta la lunghezza in metri del maxi-server da costruire.
+  \item L'array \texttt{A}, indicizzato da $0$ a $N-1$, contiene le altitudini dei vari metri della linea.
+  \item La funzione dovrà restituire la minima differenza di altitudine per un intervallo di $K$ metri, che verrà stampata sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene i due interi $N$ e $K$. La seconda riga contiene gli $N$ interi $A_i$ separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le K \le N \le 100\,000$.
+	\item $0 \le A_i \le 1\,000\,000$ per ogni $i=0\ldots N-1$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [30 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [20 punti]}: $K \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [20 punti]}: $A_i \leq 100$ per ogni $i=0 \ldots N-1$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [20 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\Examples
+\begin{example}
+\exmpfile{ricostruzioni.input0.txt}{ricostruzioni.output0.txt}%
+\exmpfile{ricostruzioni.input1.txt}{ricostruzioni.output1.txt}%
+\exmpfile{ricostruzioni.input2.txt}{ricostruzioni.output2.txt}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, si può ottenere una differenza di 90 sia selezionando le altitudini 1660 -- 1570 -- 1570 che le altitudini 1530 -- 1570 -- 1620.\\[2mm]
+\begin{figure}[H]%
+\centering\includegraphics{asy_ricostruzioni/fig1.pdf}%
+\end{figure}
+Nel \textbf{secondo caso di esempio}, siamo costretti a selezionare tutta quanta la lunghezza della linea per una differenza di altitudine di 1000.\\[2mm]
+\begin{figure}[H]%
+\centering\includegraphics{asy_ricostruzioni/fig2.pdf}%
+\end{figure}
+Nel \textbf{terzo caso di esempio}, si può ottenere una differenza di 3426 selezionando le altitudini 1918 -- 1956 -- 5344 -- 3666 -- 3850.\\[2mm]
+\begin{figure}[H]%
+\centering\includegraphics{asy_ricostruzioni/fig3.pdf}%
+\end{figure}

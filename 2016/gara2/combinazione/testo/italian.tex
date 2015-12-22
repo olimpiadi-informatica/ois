@@ -1,0 +1,86 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	William si è di recente appassionato a \emph{Impila la pila}, un nuovo gioco per il suo telefonino. In questo gioco ci sono $N$ interruttori in sequenza, numerati da $0$ a $N-1$ da sinistra verso destra, e un personaggio che all'inizio è situato nell'angolo sinistro dello schermo (in corrispondenza dell'interruttore $0$). Durante il gioco è possibile ordinare al personaggio di muoversi verso destra o verso sinistra (e queste operazioni richiedono un secondo) oppure di premere l'interruttore davanti al quale è situato (e questa operazione è istantanea).
+
+	A rendere il gioco interessante, sopra a ogni interruttore è posizionato un disco con una certa dimensione di base $B_i$. Ogni volta che viene premuto un interruttore, il disco corrispondente viene aggiunto a una pila che cresce quindi progressivamente. Lo scopo del gioco è di attivare tutti gli interruttori nell'ordine corretto, di modo che la pila che si viene a formare sia costituita da dischi con basi sempre strettamente decrescenti.
+
+	Willam ha appena finito un livello e non sa se affrontare anche quello successivo: tra pochi minuti deve presentarsi a una lezione, e non vuole assolutamente essere costretto a lasciarlo a metà. Aiutalo a calcolare di quanti secondi ha bisogno per completarlo, così che sia in grado di decidere se fa in tempo oppure no!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{combinazione.c}, \texttt{combinazione.cpp}, \texttt{combinazione.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|long long premi(int N, int B[]);|\\
+\hline
+Pascal & \verb|function premi(N: longint; var B: array of longint): int64;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di interruttori.
+  \item L'array \texttt{B}, indicizzato da $0$ a $N-1$, contiene per ogni $i$ la dimensione di base $B_i$ del disco associato all'interruttore $i$-esimo.
+  \item La funzione dovrà restituire il numero minimo di secondi necessario a completare il livello, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene l'unico intero $N$. La seconda riga contiene gli $N$ interi $B_i$ separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 100\,000$.
+	\item $1 \le B_i \le 100\,000$ per ogni $i=0\ldots N-1$.
+	\item I valori $B_i$ sono tutti differenti, ossia non esistono duplicati.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{combinazione.input0.txt}{combinazione.output0.txt}%
+\exmpfile{combinazione.input1.txt}{combinazione.output1.txt}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, in un secondo si raggiunge l'interruttore con base $29$, in un altro secondo l'interruttore con base $21$ e in altri due secondi l'interruttore con base $13$.\\[2mm]
+Nel \textbf{secondo caso di esempio}, in 6 secondi si raggiunge l'interruttore con base $17$, e in altri 6 secondi si scandiscono tutti gli altri interruttori da destra verso sinistra.

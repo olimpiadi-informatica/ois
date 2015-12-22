@@ -1,0 +1,5 @@
+memory_limit: 256
+name: scrigni
+time_limit: 1.0
+title: Super Marco
+token_mode: infinite

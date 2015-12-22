@@ -1,0 +1,5 @@
+memory_limit: 256
+name: ricostruzioni
+time_limit: 1.0
+title: Maxi-server
+token_mode: infinite

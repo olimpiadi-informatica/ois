@@ -1,0 +1,27 @@
+# N     M     T     S
+
+# Subtask 1: Esempi
+#ST:10
+#COPY: testo/monete.input0.txt
+#COPY: testo/monete.input1.txt
+
+# Subtask 2: Grafo connesso
+#ST:30
+100    200     2     2
+1000   2000    2     3
+10000  20000   2     4
+10000  100000  2     5
+
+# Subtask 3: Tutti 1 moneta
+#ST:30
+100    200     1     6
+1000   2000    1     7
+10000  20000   1     8
+10000  100000  1     9
+
+# Subtask 4: no limits
+#ST:30
+100    200     0     10
+1000   2000    0     11
+10000  20000   0     12
+10000  100000  0     13

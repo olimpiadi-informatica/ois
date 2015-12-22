@@ -1,0 +1,42 @@
+# C     S
+
+# Subtask 1: Esempi
+#ST:10
+#COPY: testo/robot.input0.txt
+#COPY: testo/robot.input1.txt
+#COPY: testo/robot.input2.txt
+
+# Subtask 2: C = X+O
+#ST:20
+X+O     3
+X+O     4
+X+O     5
+X+O     6
+
+# Subtask 3: C = LR
+#ST:20
+LR      7
+LR      8
+LR      9
+LR      10
+
+# Subtask 4: C = +LR
+#ST:10
++LR     11
++LR     12
++LR     13
++LR     14
+
+# Subtask 5: C = +OLR
+#ST:20
++OLR    15
++OLR    16
++OLR    17
++OLR    18
+
+# Subtask 6: C = X+OLR
+#ST:20
+X+OLR   19
+X+OLR   20
+X+OLR   21
+X+OLR   22

@@ -1,0 +1,107 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Da quando ha cominciato a lavorare come ricercatore, Giorgio si diverte a fare esperimenti su cavie animali. In particolare si è deciso ad ottenere due topi superintelligenti, proprio come nel suo cartone preferito: per raggiungere questo obiettivo però, Giorgio deve incrementare esponenzialmente il potenziale genetico dei due topi da laboratorio a sua disposizione. Il nostro protagonista ritiene infatti che una semplice mutazione genetica non sia sufficiente a raggiungere l'obiettivo, e per questo motivo decide di produrre una \emph{permutazione genetica}.
+
+Per gli scopi di Giorgio, definiamo una \emph{permutazione genetica} come una stringa lunga $26$ caratteri che vanno dalla lettera \texttt{A} alla \texttt{Z}. In particolare, affinché la mutazione abbia effetto, è necessario che la sua \emph{funzione espotenziale} valga esattamente $K$.
+
+Per calcolare la funzione espotenziale di una permutazione genetica dobbiamo osservare le variazioni tra le $25$ coppie di lettere consecutive (le prime due lettere, le seconde due lettere, e così via). Ad esempio, consideriamo la permutazione genetica banale:
+
+\begin{center}
+\texttt{A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z}
+\end{center}
+
+Le variazioni tra le coppie di lettere consecutive sono tutte di una sola lettera (infatti la distanza tra \texttt{A} e \texttt{B}, tra \texttt{B} e \texttt{C} e così via, è sempre pari a $1$). Prendiamo l'insieme di tutte le variazioni, cancelliamo i duplicati, ed il numero di valori rimanenti sarà pari alla funzione espotenziale della permutazione!
+
+Lo stesso vale per quest'altra permutazione, dato che la distanza tra \texttt{Z} e \texttt{Y} è ancora pari ad $1$:
+
+\begin{center}
+\texttt{Z, Y, X, W, V, U, T, S, R, Q, P, O, N, M, L, K, J, I, H, G, F, E, D, C, B, A}
+\end{center}
+
+Un esempio più significativo permette di capire meglio:
+
+\begin{center}
+\texttt{P, L, T, A, V, H, F, W, D, Z, J, O, S, G, U, K, X, R, I, N, C, Y, E, Q, M, B}
+\end{center}
+
+In questo caso le distanze tra le lettere consecutive sono:
+
+$$4, 8, 19, 21, 14, 2, 17, 19, 22, 16, 5, 4, 12, 14, 10, 13, 6, 9, 5, 11, 22, 20, 12, 4, 11$$
+
+Eliminando i duplicati otteniamo:
+
+$$2, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 16, 17, 19, 20, 21, 22$$
+
+Essendoci $17$ valori diversi, la funzione espotenziale vale $17$.
+
+Scrivi un programma che, ricevuto $K$, produca una qualsiasi permutazione genetica che abbia funzione espotenziale pari a $K$.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{permutazione.c}, \texttt{permutazione.cpp}, \texttt{permutazione.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|void permuta(int K, char* P[]);|\\
+\hline
+Pascal & \verb|procedure permuta(K: longint; var P: array of char);|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $K$ è il valore della funzione espotenziale richiesto.
+  \item L'array di caratteri \texttt{P} andrà riempito dalla funzione con $26$ caratteri (indicizzati da $0$ a $25$) che formano una permutazione genetica corretta.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da un'unica riga contenente l'unico intero $K$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente una stringa di $26$ caratteri, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le K \le 25$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $K \le 3$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [30 punti]}: $K \ge 23$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [40 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmpfile{permutazione.input0.txt}{permutazione.output0.txt}%
+\exmpfile{permutazione.input1.txt}{permutazione.output1.txt}%
+\exmpfile{permutazione.input2.txt}{permutazione.output2.txt}%
+\end{example}

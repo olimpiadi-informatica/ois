@@ -1,0 +1,36 @@
+# K
+
+# Subtask 1: Casi di esempio
+#ST: 10
+#COPY: testo/energia.input0.txt
+#COPY: testo/energia.input1.txt
+#COPY: testo/energia.input2.txt
+
+# Subtask 2: N <= 100
+#ST: 30
+41
+15
+46
+100
+49
+26
+58
+25
+99
+70
+
+# Subtask 3: N <= 1000000
+#ST: 40
+500
+1001
+10002
+100003
+1000000
+
+# Subtask 4: no limits
+#ST: 20
+10030507
+5020406085
+402040070907
+90030560808001
+1000000000000000

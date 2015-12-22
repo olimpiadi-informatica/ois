@@ -1,0 +1,5 @@
+memory_limit: 256
+name: negozi
+time_limit: 1.0
+title: Shopping stress
+token_mode: infinite

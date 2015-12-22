@@ -1,0 +1,30 @@
+# N     S
+
+# Subtask 1: Esempi
+#ST:10
+#COPY: testo/primo.input0.txt
+#COPY: testo/primo.input1.txt
+#COPY: testo/primo.input2.txt
+
+# Subtask 2: |S| <= 3
+#ST:30
+7*
+5*4
+8*1
+9**
+
+# Subtask 3: |S| <= 5
+#ST:30
+36*
+3*9**
+9****
+5**7
+
+# Subtask 4: no limits
+#ST:30
+8*7*4**
+7***9*4
+82**9**
+98*****
+8******
+9******

@@ -1,0 +1,5 @@
+memory_limit: 256
+name: carrucole
+time_limit: 1.0
+title: Parco avventura
+token_mode: infinite

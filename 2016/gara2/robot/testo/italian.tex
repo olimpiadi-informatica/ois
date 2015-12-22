@@ -1,0 +1,108 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	William ha finito di costruire un robot camminatore, che si muove su una griglia $N \times M$ leggendo i caratteri scritti su di essa e interpretandoli come comandi. In particolare, reagisce in questo modo:
+	\begin{itemize}
+		\item \texttt{X}: $\quad$ sta fermo;
+		\item \texttt{+}: $\quad$ effettua un passo (e cioè si muove di una casella) nella direzione in cui è orientato;
+		\item \texttt{O}: $\quad$ effettua un salto lungo due passi nella direzione in cui è orientato;
+		\item \texttt{L}: $\quad$ ruota di $90^\circ$ a sinistra e poi effettua un passo nella direzione in cui ora è orientato;
+		\item \texttt{R}: $\quad$ ruota di $90^\circ$ a destra e poi effettua un passo nella direzione in cui ora è orientato.
+	\end{itemize}
+	Nella griglia non sono presenti altri caratteri, né il robot reagisce ad altri comandi oltre a questi.
+	Inoltre, la griglia su cui si muove è \emph{toroidale}: vale a dire, ogni qualvolta il robot uscirebbe dal lato destro rientra da quello sinistro (e viceversa), e ogni qualvolta il robot uscirebbe dal lato superiore rientra da quello inferiore (e viceversa).
+
+	William ha ora intenzione di lasciare il robot nella casella $(0,0)$ orientato verso est, e vedere che percorso seguirà. Tuttavia, è preoccupato dall'eventualità che il percorso possa essere ciclico. Aiutalo verificando se il percorso seguito dal robot è ciclico, e se sì calcolando quanto è lunga la sua parte periodica (cioè che si ripete)!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{robot.c}, \texttt{robot.cpp}, \texttt{robot.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int osserva(int N, int M, matrix T);|\\
+\hline
+Pascal & \verb|function osserva(N, M: longint; var T: matrix): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item Gli interi $N$, $M$ rappresentano le due dimensioni della griglia.
+  \item La matrice \texttt{T}, indicizzata da $0$ a $N-1$ e da $0$ a $M-1$, contiene i caratteri presenti su ogni quadretto.
+  \item La funzione dovrà restituire la lunghezza della parte periodica seguita dal robot (o il valore \texttt{-1} se il percorso non è periodico), che verrà stampata sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da $N+1$ righe. La prima riga contiene i due interi $N$ e $M$. Le successive $N$ righe contengono $M$ interi ciascuna. In particolare l'$i$-esima di queste righe contiene \texttt{T[$i$][$j$]} per $j=0 \ldots M-1$ separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N, M \le 500$.
+	\item \texttt{T[$i$][$j$]} è un carattere tra \texttt{'X+OLR'}, per ogni $i=0\ldots N-1$, $j=0\ldots M-1$.
+	\item La lunghezza della parte periodica va calcolata in numero di passi (e quindi un salto conta 2).
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: Sono presenti solo i caratteri \texttt{'X+O'}.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [20 punti]}: Sono presenti solo i caratteri \texttt{'LR'}.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [10 punti]}: Sono presenti solo i caratteri \texttt{'+LR'}.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [20 punti]}: Sono presenti solo i caratteri \texttt{'+OLR'}.
+  \item \textbf{\makebox[2cm][l]{Subtask 6} [20 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{robot.input0.txt}{robot.output0.txt}%
+\exmpfile{robot.input1.txt}{robot.output1.txt}%
+\exmpfile{robot.input2.txt}{robot.output2.txt}%
+\end{example}
+
+
+\pagebreak
+\Explanation
+Nel \textbf{primo caso di esempio}, il percorso seguito è questo (seguendo i colori rosso, blu, verde, porpora, grigio):\\[2mm]
+\begin{figure}[H]%
+\centering\includegraphics{asy_robot/fig1.pdf}%
+\end{figure}
+Nel \textbf{secondo caso di esempio}, il percorso seguito è questo (seguendo i colori rosso, blu, verde, porpora, grigio):\\[2mm]
+\begin{figure}[H]%
+\centering\includegraphics{asy_robot/fig2.pdf}%
+\end{figure}
+\pagebreak
+Nel \textbf{terzo caso di esempio}, il percorso seguito è questo:
+\begin{figure}[H]%
+\centering\includegraphics{asy_robot/fig3.pdf}%
+\end{figure}

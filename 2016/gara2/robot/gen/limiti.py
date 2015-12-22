@@ -1,0 +1,2 @@
+MAXN = 500
+CHARSET = 'X+OLR'

@@ -1,0 +1,1 @@
+../att/permutazione.c

@@ -1,0 +1,90 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+
+Giorgio e William si devono incontrare segretamente in un locale di Las Vegas per definire i problemi delle gare a squadre di quest'anno. Purtroppo, a Las Vegas tutti i locali hanno insegne circolari rotanti, quindi è molto difficile trovare il luogo sul quale si sono accordati.
+
+Dopo un po' di tempo passato a cercare William, Giorgio legge una stringa $G$ su un'insegna e decide di contattarlo. Quest'ultimo nel frattempo si è perso per le strade di Las Vegas, ma per fortuna riesce anche lui a vedere un'insegna con su scritta una stringa $W$. Dal momento che i tempi per le olimpiadi si stanno facendo stringenti, i due vogliono capire se almeno si trovano nella stessa parte della città, così da riuscire ad incontrarsi e decidere una volta per tutte i problemi.
+
+Le due stringhe $G$ e $W$ si riferiscono allo stesso luogo quando sono la stessa stringa \emph{a meno di una permutazione ciclica} (o rotazione). Indichiamo con $|G|$ la lunghezza di $G$. Se è possibile spezzare la stringa $G$ in un punto $i$ compreso tra $0$ e $|G|-1$, ed è possibile poi ottenere una stringa uguale a $W$ scambiando di posizione le due ``metà'' di $G$ prodotte, allora diremo che $G$ è una permutazione ciclica di $W$ (e viceversa).
+
+Aiuta Giorgio e William a capire se le due stringhe sono la stessa insegna!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{insegna.c}, \texttt{insegna.cpp}, \texttt{insegna.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int confronta(int N, char* G[], char* W[]);|\\
+\hline
+Pascal & \verb|function confronta(N: longint; var G, W: array of char): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta la lunghezza delle due stringhe.
+  \item Gli array $G$ e $W$ rappresentano le stringhe viste da Giorgio e da William, rispettivamente.
+  \item La funzione dovrà restituire $1$ se le due stringhe si riferiscono alla stessa insegna, altrimenti $0$.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da tre righe. La prima riga contiene l'unico intero $N$. La seconda riga contiene la stringa $G$. La terza riga contiene la stringa $W$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+  \item $1 \le N \le 5000$.
+  \item Le due stringhe sono composte da caratteri compresi tra \texttt{a} e \texttt{z}.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{insegna.input0.txt}{insegna.output0.txt}%
+\exmpfile{insegna.input1.txt}{insegna.output1.txt}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio} è chiaramente impossibile ottenere $G$ da $W$ o viceversa.
+
+Nel \textbf{secondo caso di esempio}, invece, basta spezzare $G$ nel punto $i = 3$ ottenendo le due metà \texttt{abc} e \texttt{defg} che possiamo scambiare per ottenere $W$.

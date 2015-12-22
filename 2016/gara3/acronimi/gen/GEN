@@ -1,0 +1,28 @@
+# |A|     |S|       S
+
+# Subtask 1: Esempi
+#ST:10
+#COPY: testo/acronimi.input0.txt
+#COPY: testo/acronimi.input1.txt
+#COPY: testo/acronimi.input2.txt
+
+# Subtask 2: |A| = 1
+#ST:20
+1        5          2       3
+1        100        7       4
+1        40000      15      5
+1        100000     26      6
+
+# Subtask 3: N <= 100
+#ST:45
+2        20         2       7
+3        30         3       8
+4        40         4       9
+5        50         4       10
+
+# Subtask 4: no limits
+#ST:25
+5        100        5       11
+20       10000      15      12
+50       60000      20      13
+100      100000     24      14

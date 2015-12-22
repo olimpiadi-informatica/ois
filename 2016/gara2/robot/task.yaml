@@ -1,0 +1,5 @@
+memory_limit: 256
+name: robot
+time_limit: 1.0
+title: Robot camminatore
+token_mode: infinite

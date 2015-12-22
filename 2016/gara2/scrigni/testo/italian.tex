@@ -1,0 +1,82 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+William sta giocando al suo gioco preferito: Super Marco 64. Per superare un particolare livello all'interno del gioco, è necessario aprire una serie di scrigni nell'ordine corretto.
+
+Il livello è fatto così: ci sono $n$ scrigni numerati da $1$ a $n$, ma William non sa quale scrigno corrisponde a quale numero. Se si cerca di aprire uno scrigno nell'ordine sbagliato, Super Marco riceve una scarica elettrica (e lo scrigno non si apre). Gli scrigni aperti fino a quel momento rimangono aperti.
+
+Per esempio, supponiamo che ci siano $3$ scrigni numerati così: $3, 1, 2$. William, non conoscendo l'ordine, decide di aprire uno scrigno a caso. Per esempio, supponiamo che provi ad aprire quello più a sinistra. Lo scrigno scelto non è il numero $1$, quindi non si aprirà e Super Marco prenderà la scossa. Ora William apre lo scrigno di mezzo, che è quello giusto. Prova di nuovo con quello più a sinistra (prendendo di nuovo la scossa), poi prova con quello più a destra (l'ultimo rimasto), e infine apre lo scrigno più a sinistra.
+
+William ha quindi fatto prendere la scossa a Super Marco per ben $2$ volte. La domanda però è la seguente: \textit{in media}, quante volte si prende la scossa prima di trovare l'ordine corretto? Ad esempio, nel caso appena citato in cui $n = 3$, si può dimostrare facilmente che la scossa si prende in media $1.5$ volte.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{scrigni.c}, \texttt{scrigni.cpp}, \texttt{scrigni.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|double scosse(int N);|\\
+\hline
+Pascal & \verb|function scosse(N: longint): double;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di scrigni.
+  \item La funzione dovrà restituire il numero medio di scosse, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da una sola riga che contiene l'unico intero $N$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico numero reale, la risposta a questo problema.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+    \item La risposta verrà considerata corretta se l'errore assoluto o relativo non supererà $10^{-6}$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [40 punti]}: $1 \le N \le 8$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [20 punti]}: $1 \le N \le 12$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [20 punti]}: $1 \le N \le 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [10 punti]}: $1 \le N \le 2\,000\,000\,000$.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{scrigni.input0.txt}{scrigni.output0.txt}%
+\exmpfile{scrigni.input1.txt}{scrigni.output1.txt}%
+\end{example}

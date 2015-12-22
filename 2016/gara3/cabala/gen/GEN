@@ -1,0 +1,27 @@
+# N     S
+
+# Subtask 1: Esempi
+#ST:10
+#COPY: testo/cabala.input0.txt
+#COPY: testo/cabala.input1.txt
+
+# Subtask 2: N <= 5
+#ST:20
+1       2
+3       3
+4       4
+5       5
+
+# Subtask 3: N <= 11
+#ST:40
+6       6
+8       7
+10      8
+11      9
+
+# Subtask 4: no limits
+#ST:30
+14      10
+16      11
+17      12
+18      13

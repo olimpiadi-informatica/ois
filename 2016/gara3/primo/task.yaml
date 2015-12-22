@@ -1,0 +1,5 @@
+memory_limit: 256
+name: primo
+time_limit: 1.5
+title: Primo permissivo
+token_mode: infinite

@@ -1,0 +1,47 @@
+# K
+
+# Subtask 1: Esempi
+#ST: 10
+#COPY: testo/permutazione.input0.txt
+#COPY: testo/permutazione.input1.txt
+#COPY: testo/permutazione.input2.txt
+
+# Subtask 2: K <= 3
+#ST: 20
+1
+2
+3
+
+# Subtask 3: K >= 23
+#ST: 30
+23
+24
+25
+
+# Subtask 4: no limits
+#ST: 40
+18
+17
+20
+8
+7
+11
+2
+9
+4
+14
+25
+23
+1
+22
+5
+12
+3
+15
+21
+16
+13
+6
+19
+10
+24

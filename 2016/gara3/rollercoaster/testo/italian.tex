@@ -1,0 +1,105 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	William \`e un accanito sostenitore del videogioco \emph{Rollercoaster Typhoon}, e passa la maggior parte del suo tempo a progettare percorsi di montagne russe. Purtroppo, la sfrenata fantasia di William si scontra con le leggi fisiche che un percorso di montagne russe deve soddisfare.
+
+	Un percorso siffatto \`e individuato da una sequenza $H_i$ di $N$ valori interi, che rappresentano l'altezza dei piloni che sorreggono la montagna russa, nell'ordine in cui vengono connessi dalle rotaie. Se un insieme consecutivo di tre o pi\`u di questi valori \`e in progressione aritmetica strettamente crescente (cio\`e la differenza tra uno di questi valori e il suo precedente \`e positiva e costante), allora il tratto corrispondente del percorso viene automaticamente \emph{motorizzato}. Quando William lancia un test sul suo percorso, un veicolo di prova inizia a percorrerlo da $i=0$ in avanti, secondo queste regole:
+	\begin{enumerate}
+		\item Se il veicolo raggiunge un tratto motorizzato, viene agganciato e lo risale fino alla fine, e a quel punto viene sganciato. Se il pilone seguente si trova ad altezza strettamente inferiore dell'ultimo pilone raggiunto, il veicolo inizia una \emph{caduta libera} come nel punto 2. Altrimenti, il veicolo perde il controllo e si verifica un incidente.
+		\item Se un veicolo inizia una caduta libera, prosegue nella caduta finch\'e le altezze percorse sono \emph{strettamente decrescenti}. Terminata una caduta libera, se il tratto seguente \`e motorizzato il veicolo procede come nel punto 1. Altrimenti, il veicolo inizia una \emph{risalita inerziale} come nel punto 2.
+		\item Se un veicolo inizia una risalita inerziale, prosegue nella risalita finch\'e non incontra tratti motorizzati e le altezze percorse sono \emph{debolmente crescenti} (crescenti o costanti) \emph{e inferiori all'altezza da cui \`e partita la caduta libera precedente}. Se nel punto in cui la risalita si arresta \`e presente un tratto motorizzato, il veicolo procede come nel punto 1. Se il pilone seguente si trova ad altezza inferiore dell'ultimo pilone raggiunto, il veicolo inizia una \emph{caduta libera}. Altrimenti, il veicolo perde il controllo e si verifica un incidente.
+	\end{enumerate}
+	
+	Aiuta William ad evitare spiacevoli incidenti, calcolando fino a che punto il veicolo riesce a procedere correttamente!
+
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{rollercoaster.c}, \texttt{rollercoaster.cpp}, \texttt{rollercoaster.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int test(int N, int H[]);|\\
+\hline
+Pascal & \verb|function test(N: longint; var H: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+\pagebreak
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di piloni della montagna russa.
+  \item L'array \texttt{H}, indicizzato da $0$ a $N-1$, contiene le altezze dei piloni su cui la montagna russa \`e costruita.
+  \item La funzione dovrà restituire la posizione raggiungibile da un veicolo (cio\`e, la fine oppure la posizione in cui avviene un incidente), che verrà stampata sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene l'unico intero $N$. La seconda riga contiene gli $N$ interi $H_i$ separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 100\,000$.
+	\item $1 \le H_i \le 100\,000$ per ogni $i=0\ldots N-1$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: Non sono presenti tratti motorizzati.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{rollercoaster.input0.txt}{rollercoaster.output0.txt}%
+\exmpfile{rollercoaster.input1.txt}{rollercoaster.output1.txt}%
+\exmpfile{rollercoaster.input2.txt}{rollercoaster.output2.txt}%
+\end{example}
+
+\pagebreak
+\Explanation
+Nel \textbf{primo caso di esempio}, il veicolo \`e in grado di procedere fino alla fine del percorso senza incidenti.
+\begin{figure}[H]%
+\centering\includegraphics{asy_rollercoaster/fig1.pdf}%
+\end{figure}
+
+Nel \textbf{secondo caso di esempio}, il veicolo esegue correttamente una risalita motorizzata, una caduta libera con risalita inerziale, una seconda caduta libera ma ha un incidente al durante la seconda risalita inerziale.
+\begin{figure}[H]%
+\centering\includegraphics{asy_rollercoaster/fig2.pdf}%
+\end{figure}
+
+Nel \textbf{terzo caso di esempio}, il veicolo esegue correttamente una caduta libera, una risalita inerziale (di lunghezza uno e in piano), una seconda caduta libera ma ha un incidente durante la seconda risalita inerziale.
+\begin{figure}[H]%
+\centering\includegraphics{asy_rollercoaster/fig3.pdf}%
+\end{figure}

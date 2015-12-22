@@ -1,0 +1,5 @@
+memory_limit: 256
+name: insegna
+time_limit: 1.0
+title: Las Vegas
+token_mode: infinite

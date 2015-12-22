@@ -1,0 +1,3 @@
+MAXN = 10000
+MAXM = 100000
+MAXmonete = 1000

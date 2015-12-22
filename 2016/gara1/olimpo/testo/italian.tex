@@ -1,0 +1,91 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	La passione di Giorgio per i giochi di ruolo lo ha portato di recente a interessarsi alla mitologia classica. Sta quindi cercando di ricostruire la lunga genealogia dei discendenti di Zeus, nella speranza di dimostrare che la sua stirpe discende proprio dalla somma divinità. Purtroppo però le informazioni che riesce a carpire dagli antichi manoscritti sono molto carenti, e non è facile ricostruire l'albero dei discendenti di Zeus!
+	
+	In questo albero, Zeus (indicato con il numero $0$) costituisce la radice, i suoi figli costituiscono i suoi immediati successori, e così via fino a elencare tutta la genealogia. Di ognuno degli $N-1$ discendenti di Zeus si conosce o il padre (\texttt{P}), oppure il nonno (\texttt{N}) oppure il bisnonno (\texttt{B}); ma sempre solo uno dei tre.
+
+	Dopo una lunga ricerca, Giorgio non è riuscito a trovare prove del suo collegamento con Zeus. L'unica soluzione è quindi falsificare un qualche atto di nascita e rimediare alla sfortunata circostanza! Per rendere il falso più credibile possibile, Giorgio ha deciso di selezionare come suo antenato \emph{il discendente di Zeus più lontano} all'interno dell'albero genealogico che ha ricostruito. Quanto è distante questo discendente da Zeus?
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{olimpo.c}, \texttt{olimpo.cpp}, \texttt{olimpo.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int falsifica(int N, char Q[], int A[]);|\\
+\hline
+Pascal & \footnotesize\verb|function falsifica(N: longint; var Q: array of char; var A: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di discendenti di Zeus individuati da Giorgio.
+  \item L'array \texttt{Q}, indicizzato da $0$ a $N-1$, specifica per ogni discendente $i$ se ciò che si conosce è il padre (\texttt{'P'}), il nonno (\texttt{'N'}) o il bisnonno (\texttt{'B'}).
+  \item L'array \texttt{A}, indicizzato da $0$ a $N-1$, specifica per ogni discendente $i$ l'indice \texttt{A[$i$]} del suo antenato conosciuto.
+  \item La funzione dovrà restituire la distanza tra Zeus e il suo discendente più lontano, che verrà stampata sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da $N$ righe. La prima riga contiene l'unico intero $N$, mentre la riga $i$-esima contiene \texttt{Q[$i$]}, \texttt{A[$i$]}
+separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 1\,000\,000$.
+	\item $0 \le A_i \le N-1$ per ogni $i=1\ldots N-1$, e $A_0 = -1$.
+	\item $Q_i$ è tra \texttt{'P'}, \texttt{'N'}, \texttt{'B'} per ogni $i=1\ldots N-1$, e $Q_0 = \texttt{'X'}$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+\Examples
+\begin{example}
+\exmpfile{olimpo.input0.txt}{olimpo.output0.txt}%
+\exmpfile{olimpo.input1.txt}{olimpo.output1.txt}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, i discendenti più lontani sono i numeri 3 e 5 che hanno come antenati 4, 1, 2, 0 e quindi sono a distanza 4 da Zeus.\\[2mm]
+
+\begin{figure}[H]%
+\centering\includegraphics{asy_olimpo/fig1.pdf}%
+\end{figure}
+
+Nel \textbf{secondo caso di esempio}, il discendente più lontano è il numero 9. Anche se non si possono ricostruire esattamente tutti i suoi antenati, il suo padre è 2 che ha come bisnonno Zeus, quindi è ancora a distanza 4 dal mitico progenitore.

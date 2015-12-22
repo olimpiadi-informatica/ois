@@ -1,0 +1,92 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+William odia fare shopping. C'è da dire però che non è il solo ad avere questo problema: una recente ricerca di mercato ha rilevato infatti che il 28\% della popolazione cercherebbe qualsiasi scusa pur di non andare al centro commerciale!
+
+Una startup italiana, venuta a sapere di questa ricerca, ha deciso di cogliere la palla al balzo: svilupperà un'app per rendere più sopportabile lo shopping alle persone pigre come William. Purtroppo però, nessuno dei programmatori iOS/Android che lavorano alla startup è riuscito a trovare un algoritmo efficiente per risolvere questo problema. Sapresti aiutarli?
+
+Un centro commerciale è formato da una serie di $N$ negozi in fila, numerati da $0$ a $N-1$. Ogni negozio è di una certa tipologia, identificata da un numero intero non negativo. L'app funziona così: William si trova in uno dei negozi (ad esempio, il negozio $7$), si rende conto che deve comprare una felpa per l'inverno (supponiamo che le felpe si vendano nei negozi di tipo $13$), William lancerà quindi l'app, la quale risponderà con un valore $d$: la distanza minima da percorrere per raggiungere un negozio di tipo $13$ partendo dal negozio $7$.
+
+\textbf{Nota:} nel caso in cui il negozio $7$ sia già un negozio di tipo $13$, la distanza restituita sarà $0$.
+
+Il tuo algoritmo dovrà quindi rispondere a $Q$ query, ognuna delle quali ti fornirà una coppia di valori $(a, b)$, rispettivamente: la posizione corrente ed il tipo di negozio desiderato. La risposta del tuo algoritmo sarà: la distanza tra la posizione $a$ e la posizione del negozio di tipo $b$ più vicino ad $a$.
+
+\textbf{Nota:} le query sono indipendenti, l'effetto di una query non influisce sulle successive.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{negozi.c}, \texttt{negozi.cpp}, \texttt{negozi.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|void risolvi(int N, int Q, int t[], int a[], int b[], int d[]);|\\
+\hline
+Pascal & \verb|procedure risolvi(N, Q: longint; var t, a, b, d: array of longint);|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di negozi.
+  \item L'intero $Q$ rappresenta il numero di query a cui si deve rispondere.
+  \item L'array \texttt{t}, indicizzato da $0$ a $N-1$, contiene il tipo di ciascun negozio.
+  \item L'array \texttt{a}, indicizzato da $0$ a $Q-1$, contiene la ``posizione attuale'' da usare nella query.
+  \item L'array \texttt{b}, indicizzato da $0$ a $Q-1$, contiene il ``tipo di destinazione'' da usare nella query.
+  \item La funzione dovrà scrivere le risposte alle query nell'array \texttt{d}, indicizzato da $0$ a $Q-1$, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da $Q+2$ righe. La prima riga contiene due interi separati da spazio: $N, Q$. La seconda riga contiene gli $N$ interi $t_i$ separati da uno spazio. Seguono $Q$ righe che contengono due interi ciascuna: i parametri $a_i$ e $b_i$ dell'$i$-esima query.
+
+\OutputFile
+Il file \outputfile{} è composto da $Q$ righe. La $i$-esima riga contiene la risposta alla $i$-esima query.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+    \item $1 \le N, Q \le 100\,000$.
+    \item $0 \le t_i < 100\,000$.
+    \item $0 \le a_i \le N-1$.
+    \item È sempre garantito che esiste almeno un negozio di tipo $b_i$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [40 punti]}: $N, Q \le 5000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [30 punti]}: $N \le 5000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [20 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{negozi.input0.txt}{negozi.output0.txt}%
+\exmpfile{negozi.input1.txt}{negozi.output1.txt}%
+\exmpfile{negozi.input2.txt}{negozi.output2.txt}%
+\end{example}

@@ -1,0 +1,5 @@
+memory_limit: 256
+name: acronimi
+time_limit: 1.0
+title: Acronimi forzati
+token_mode: infinite

@@ -1,0 +1,27 @@
+# N         M       S
+
+# Subtask 1: Esempi
+#ST: 10
+#COPY: testo/carrucole.input0.txt
+#COPY: testo/carrucole.input1.txt
+
+# Subtask 2: N,M <= 50
+#ST:20
+2           1       2
+20          30      3
+15          50      4
+50          50      5
+
+# Subtask 3: N,M <= 1000
+#ST:40
+200         300     6
+100         600     7
+50          900     8
+1000        1000    9
+
+# Subtask 4: no limits
+#ST:30
+10000       100000  10
+10000       100000  11
+10000       100000  12
+10000       100000  13

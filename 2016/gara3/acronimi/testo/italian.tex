@@ -1,0 +1,110 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+\newcommand{\enfatizza}[1]{\textbf{\underline{#1}}}
+
+William sta lavorando alla tesi di laurea. Durante lo sviluppo del suo progetto, ha fatto uso di una banca dati dei pagamenti degli enti pubblici italiani. Questa banca dati viene preparata e pubblicata dal SIOPE (\textit{Sistema informativo sulle operazioni degli enti pubblici}).
+
+Non appena ha letto l'acronimo SIOPE, William ha istintivamente cercato di associarlo alle parole che compongono la frase ``Sistema informativo sulle operazioni degli enti pubblici'' ma, con grande delusione, ha notato che qualsiasi associazione risultava piuttosto forzata.
+
+Un modo per mappare l'acronimo alla frase è questo: \enfatizza{S}istema \enfatizza{I}nformativo sulle \enfatizza{OPE}razioni degli enti pubblici. Tuttavia, ci sono altri modi:
+\begin{itemize}
+  \item \enfatizza{S}istema \enfatizza{I}nformativ\enfatizza{O} sulle o\enfatizza{P}erazioni degli \enfatizza{E}nti pubblici.
+  \item si\enfatizza{S}tema \enfatizza{I}nformativ\enfatizza{O} sulle o\enfatizza{P}erazioni degli \enfatizza{E}nti pubblici.
+  \item si\enfatizza{S}tema informat\enfatizza{I}v\enfatizza{O} sulle o\enfatizza{P}erazioni degli \enfatizza{E}nti pubblici.
+  \item \dots
+\end{itemize}
+
+In tutto, William ha contato $39$ modi diversi di interpretare questo acronimo (come si può intuire, è un tipo che si distrae facilmente). Mancano poche ore alla scadenza per la consegna della tesi, ma è comunque molto più importante che il seguente problema venga risolto: in quanti modi si può mappare un certo acronimo su una certa frase? Aiutalo a risolvere il problema, così che possa finalmente concentrarsi e completare la tesi.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{acronimi.c}, \texttt{acronimi.cpp}, \texttt{acronimi.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int acronimi(char A[], char S[]);|\\
+\hline
+Pascal & \verb|function acronimi(var A, S: string): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item $A$ e $S$ sono, rispettivamente, l'acronimo e la stringa su cui mapparlo.
+  \item Nel caso di C/C++, gli array saranno terminati con un carattere terminatore, quindi è possibile calcolarne la lunghezza con la funzione di libreria \texttt{strlen}. \textbf{Attenzione:} tenete a mente che la funzione \texttt{strlen} scorre tutta la stringa, quindi ha complessità lineare.
+  \item Nel caso di Pascal, gli array saranno di tipo \texttt{string}. Potete calcolarne la lunghezza con la funzione di libreria \texttt{length}.
+  \item La funzione deve restituire il numero di modi in cui l'acronimo si può mappare nella stringa. Dal momento che questo numero può essere molto grande, è necessario restituire soltanto il resto della divisione per $1\,000\,000\,007$.
+\end{itemize}
+
+\begin{warning}
+  Per eseguire l'operazione di modulo si può utilizzare l'operatore \texttt{\%} del C/C++. In Pascal invece esiste l'operatore \texttt{mod}.
+
+  Ad esempio, il resto della divisione di $5$ per $3$ si calcola come \texttt{5 \% 3} in C/C++ e come \texttt{5 mod 3} in Pascal. In entrambi i casi il risultato sarà \texttt{2}.
+
+  L'operazione di modulo, inoltre, ha le seguenti proprietà (molto utili per evitare \emph{integer overflow} quando si vogliono calcolare numeri molto grandi):
+  \begin{itemize}[nolistsep]
+    \item $(A + B) \bmod M = (A \bmod M + B \bmod M) \bmod M$
+    \item $(A \cdot B) \bmod M = (A \bmod M \cdot B \bmod M) \bmod M$
+  \end{itemize}
+\end{warning}
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene l'acronimo $A$. La seconda riga contiene la stringa $S$ su cui mappare l'acronimo. Entrambe le stringhe non conterranno né spazi né punteggiatura, saranno composte \textbf{solo da lettere minuscole}.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema (modulo $1\,000\,000\,007$).
+
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+  \item $1 \le |A| \le 100$, dove $|A|$ è la lunghezza della stringa $A$.
+  \item $1 \le |S| \le 100\,000$, dove $|S|$ è la lunghezza della stringa $S$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $|A| = 1$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [45 punti]}: $|A| \leq 5$, $|S| \leq 50$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [25 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{acronimi.input0.txt}{acronimi.output0.txt}%
+\exmpfile{acronimi.input1.txt}{acronimi.output1.txt}%
+\exmpfile{acronimi.input2.txt}{acronimi.output2.txt}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio} l'acronimo abcd si può mappare in \enfatizza{AB}be\enfatizza{C}e\enfatizza{D}ario oppure in \enfatizza{A}b\enfatizza{B}e\enfatizza{C}e\enfatizza{D}ario.\\[2mm]
+Nel \textbf{secondo caso di esempio} ci sono $25\,518\,731\,280$ modi di mappare l'acronimo ma, dal momento che dobbiamo stampare il risultato modulo $1\,000\,000\,007$, il risultato finale sarà $518\,731\,105$.

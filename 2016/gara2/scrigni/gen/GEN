@@ -1,0 +1,34 @@
+# N
+
+# Subtask 1: Esempi
+#ST:10
+#COPY: testo/scrigni.input0.txt
+#COPY: testo/scrigni.input1.txt
+
+# Subtask 2: N <= 8
+#ST:40
+1
+2
+5
+6
+8
+
+# Subtask 2: N <= 12
+#ST:20
+9
+10
+11
+12
+
+# Subtask 3: N <= 100
+#ST:20
+20
+53
+97
+100
+
+# Subtask 3: N <= 100
+#ST:10
+4000
+3000000
+2000000000

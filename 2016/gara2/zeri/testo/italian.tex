@@ -1,0 +1,87 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Giorgio sta tenendo una lezione di Teoria dei grafi ai bambini della scuola elementare di Pinerolo, però non si è reso conto che a quell'età generalmente è difficile concentrarsi e prestare attenzione, soprattutto con un argomento complicato.
+
+Quando alcuni dei bambini cominciano a chiacchierare, Giorgio si inquieta e gli assegna un difficile calcolo da svolgere per punizione. Il calcolo da svolgere è scritto su una lunga striscia di carta, sui cui c'è scritta una stringa che rappresenta una moltiplicazione. Ad esempio:
+
+\begin{center}
+    \texttt{25x420x50x42}
+\end{center}
+
+L'obiettivo è quello di \emph{calcolare il numero di zeri in coda} al risultato della moltiplicazione. In questo caso, dato che la moltiplicazione ha come risultato $22050000$, il numero di zeri in coda sarà pari a $4$.
+
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{zeri.c}, \texttt{zeri.cpp}, \texttt{zeri.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int zeri(int N, char S[]);|\\
+\hline
+Pascal & \verb|function zeri(N: longint; var S: array of char): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta la lunghezza della stringa.
+  \item L'array \texttt{S}, indicizzato da $0$ a $N-1$, contiene la stringa con la moltiplicazione.
+  \item La funzione dovrà restituire il numero di zeri in coda, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da una sola riga che contiene la stringa.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 100\,000$ dove $N$ è la lunghezza della stringa.
+    \item Tutte le sequenze di cifre separate dal carattere \texttt{x} rappresentano un numero compreso tra $1$ e $1\,000\,000$ estremi inclusi. Inoltre, non sono presenti zeri all'inizio delle varie sequenze (non sarà presente una sequenza come $0123$).
+    \item Nella striscia di carta saranno presenti $0$ o più caratteri \texttt{x}.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [40 punti]}: Il risultato della moltiplicazione si può memorizzare con un intero a $64$ bit con segno.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [30 punti]}: Tutte le varie sequenze della striscia \emph{non} terminano con la cifra $5$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [20 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{zeri.input0.txt}{zeri.output0.txt}%
+\exmpfile{zeri.input1.txt}{zeri.output1.txt}%
+\end{example}

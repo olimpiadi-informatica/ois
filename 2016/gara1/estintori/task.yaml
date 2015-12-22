@@ -1,0 +1,5 @@
+memory_limit: 256
+name: estintori
+time_limit: 1.0
+title: Controllo degli estintori
+token_mode: infinite
