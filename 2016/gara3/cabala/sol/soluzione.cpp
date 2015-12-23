@@ -4,7 +4,7 @@
 
 using namespace std;
 
-long long backtrack(int N, int num, int M) {
+long long backtrack(int N, long long num, int M) {
     long long res = num % M;
     if (N==0) return res;
     for (int i=3; i<=9; i+=3)

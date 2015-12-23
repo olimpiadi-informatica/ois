@@ -19,7 +19,7 @@ def run(f, st):
         riga = map(int, r.split())
         assert( len(riga) == 2 )
         assert( 1 <= riga[0] <= MAXN )
-        assert( 2 <= riga[1] <= 10**riga[0] )
+        assert( 2 <= riga[1] <= MAXM )
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

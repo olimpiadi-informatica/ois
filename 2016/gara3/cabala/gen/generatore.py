@@ -21,7 +21,7 @@ def run(N):
     print T
     for i in xrange(T):
         nn = randint(1,N)
-        print nn, randint(2,10**nn)
+        print nn, randint(2,min(10**nn,MAXM))
 
 if __name__ == "__main__":
     if len(argv) != 3:
