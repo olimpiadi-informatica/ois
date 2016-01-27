@@ -3,6 +3,7 @@
 __pycache__
 .itime
 .import_error
+.gdb_history
 input/
 output/
 *.aux
