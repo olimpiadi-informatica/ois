@@ -1,0 +1,89 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Giorgio è appassionato di ciclismo, tanto che ogni giorno prende un treno per raggiungere una nuova localit\`a e da lì farsi un bel giro in bici. La mappa della localit\`a in cui si \`e recato oggi consiste di $N$ incroci collegati da $M$ strade bidirezionali (non esistono sensi unici per le biciclette). Ognuno degli incroci, inoltre, si trova a una diversa altitudine $H_i$.
+
+	Nel suo giro, Giorgio partir\`a dalla stazione (corrispondente all'incrocio numero 0) e proceder\`a ogni volta dirigendosi verso l'incrocio con altitudine più bassa tra quelli collegati all'incrocio corrente (Giorgio non ama le salite!), eccettuato quello da cui al momento arriva (in altre parole, non fa mai inversione a U). Il giro in bici prosegue quindi fintanto che si troverebbe costretto a effettuare un'inversione a U oppure quando ritorna in un incrocio da cui \`e gi\`a passato. In quale incrocio finir\`a il giro in bici?
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{ciclismo.c}, \texttt{ciclismo.cpp}, \texttt{ciclismo.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int pedala(int N, int M, int H[], da[], int a[]);|\\
+\hline
+Pascal & \verb|function pedala(N, M: longint; var H, da, a: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di incroci presenti.
+  \item L'intero $M$ rappresenta il numero di strade presenti.
+  \item L'array \texttt{H}, indicizzato da $0$ a $N-1$, contiene le altitudini degli incroci.
+  \item Gli array \texttt{da} e \texttt{a}, indicizzati da $0$ a $M-1$, contengono la descrizione delle strade (per cui la strada $i$-esima collega gli incroci \texttt{da[$i$]} e \texttt{a[$i$]}).
+  \item La funzione dovrà restituire l'incrocio in cui termina il giro in bici, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da $M+2$ righe. La prima riga contiene i due interi $N$ e $M$. La seconda riga contiene gli $N$ interi $H_i$ separati da uno spazio. Le successive $M$ righe contengono ciascuna i due interi \texttt{da[$i$]} e \texttt{a[$i$]}.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $2 \le N \le 10\,000$.
+	\item $1 \le M \le 100\,000$.
+	\item $0 \le H_i \le 1\,000\,000$ per ogni $i=0\ldots N-1$.
+	\item $0 \le \texttt{da}_i, \texttt{a}_i < N$ e $\texttt{da}_i \neq \texttt{a}_i$ per ogni $i=0\ldots M-1$.
+	\item Le altitudini sono tutte distinte e non ci sono strade ripetute.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [40 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{ciclismo.input0.txt}{ciclismo.output0.txt}%
+\exmpfile{ciclismo.input1.txt}{ciclismo.output1.txt}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, il giro percorre gli incroci 0 -- 1 -- 3 -- 4 -- 0 e poi termina (dato che ha chiuso un ciclo).\\[2mm]
+Nel \textbf{secondo caso di esempio}, il giro percorre gli incroci 0 -- 3 -- 4 -- 1 -- 2 e poi termina (dato che non può più muoversi).

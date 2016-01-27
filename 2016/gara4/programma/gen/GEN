@@ -1,0 +1,41 @@
+# N     M       C       S
+
+# Subtask 1: Esempi
+#ST:10
+#COPY: testo/programma.input0.txt
+#COPY: testo/programma.input1.txt
+
+# Subtask 2: N,M <= 100
+#ST:30
+10      90      RLFBX   2
+50      20      RLFBX   3
+90      40      RLFBX   4
+100     100     RLFBX   5
+
+# Subtask 3: C = FB
+#ST:20
+5000    1000    FB      6
+50000   30000   FB      7
+500000  70000   FB      8
+1000000 100000  FB      9
+
+# Subtask 4: C = FBX
+#ST:20
+5000    1000    FBX     10
+50000   30000   FBX     11
+500000  70000   FBX     12
+1000000 100000  FBX     13
+
+# Subtask 5: C = RLFB
+#ST:10
+5000    1000    RLFB    14
+50000   30000   RLFB    15
+500000  70000   RLFB    16
+1000000 100000  RLFB    17
+
+# Subtask 6: no limits
+#ST:10
+5000    1000    RLFBX   18
+50000   30000   RLFBX   19
+500000  70000   RLFBX   20
+1000000 100000  RLFBX   21

@@ -1,0 +1,7 @@
+87
+<code>
+if (a == 0 &amp;&amp;amp; b == 1) {
+    c |= 13;
+    c &amp;amp;= 31;
+}
+</code>

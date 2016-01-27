@@ -1,0 +1,104 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	William ha appena costruito un nuovo robot programmabile per il suo laboratorio di robotica, in grado di rispondere a ben cinque comandi \emph{di basso livello}:
+	\begin{itemize}
+		\item \texttt{'R'} (right): gira di $90^\circ$ a destra;
+		\item \texttt{'L'} (left): gira di $90^\circ$ a sinistra;
+		\item \texttt{'F'} (forward): avanza di 1 nella direzione in cui \`e orientato;
+		\item \texttt{'B'} (backward): indietreggia di 1 rispetto alla direzione in cui \`e orientato;
+		\item \texttt{'X'} (explode): attiva l'autodistruzione ed esplode.
+	\end{itemize}
+	William ha dunque scritto un lungo programma $P$ composto di $N$ comandi e lo ha memorizzato nel robot. In questo modo, il robot pu\`o essere comandato con comandi \emph{di alto livello} $(S:E)$ tali che $0 \le S \le E < N$. Ciascuno di questi comandi verr\`a convertito dal robot nella sequenza di comandi di basso livello $P_S, P_{S+1}, \ldots P_E$ ed eseguito in questo modo.
+
+	William ha appena inviato una sequenza di $M$ comandi di alto livello al robot, posizionato inizialmente nel quadretto $(0,0)$ e orientato verso est (coordinate $x$ crescenti). Il robot ora eseguir\`a la sequenza fino alla fine oppure fino al momento in cui esplode. In quale quadretto si trover\`a alla fine?
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{programma.c}, \texttt{programma.cpp}, \texttt{programma.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|point passeggia(int N, int M, char P[], int S[], int E[]);|\\
+\hline
+Pascal & \footnotesize{\verb|function passeggia(N, M: longint; var P: array of char; var S, E: array of longint): point;|}\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di caratteri di cui il programma interno $P$ \`e composto.
+  \item L'intero $M$ rappresenta il numero di comandi di alto livello da eseguire.
+  \item L'array \texttt{P}, indicizzato da $0$ a $N-1$, contiene la sequenza di caratteri \texttt{'RLFBX'} che descrivono il programma interno.
+  \item Gli array \texttt{S} ed \texttt{E}, indicizzati da $0$ a $M-1$, contengono la sequenza di comandi di alto livello $(S_i:E_i)$ da eseguire.
+  \item La funzione dovrà restituire la posizione finale del robot, che verrà stampata sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da $M+2$ righe. La prima riga contiene i due interi $N$ ed $M$. La seconda riga contiene la stringa $P$ (concatenata senza spazi). Le successive $M$ righe contengono ciascuna i due interi $S_i$ ed $E_i$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente due interi, le coordinate finali del robot.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le N \le 1\,000\,000$.
+	\item $1 \le M \le 100\,000$.
+	\item $0 \le S_i \le E_i < N$ per ogni $i=0\ldots M-1$.
+	\item $P_i$ \`e un carattere tra \texttt{'RLFBX'}.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [30 punti]}: $N, M \le 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [20 punti]}: Sono presenti solo comandi \texttt{'F'} e \texttt{'B'}.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [20 punti]}: Sono presenti solo comandi \texttt{'F'}, \texttt{'B'} e \texttt{'X'}.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [10 punti]}: Non \`e presente il comando \texttt{'X'}.
+  \item \textbf{\makebox[2cm][l]{Subtask 6} [10 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{programma.input0.txt}{programma.output0.txt}%
+\exmpfile{programma.input1.txt}{programma.output1.txt}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, le istruzioni vengono convertite in \texttt{FFB BBB FFXBBFBB FXB} e il robot fa il seguente percorso (fino al punto in cui esplode):
+\begin{figure}[H]%
+\centering\includegraphics{asy_programma/fig1.pdf}%
+\end{figure}
+
+Nel \textbf{secondo caso di esempio}, le istruzioni vengono convertite in \texttt{LFBR BRB B BBR} e il robot fa il seguente percorso (fino al termine del programma):
+\begin{figure}[H]%
+\centering\includegraphics{asy_programma/fig2.pdf}%
+\end{figure}

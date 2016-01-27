@@ -1,0 +1,106 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Giorgio ha deciso di rispondere in modo conclusivo alla domanda che ha assillato l'umanità per tanti anni: esistono oppure no gli alieni? Per questo motivo, si è messo alla ricerca di tracce aliene.
+
+Al fine di rilevare presenze extraterrestri, Giorgio ha eseguito una serie di misurazioni elettromagnetiche. Dopo giorni di misurazioni, è arrivato a determinare con precisione una stringa $S$ che:
+
+\begin{itemize}
+  \item È composta da sole cifre decimali (da $0$ a $9$);
+  \item È terminata da una cifra $0$ (in ultima posizione);
+  \item Il carattere terminatore $0$ è presente solo in ultima posizione e non prima.
+\end{itemize}
+
+Questa stringa potrebbe essere un messaggio degli alieni. Ovviamente però, per verificare la cosa, sarebbe necessario fare un complicatissimo conteggio per sapere quante volte questa stringa compare spontaneamente ``in natura''. Per una stima iniziale però, Giorgio farà un conteggio molto semplice.
+
+Fissato un numero $K$, Giorgio vuole contare quante sono le sequenze di $K$ cifre decimali che contengono \emph{almeno una volta} la stringa $S$ come sottostringa. Per esempio, se $K$ fosse uguale a $4$ e $S$ uguale a $210$, le sequenze da contare sarebbero le seguenti $20$:
+\begin{align*}
+  0210 \qquad 1210 \qquad 2100 \qquad 2101 \qquad 2102 \qquad 2103 \qquad 2104 \qquad 2105 \qquad 2106 \qquad 2107 \\
+  2108 \qquad 2109 \qquad 2210 \qquad 3210 \qquad 4210 \qquad 5210 \qquad 6210 \qquad 7210 \qquad 8210 \qquad 9210
+\end{align*}
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{tracce.c}, \texttt{tracce.cpp}, \texttt{tracce.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int conteggio(int K, char S[]);|\\
+\hline
+Pascal & \verb|function conteggio(K: longint; var S: ansistring): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $K$ rappresenta il numero di cifre da cui sono formate le sequenze analizzate da Giorgio.
+  \item \texttt{S} è la stringa che Giorgio deve cercare.
+  \item La funzione deve restituire il numero di sequenze contate da Giorgio. Dal momento che questo numero può essere molto grande, è necessario restituirne soltanto il resto della divisione per $1\,000\,000\,007$.
+\end{itemize}
+
+\begin{warning}
+  Per eseguire l'operazione di modulo si può utilizzare l'operatore \texttt{\%} del C/C++. In Pascal invece esiste l'operatore \texttt{mod}.
+
+  Ad esempio, il resto della divisione di $5$ per $3$ si calcola come \texttt{5 \% 3} in C/C++ e come \texttt{5 mod 3} in Pascal. In entrambi i casi il risultato sarà \texttt{2}.
+
+  L'operazione di modulo, inoltre, ha le seguenti proprietà (molto utili per evitare \emph{integer overflow} quando si vogliono calcolare numeri molto grandi):
+  \begin{itemize}[nolistsep]
+    \item $(A + B) \bmod M = (A \bmod M + B \bmod M) \bmod M$
+    \item $(A \cdot B) \bmod M = (A \bmod M \cdot B \bmod M) \bmod M$
+  \end{itemize}
+\end{warning}
+
+\InputFile
+Il file \inputfile{} è composto da due righe. La prima riga contiene l'unico intero $K$. La seconda riga contiene la stringa $S$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le |S| \le 100\,000$, dove $|S|$ è la lunghezza di $S$.
+	\item $|S| \le K \le 1\,000\,000$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [30 punti]}: $|S| = 1$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [20 punti]}: $K \le 6$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [20 punti]}: $K \le 1000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [20 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{tracce.input0.txt}{tracce.output0.txt}%
+\exmpfile{tracce.input1.txt}{tracce.output1.txt}%
+\exmpfile{tracce.input2.txt}{tracce.output2.txt}%
+\end{example}

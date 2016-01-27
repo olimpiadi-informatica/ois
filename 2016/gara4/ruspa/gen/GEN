@@ -1,0 +1,30 @@
+# N     T       S
+
+# Subtask 1: Esempi
+#ST:10
+#COPY: testo/ruspa.input0.txt
+#COPY: testo/ruspa.input1.txt
+
+# Subtask 2: N,T <= 10
+#ST:20
+1       1       2
+7       9       3
+8       7       4
+9       10      5
+10      10      6
+
+# Subtask 3: N <= 10000, T <= 100
+#ST:40
+50      15      7
+200     80      8
+1000    60      9
+3000    90      10
+10000   100     11
+
+# Subtask 4: no limits
+#ST:30
+20000   500     12
+40000   2000    13
+70000   10000   14
+90000   30000   15
+100000  100000  16

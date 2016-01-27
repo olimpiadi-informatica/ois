@@ -1,0 +1,30 @@
+# N     Q       S
+
+# Subtask 1: Esempi
+#ST:10
+#COPY: testo/regali.input0.txt
+#COPY: testo/regali.input1.txt
+
+# Subtask 2: N,Q <= 10
+#ST:20
+2       1       2
+6       10      3
+8       5       4
+9       8       5
+10      10      6
+
+# Subtask 3: N <= 100
+#ST:40
+30      10      7
+60      100     8
+80      5       9
+90      50      10
+100     100     11
+
+# Subtask 4: no limits
+#ST:30
+500     100     12
+2000    50      13
+5000    10      14
+8000    50      15
+10000   100     16

@@ -1,0 +1,5 @@
+memory_limit: 256
+name: regali
+time_limit: 1.0
+title: Regali gemelli
+token_mode: infinite
