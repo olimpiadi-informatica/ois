@@ -12,7 +12,7 @@ int unescape(int N, char S[]) {
 }
 
 
-#define MAXN 100010
+#define MAXN 1000000
 
 char S[MAXN];
 
