@@ -1,0 +1,100 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Giorgio ha appena ottenuto una borsa con cui pu\`o andare a visitare una qualunque universit\`a straniera. Il viaggio di andata e ritorno gli verr\`a rimborsato a patto di non prendere pi\`u di $K$ voli in totale, Giorgio vuole quindi sfruttare questa occasione per accumulare pi\`u \emph{miglia} possibile sulla sua carta fedelt\`a \emph{Alimpiadi}!
+	
+	La compagnia aerea \emph{Alimpiadi} effettua $M$ tratte (unidirezionali) che collegano un totale di $N$ aereoporti. Ciascuna tratta ha un suo valore in miglia, e non \`e detto che la tratta dall'aeroporto $X$ all'aeroporto $Y$ abbia lo stesso valore della tratta dall'aeroporto $Y$ all'aeroporto $X$ (o che entrambe queste tratte esistano). Inoltre, non \`e garantito che prendendo solo i voli della \emph{Alimpiadi} sia possibile raggiungere qualunque aeroporto.
+	
+	Aiuta Giorgio calcolando quante miglia al massimo pu\`o accumulare effettuando un percorso di \emph{esattamente} $K$ voli che parta e ritorni dalla sua Torino (la citt\`a numero $0$)!
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{miglia.c}, \texttt{miglia.cpp}, \texttt{miglia.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int vola(int K, int N, int M, int da[], int a[], int V[]);|\\
+\hline
+Pascal & \verb|function vola(K, N, M: longint; var da, a, V: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $K$ rappresenta il numero di voli che Giorgio deve prendere.
+  \item L'intero $N$ rappresenta il numero di aeroporti collegati dalla \emph{Alimpiadi}.
+  \item L'intero $M$ rappresenta il numero di diverse tratte effettuate dalla \emph{Alimpiadi}.
+  \item Gli array \texttt{da}, \texttt{a} e \texttt{V}, indicizzati da $0$ a $M-1$, contengono rispettivamente gli aeroporti di partenza e di arrivo e il valore in miglia di ciascuna delle tratte.
+  \item La funzione dovrà restituire il massimo numero di miglia accumulabili, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da $M+1$ righe. La prima riga contiene i tre interi $K$, $N$, $M$. Le successive $M$ righe contengono ciascuna i tre interi \texttt{da[$i$]}, \texttt{a[$i$]}, \texttt{V[$i$]} separati da uno spazio.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $2 \le K \le 100$.
+	\item $2 \le N \le 1000$.
+	\item $2 \le M \le 10\,000$.
+	\item $0 \le \texttt{V[$i$]} \le 100\,000$ per ogni $i=0\ldots N-1$.
+	\item $0 \le \texttt{da[$i$]}, \texttt{a[$i$]} \le N-1$ e $\texttt{da[$i$]} \neq \texttt{a[$i$]}$ per ogni $i = 0 \ldots M-1$.
+	\item Possono esistere pi\`u tratte che collegano esattamente gli stessi aeroporti, possibilmente con valore in miglia diverso.
+	\item Esiste almeno un percorso chiuso di $K$ voli che parte dall'aeroporto $0$.
+	\item I percorsi possono passare pi\`u volte per le stesse tratte e per gli stessi aeroporti.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $K \le 3$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [20 punti]}: $K \leq 20$ e ogni aeroporto ha \emph{al pi\`u due} voli in uscita.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: $\texttt{V[$i$]} \le 1$ per ogni $i=0\ldots N-1$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [20 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{miglia.input0.txt}{miglia.output0.txt}%
+\exmpfile{miglia.input1.txt}{miglia.output1.txt}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, sono possibili i due percorsi 0 -- 1 -- 2 -- 0 -- 1 -- 2 -- 0 -- 1 -- 2 -- 0 oppure \linebreak 0 -- 1 -- 2 -- 1 -- 2 -- 1 -- 2 -- 1 -- 2 -- 0, ma il secondo offre il guadagno in miglia migliore:\\[2mm]
+\begin{figure}[H]%
+\centering\includegraphics{asy_miglia/fig1.pdf}%
+\end{figure}
+Nel \textbf{secondo caso di esempio}, il percorso seguito (nonch\'e l'unico accettabile) è 0 -- 1 -- 2 -- 8 -- 0:\\[2mm]
+\begin{figure}[H]%
+\centering\includegraphics{asy_miglia/fig2.pdf}%
+\end{figure}

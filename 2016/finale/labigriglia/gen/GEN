@@ -1,0 +1,44 @@
+# N     M      T     S
+
+# T = 0   no veleno
+# T = 1   random (likely risolvibile)
+# T = 2   random (likely non risolvibile)
+# T = 3   muri alternati
+# T = 4   dfs-based
+
+# Subtask 1: Esempi
+#ST:10
+#COPY: testo/labigriglia.input0.txt
+#COPY: testo/labigriglia.input1.txt
+
+# Subtask 2: niente veleno
+#ST:10
+17      13     0     2
+1       100    0     3
+999     1      0     4
+1000    1000   0     5
+
+# Subtask 3: min(N, M) = 1
+#ST:35
+1       13     1     61
+13      1      1     697  # to kill dont-look-back
+76      1      2     7
+999     1      4     8
+1       1000   2     9
+1000    1      4     10
+
+# Subtask 4: N, M <= 10
+#ST:20
+#COPY: testo/labigriglia.input2.txt
+4       5      1     12
+10      8      3     13
+5       10     2     14
+10      10     1     15
+
+# Subtask 5: no limits
+#ST:25
+50      50     1     16
+100     200    1     17
+600     800    3     18
+1000    1000   4     19
+1000    1000   2     20

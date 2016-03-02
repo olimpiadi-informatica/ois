@@ -1,0 +1,10 @@
+9 3
+anello
+barca
+calamaro
+caldaia
+cantina
+carrucola
+cartella
+dinosauri
+energia

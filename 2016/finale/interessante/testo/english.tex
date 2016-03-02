@@ -1,0 +1,99 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Giorgio is now studying the \emph{interesting codes}, that is, sequences of $N$ digits 0 or 1 such that for any possible ratio $x = 1, \ldots, 10$ and starting value $i = 0, \ldots, N-3x-1$, the digits in the positions given by the corresponding arithmetic progression $(i,i+x,i+2x,i+3x)$ \emph{are not all equal to each other}. For example, the following 10-digit codes are interesting:
+	\begin{center}
+	\texttt{0001001000\\
+	0001100011\\
+	1010110111}
+	\end{center}
+	While these are not:
+	\begin{center}
+	\texttt{1011101011\\
+	1000010110\\
+	1101000100}
+	\end{center}
+	because of the arithmetic progressions $(i,x)$ respectively $(0,3)$, $(1,1)$, $(2,2)$. How many interesting codes with $N$ digits and containing exactly $K$ digits equal to 1 there exist?
+
+\Implementation
+You shall submit exactly one file having extension \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Among the attachments of this task you will find a template (\texttt{interessante.c}, \texttt{interessante.cpp}, \texttt{interessante.pas}) with a sample incomplete implementation.
+\end{warning}
+
+If you use the template, you'll need to implement the following function:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int conta(int N, int K);|\\
+\hline
+Pascal & \verb|function conta(N, K: longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+Where:
+\begin{itemize}[nolistsep]
+  \item $N$ is the total number of digits.
+  \item $K$ is the number of digits equal to 1.
+  \item The function shall return the number $R$ of interesting codes with $N$ digits containing $K$ ones, which will be printed to the output file.
+\end{itemize}
+
+\InputFile
+File \inputfile{} consists of a single line containing integers $N$, $K$.
+
+\OutputFile
+File \outputfile{} consists of a single line containing the answer to this problem.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le K \le N \le 2000$.
+	\item $N$ e $K$ sono tali per cui $NR \le 7\,000\,000$.
+\end{itemize}
+
+\Scoring
+Your program will be tested against several test cases grouped in subtasks.
+In order to obtain a subtask's score, your program needs to correctly solve all of its test cases.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Sample test cases.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [25 punti]}: $N \leq 22$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [25 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [20 punti]}: No limits.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{interessante.input0.txt}{interessante.output0.txt}%
+\exmpfile{interessante.input1.txt}{interessante.output1.txt}%
+\end{example}
+
+
+\Explanation
+In the \textbf{first sample test case}, the only interesting code considered is \texttt{1}.\\[2mm]
+In the \textbf{second sample test case}, the corresponding interesting codes are:
+\begin{center}
+	\texttt{00010010\\
+	00011000\\
+	00100100\\
+	01001000}
+\end{center}

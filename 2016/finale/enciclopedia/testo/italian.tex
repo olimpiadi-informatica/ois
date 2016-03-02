@@ -1,0 +1,104 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Giorgio è sempre stato appassionato di enciclopedie. Nella sua vasta collezione si trovano alcune delle più rare enciclopedie esistenti. L'enciclopedia più famosa di sempre è probabilmente l'undicesima edizione dell'Enciclopedia Britannica. Ovviamente, Giorgio ha tutti e $29$ i volumi:
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.92\textwidth]{britannica.jpg}
+  \caption*{\emph{Encyclopaedia Britannica} - undicesima edizione \\ \scriptsize (\href{http://creativecommons.org/licenses/by-sa/3.0}{CC BY-SA 3.0} via Wikimedia Commons)}
+\end{figure}
+
+Giorgio ha deciso di creare una nuova enciclopedia che (al posto delle parole) utilizzi i \emph{nomi dei task} delle Olimpiadi di Informatica. La ``definizione'' di ogni termine sarà una dettagliata spiegazione della soluzione del task relativo. Ad esempio, alla voce ``poldo'', Giorgio scriverà una spiegazione dettagliata del problema ``La dieta di Poldo'' delle \emph{selezioni regionali 2004} delle Olimpiadi di Informatica.
+
+Sul dorso di ciascun volume va scritta un'\emph{indicazione} di quali termini si troveranno al suo interno. Ai fini di questo task, per un dato volume che inizia con una parola $p$ e finisce con una parola $q$, definiremo tale indicazione come la coppia $(p^\star, q^\star)$ \emph{pi\`u corta possibile} e che soddisfa i seguenti criteri. Innanzitutto $p^\star$ deve essere un prefisso della parola $p$ che \emph{non} è prefisso di $q$, $q^\star$ un prefisso della parola $q$ che \emph{non} è prefisso di $p$. Se una di queste due cose non dovesse essere possibile (ad esempio con $p = $ ``ciao'' e $q = $ ``ciaone'', avremmo $q^\star = $ ``ciaon'' mentre $p^\star$ non esiste) allora diremo che il prefisso inesistente è impostato uguale all'intera parola (nell'esempio: $p^\star = p$).
+
+Per esempio, se il primo e l'ultimo task contenuti nell'$i$-esimo volume fossero rispettivamente \texttt{caldaia} e \texttt{carrucola}, allora nel dorso dell'$i$-esimo volume sarebbe necessario scrivere \texttt{CAL-CAR}. In questo modo, se cercassimo il task \texttt{cantina}, sapremmo di doverlo andare a prendere dal volume $i$-esimo.
+
+La coppia $(p^\star, q^\star)$ per\`o dovrà anche rispettare un ulteriore criterio: il prefisso $p^\star$ dovrà anche \emph{non} essere prefisso dell'ultima parola $q$ dell'eventuale volume precedente, ed il prefisso $q^\star$ dovrà anche \emph{non} essere prefisso della prima parola $p$ dell'eventuale volume successivo.
+
+Per esempio, se il volume $(i+1)$-esimo cominciasse con \texttt{cartella}, sarebbe necessario cambiare l'indicazione \texttt{CAL-CAR} del volume $i$-esimo con \texttt{CAL-CARR} per evitare ambiguità. Allo stesso modo, se \texttt{calamaro} fosse l'ultima parola del volume $(i-1)$-esimo, allora sarebbe necessario cambiare \texttt{CAL-CARR} con \texttt{CALD-CARR}.
+
+Giorgio ha una lista di $N$ nomi dei task di tutte le scorse edizioni delle Olimpiadi di Informatica (è garantito che tutti i nomi sono diversi), e ha già deciso il numero $K$ di volumi che comporranno la sua enciclopedia (è garantito che $N$ è divisibile per $K$). Aiuta Giorgio a decidere le indicazioni da stampare sul dorso di ciascun volume in modo che (nel frattempo che le spiegazioni dettagliate di ciascun task vengono preparate) possa almeno prenotare le $K$ copertine dal suo artigiano di fiducia.
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{enciclopedia.c}, \texttt{enciclopedia.cpp}, \texttt{enciclopedia.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare le seguenti funzioni:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \begin{tabular}[x]{@{}@{}}\verb|void rilega(int N, int K, char* parole[]);|\\ \verb|void volume(char* S);|\end{tabular}\\
+\hline
+Pascal & \begin{tabular}[x]{@{}@{}}\verb|procedure rilega(N, K: longint; var parole: array of ansistring);|\\ \verb|procedure volume(var S: ansistring);|\end{tabular}\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di task che finiranno nell'enciclopedia.
+  \item L'intero $K$ rappresenta il numero di volumi dai quali l'enciclopedia sarà composta.
+  \item L'array \texttt{parole}, indicizzato da $0$ a $N-1$, contiene i nomi dei task.
+  \item La funzione non restituirà alcun valore, ma dovrà bensì richiamare $K$ volte la funzione \texttt{volume} per stampare l'indicazione di un volume sul file di output.
+  \item Il parametro $S$ della funzione \texttt{volume} è l'indicazione da stampare sul dorso del volume. Deve essere composta da due gruppi di lettere alfabetiche maiuscole separati da un carattere ``\texttt{-}'' nel mezzo. Tali gruppi di lettere devono essere ``lessicograficamente crescenti'', ovvero, il primo gruppo deve essere lessicograficamente inferiore del secondo.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da $N+1$ righe. La prima riga contiene due interi $N$ e $K$ separati da spazio. Le seguenti $N$ righe contengono le parole da inserire nell'enciclopedia, una parola per riga.
+
+\OutputFile
+Il file \outputfile{} è composto da $K$ righe contenenti le indicazioni da far stampare sul dorso dei volumi dell'enciclopedia olimpica.
+
+\pagebreak
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+  \item $4 \le N \le 10\,000$.
+  \item $K$ \`e un divisore proprio di $N$ (quindi $1 \le K < N$).
+  \item Gli $N$ nomi sono composti da soli caratteri alfabetici minuscoli: niente spazi.
+  \item Gli $N$ nomi vengono forniti già ordinati lessicograficamente e senza ripetizioni.
+  \item $1 \le |\mathtt{parola[i]}| \le 30$ per ogni $i=0\ldots N-1$. Ovvero la lunghezza di ciascuna parola è $\le 30$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [40 punti]}: $K = 2$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [20 punti]}: $N \le 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{enciclopedia.input0.txt}{enciclopedia.output0.txt}%
+\exmpfile{enciclopedia.input1.txt}{enciclopedia.output1.txt}%
+\exmpfile{enciclopedia.input2.txt}{enciclopedia.output2.txt}%
+\end{example}

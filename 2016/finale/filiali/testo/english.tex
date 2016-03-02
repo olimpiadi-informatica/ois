@@ -1,0 +1,87 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	The \emph{OIS Enterprise} is planning to open $F$ new branches, each of them chosen from a pool of $N$ possible cities. Each of the cities is located beside to the \emph{Sun Highway}, at a distance of $K_i$, $i=0,\ldots N$ kilometers from the starting point of the highway. Given a possible choice for the branches, we define its \emph{balancing} has the minimal distance between any two branches chosen (where the distance between two cities is calculated as the difference of the relative $K_i$, $K_j$).
+
+	What is the maximum possible balancing for a choice of $F$ branches among the $N$ given cities?
+
+\Implementation
+You shall submit exactly one file having extension \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Among the attachments of this task you will find a template (\texttt{filiali.c}, \texttt{filiali.cpp}, \texttt{filiali.pas}) with a sample incomplete implementation.
+\end{warning}
+
+If you use the template, you'll need to implement the following function:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int apri(int N, int F, int K[]);|\\
+\hline
+Pascal & \verb|function apri(N, F: longint; var K: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+Where:
+\begin{itemize}[nolistsep]
+  \item $N$ is the number of cities considered.
+  \item $F$ is the number of branches to be opened.
+  \item \texttt{K} is an array indexed from $0$ to $N-1$, containing the kilometers corresponding to each city.
+  \item The function shall return the best possible balancing for a choice of $F$ branches, which will be printed to the output file.
+\end{itemize}
+
+\InputFile
+File \inputfile{} consists of two lines. Line $1$ contains integers $N$, $F$. Line $2$ contains integers $K_i$ separated by spaces.
+
+\OutputFile
+File \outputfile{} consists of a single line containing the answer to this problem.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $2 \le F \le 1000$.
+	\item $1 \le N \le 1\,000\,000$.
+	\item $0 \le K_i \le K_{i+1} < 2^{31}$ per ogni $i=0\ldots N-1$.
+\end{itemize}
+
+\Scoring
+Your program will be tested against several test cases grouped in subtasks.
+In order to obtain a subtask's score, your program needs to correctly solve all of its test cases.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Sample test cases.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [10 punti]}: $F = 3$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [10 punti]}: $F = 4$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [10 punti]}: $F \le 7$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [20 punti]}: $N, F \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 6} [20 punti]}: $N \leq 5000$.
+  \item \textbf{\makebox[2cm][l]{Subtask 7} [20 punti]}: No limits.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{filiali.input0.txt}{filiali.output0.txt}%
+\exmpfile{filiali.input1.txt}{filiali.output1.txt}%
+\end{example}
+
+
+\Explanation
+In the \textbf{first sample test case}, the branches are opened in the first and last city.\\[2mm]
+In the \textbf{second sample test case}, two branches are opened in the first and last city, while the third one can be opened either in the second or third city.

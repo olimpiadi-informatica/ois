@@ -1,0 +1,5 @@
+memory_limit: 512
+name: labigriglia
+time_limit: 2.0
+title: Labigriglia
+token_mode: infinite

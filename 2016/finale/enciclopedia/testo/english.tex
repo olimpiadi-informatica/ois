@@ -1,0 +1,103 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+Giorgio has always been a fan of encyclopedias. Among his vast collection, some of the rarest encyclopedias in existence can be found. The most famous encyclopedia to ever be printed is probably the eleventh edition of the Encyclopaedia Britannica. Obviously, Giorgio owns all $29$ volumes of it:
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.95\textwidth]{britannica.jpg}
+  \caption*{\emph{Encyclopaedia Britannica} - eleventh edition \\ \scriptsize (\href{http://creativecommons.org/licenses/by-sa/3.0}{CC BY-SA 3.0} via Wikimedia Commons)}
+\end{figure}
+
+Giorgio has decided to create his own new encyclopedia. Instead of words, this ``Olympic Encyclopaedia'' will use the \emph{names of the tasks} given during the previous editions of the Italian Olympiads in Informatics. The ``definition'' of each term will actually be a detailed tutorial for solving the corresponding task. For example, in the entry for ``poldo'', Giorgio will write a detailed tutorial for solving the ``La dieta di Poldo'' task from the \emph{regional selection 2004} of the Olympiads.
+
+The spine of each volume contains an \emph{indication} of which words can be found on the inside. For the purposes of this task, for a given volume that starts with a word $p$ and ends with a word $q$, we'll define such indication as a pair $(p^\star, q^\star)$ \emph{of minimal length} that satisfies the following criteria. First of all, $p^\star$ must be a prefix of word $p$ that \emph{is not} a prefix of $q$, and $q^\star$ must be a prefix of word $q$ that \emph{is not} a prefix of $p$. If one or both conditions is impossible (e.g. with $p = $ ``ciao'' and $q = $ ``ciaone'', we have $q^\star = $ ``ciaon'' but $p^\star$ doesn't exist) then we'll say that those prefixes are set equal to the entire word (in the given example: $p^\star = p$).
+
+For example, if the first and last word of the $i$-th volume are respectively \texttt{caldaia} and \texttt{carrucola}, then the spine of the $i$-th volume will need to say \texttt{CAL-CAR}. In this way, if we're looking for the \texttt{cantina} task, we know that it will be inside the $i$-th volume.
+
+\pagebreak
+
+However, the pair will need to satisfy another additional criteria: the $p^\star$ prefix must also \emph{not} be a prefix of the previous volume's last $q$ word (if there's such volume), and the $q^\star$ prefix must also \emph{not} be a prefix of next volume's first $p$ word (if there's such volume).
+
+For example, if the $(i+1)$-th volume began with the word \texttt{cartella}, then we would need to replace the \texttt{CAL-CAR} indication of the $i$-th volume with \texttt{CAL-CARR} in order to avoid ambiguity. In the same way, if the $(i-1)$-th volume ended with the word \texttt{calamaro}, then we would need to change the \texttt{CAL-CARR} indication to \texttt{CALD-CARR}.
+
+Giorgio has a list of $N$ task names, one for each task in any past edition of the Olympiads (it's guaranteed that all task names are different), and he has already decided that the encyclopedia will be formed by $K$ volumes (it's guaranteed that $K$ divides $N$). Help Giorgio decide the indications to print on each volume's spine, so that he can order the $K$ covers from his favorite workshop.
+
+\Implementation
+You shall submit exactly one file having extension \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Among the attachments of this task you will find a template (\texttt{enciclopedia.c}, \texttt{enciclopedia.cpp}, \texttt{enciclopedia.pas}) with a sample incomplete implementation.
+\end{warning}
+
+If you use the template, you'll need to implement the following functions:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \begin{tabular}[x]{@{}@{}}\verb|void rilega(int N, int K, char* parole[]);|\\ \verb|void volume(char* S);|\end{tabular}\\
+\hline
+Pascal & \begin{tabular}[x]{@{}@{}}\verb|procedure rilega(N, K: longint; var parole: array of ansistring);|\\ \verb|procedure volume(var S: ansistring);|\end{tabular}\\
+\hline
+\end{tabularx}\end{center}
+Where:
+\begin{itemize}[nolistsep]
+  \item The integer $N$ is the number of task names that will end up in the encyclopedia.
+  \item The integer $K$ is the number of volumes that will form the encyclopedia.
+  \item The \texttt{parole} array, indexed from $0$ to $N-1$, contains the task names.
+  \item The function does not return any value, instead, it should call $K$ times the helper function \texttt{volume} to print the indication for a volume.
+  \item The $S$ parameter of the \texttt{volume} function is the indication that will be printed on the spine of the volume. It should be formed by two groups of lowercase alphabetic letters, and the groups should be separated by a ``\texttt{-}'' character. These groups of letters should be ``lexicographically increasing'', that is, the first group should be lexicographically smaller than the second one.
+\end{itemize}
+
+\InputFile
+File \inputfile{} consists of $N+1$ lines. The first line has two integers $N$ and $K$ separated by a space. The next $N$ lines have the words that Giorgio wants to put in the encyclopedia, one for each line.
+
+\OutputFile
+File \outputfile{} consists of $K$ lines containing the indications that must be printed on the spine of the Olympic Encyclopaedia's volumes.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+  \item $4 \le N \le 10\,000$.
+  \item $K$ strictly divides $N$ (hence $1 \le K < N$).
+  \item The $N$ names are formed by lowercase alphabetic characters only: no spaces.
+  \item The $N$ names will be provided in a lexicographically sorted order and without repetitions.
+  \item $1 \le |\mathtt{parola[i]}| \le 30$ for each $i=0\ldots N-1$. That is: the length of each word is $\le 30$.
+\end{itemize}
+
+\Scoring
+Your program will be tested against several test cases grouped in subtasks.
+In order to obtain a subtask's score, your program needs to correctly solve all of its test cases.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Sample test cases.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [40 punti]}: $K = 2$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [20 punti]}: $N \le 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: No limits.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{enciclopedia.input0.txt}{enciclopedia.output0.txt}%
+\exmpfile{enciclopedia.input1.txt}{enciclopedia.output1.txt}%
+\exmpfile{enciclopedia.input2.txt}{enciclopedia.output2.txt}%
+\end{example}

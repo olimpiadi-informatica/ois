@@ -1,0 +1,100 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Giorgio has just won a grant for travelling to any foreign university. The round trip will be completely reimbursed, providing it does not involve more than $K$ connections. Giorgio now wants to take profit of this trip to gather the highest possible amount of \emph{miles} on his \emph{Alimpiadi} fidelity card.
+	
+	The \emph{Alimpiadi} company has $M$ unidirectional routes connecting a total of $N$ airports. Each route has a mile value, which could be different to the value of any other route including other ones connecting exactly the same cities. Furthermore, not every airport could be reachable just by taking \emph{Alimpiadi} flights.
+	
+	What is the maximum amount of miles that Giorgio can gather at most, by taking a round trip made of \emph{exactly} $K$ flights, starting from and arriving to Torino (city number $0$)?
+
+\Implementation
+You shall submit exactly one file having extension \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Among the attachments of this task you will find a template (\texttt{miglia.c}, \texttt{miglia.cpp}, \texttt{miglia.pas}) with a sample incomplete implementation.
+\end{warning}
+
+If you use the template, you'll need to implement the following function:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int vola(int K, int N, int M, int da[], int a[], int V[]);|\\
+\hline
+Pascal & \verb|function vola(K, N, M: longint; var da, a, V: array of longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+Where:
+\begin{itemize}[nolistsep]
+  \item $K$ is the number of flights that Giorgio needs to take.
+  \item $N$ is the number of airports.
+  \item $M$ is the number of \emph{Alimpiadi} routes.
+  \item \texttt{da}, \texttt{a}, \texttt{V} are arrays indexed from $0$ to $M-1$, containing respectively the starting and ending airport, together with the mile value of each route.
+  \item The function shall return the maximum amount of miles that Giorgio can gather, which will be printed to the output file.
+\end{itemize}
+
+\InputFile
+File \inputfile{} consists of $M+1$ lines. Line $1$ contains integers $K$, $N$, $M$. The subsequent lines contain integers \texttt{da[$i$]}, \texttt{a[$i$]}, \texttt{V[$i$]} separated by spaces.
+
+\OutputFile
+File \outputfile{} consists of a single line containing the answer to this problem.
+
+\pagebreak
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $2 \le K \le 100$.
+	\item $2 \le N \le 1000$.
+	\item $2 \le M \le 10\,000$.
+	\item $0 \le \texttt{V[$i$]} \le 100\,000$ for all $i=0\ldots N-1$.
+	\item $0 \le \texttt{da[$i$]}, \texttt{a[$i$]} \le N-1$ and $\texttt{da[$i$]} \neq \texttt{a[$i$]}$ for all $i = 0 \ldots M-1$.
+	\item There could be different routes connecting exactly the same airports (and possibly with a different mile value).
+	\item There exists at least one round trip starting from airport $0$ and consisting of exactly $K$ flights.
+	\item Round trips can use the same route (and airports) more than once.
+\end{itemize}
+
+\Scoring
+Your program will be tested against several test cases grouped in subtasks.
+In order to obtain a subtask's score, your program needs to correctly solve all of its test cases.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Sample test cases.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $K \le 3$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [20 punti]}: $K \leq 20$ and every airport has \emph{at most 2} outbound flights.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [30 punti]}: $\texttt{V[$i$]} \le 1$ for all $i=0\ldots N-1$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [20 punti]}: No limits.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{miglia.input0.txt}{miglia.output0.txt}%
+\exmpfile{miglia.input1.txt}{miglia.output1.txt}%
+\end{example}
+
+
+\Explanation
+In the \textbf{first sample test case}, are possible both route 0 -- 1 -- 2 -- 0 -- 1 -- 2 -- 0 -- 1 -- 2 -- 0 and \linebreak 0 -- 1 -- 2 -- 1 -- 2 -- 1 -- 2 -- 1 -- 2 -- 0, and the second possibility gives the higher mile value:\\[2mm]
+\begin{figure}[H]%
+\centering\includegraphics{asy_miglia/fig1.pdf}%
+\end{figure}
+In the \textbf{second sample test case}, the only possible route is 0 -- 1 -- 2 -- 8 -- 0:\\[2mm]
+\begin{figure}[H]%
+\centering\includegraphics{asy_miglia/fig2.pdf}%
+\end{figure}

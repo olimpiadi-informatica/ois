@@ -1,0 +1,100 @@
+\usepackage{xcolor}
+\usepackage{afterpage}
+\usepackage{pifont,mdframed}
+\usepackage[bottom]{footmisc}
+
+\makeatletter
+\gdef\this@inputfilename{input.txt}
+\gdef\this@outputfilename{output.txt}
+\makeatother
+
+\newcommand{\inputfile}{\texttt{input.txt}}
+\newcommand{\outputfile}{\texttt{output.txt}}
+
+\newenvironment{warning}
+  {\par\begin{mdframed}[linewidth=2pt,linecolor=gray]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+
+	Giorgio sta ora studiando i \emph{codici interessanti}, che sono sequenze di $N$ cifre 0 o 1 tali che per ogni possibile ragione $x = 1, \ldots, 10$ e valore iniziale $i = 0, \ldots, N-3x-1$, le cifre nelle posizioni individuate dalla corrispondente progressione aritmetica $(i,i+x,i+2x,i+3x)$ \emph{non sono tutte uguali}. Per esempio, i seguenti codici di 10 cifre sono interessanti:
+	\begin{center}
+	\texttt{0001001000\\
+	0001100011\\
+	1010110111}
+	\end{center}
+	Mentre questi non lo sono:
+	\begin{center}
+	\texttt{1011101011\\
+	1000010110\\
+	1101000100}
+	\end{center}
+	per via delle progressioni aritmetiche $(i,x)$ rispettivamente $(0,3)$, $(1,1)$, $(2,2)$. Quanti sono i codici interessanti di $N$ cifre e che contengono esattamente $K$ cifre $1$ al loro interno?
+
+\Implementation
+Dovrai sottoporre esattamente un file con estensione \texttt{.c}, \texttt{.cpp} o \texttt{.pas}.
+
+\begin{warning}
+Tra gli allegati a questo task troverai un template (\texttt{interessante.c}, \texttt{interessante.cpp}, \texttt{interessante.pas}) con un esempio di implementazione da completare.
+\end{warning}
+
+Se sceglierai di utilizzare il template, dovrai implementare la seguente funzione:
+\begin{center}\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+C/C++  & \verb|int conta(int N, int K);|\\
+\hline
+Pascal & \verb|function conta(N, K: longint): longint;|\\
+\hline
+\end{tabularx}\end{center}
+In cui:
+\begin{itemize}[nolistsep]
+  \item L'intero $N$ rappresenta il numero di cifre totali.
+  \item L'intero $K$ rappresenta il numero di cifre che devono essere pari a $1$.
+  \item La funzione dovrà restituire il numero $R$ di codici interessanti di $N$ cifre contenenti $K$ cifre $1$, che verrà stampato sul file di output.
+\end{itemize}
+
+\InputFile
+Il file \inputfile{} è composto da un'unica riga contenente i due interi $N$ e $K$.
+
+\OutputFile
+Il file \outputfile{} è composto da un'unica riga contenente un unico intero, la risposta a questo problema.
+
+% Assunzioni
+\Constraints
+\begin{itemize}[nolistsep, itemsep=2mm]
+	\item $1 \le K \le N \le 2000$.
+	\item $N$ e $K$ sono tali per cui $NR \le 7\,000\,000$.
+\end{itemize}
+
+\Scoring
+Il tuo programma verrà testato su diversi test case raggruppati in subtask.
+Per ottenere il punteggio relativo ad un subtask, è necessario risolvere
+correttamente tutti i test relativi ad esso.
+
+\begin{itemize}[nolistsep,itemsep=2mm]
+  \item \textbf{\makebox[2cm][l]{Subtask 1} [10 punti]}: Casi d'esempio.
+  \item \textbf{\makebox[2cm][l]{Subtask 2} [20 punti]}: $N \leq 10$.
+  \item \textbf{\makebox[2cm][l]{Subtask 3} [25 punti]}: $N \leq 22$.
+  \item \textbf{\makebox[2cm][l]{Subtask 4} [25 punti]}: $N \leq 100$.
+  \item \textbf{\makebox[2cm][l]{Subtask 5} [20 punti]}: Nessuna limitazione specifica.
+\end{itemize}
+
+% Esempi
+
+
+\Examples
+\begin{example}
+\exmpfile{interessante.input0.txt}{interessante.output0.txt}%
+\exmpfile{interessante.input1.txt}{interessante.output1.txt}%
+\end{example}
+
+
+\Explanation
+Nel \textbf{primo caso di esempio}, l'unico codice interessante corrispondente \`e \texttt{1}.\\[2mm]
+Nel \textbf{secondo caso di esempio}, i codici interessanti corrispondenti sono:
+\begin{center}
+	\texttt{00010010\\
+	00011000\\
+	00100100\\
+	01001000}
+\end{center}
