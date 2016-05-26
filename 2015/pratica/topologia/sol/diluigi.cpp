@@ -66,7 +66,7 @@ void check_subnet() {
 }
 
 int main() {
-#ifdef EVAL
+#ifndef USE_STDIN
   ifstream fin ("input.txt");
   ofstream fout("output.txt");
 #else

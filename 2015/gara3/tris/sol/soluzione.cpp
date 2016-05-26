@@ -126,7 +126,7 @@ int main() {
     FILE *fr, *fw;
     int r, c;
 
-#ifdef EVAL
+#ifndef USE_STDIN
     fr = fopen("input.txt", "r");
     fw = fopen("output.txt", "w");
 #else

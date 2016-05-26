@@ -7,7 +7,7 @@ const int MAXVAL = 100000;
 bool presente[MAXVAL + 1];
 
 int main() {
-#ifdef EVAL
+#ifndef USE_STDIN
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif

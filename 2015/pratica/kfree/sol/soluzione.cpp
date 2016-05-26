@@ -4,7 +4,7 @@ int N, K;
 bool usable[100001];
 
 int main() {
-#ifdef EVAL
+#ifndef USE_STDIN
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif

@@ -7,7 +7,7 @@
  */
 #include <stdio.h>
 int main() {
-#ifdef EVAL
+#ifndef USE_STDIN
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif

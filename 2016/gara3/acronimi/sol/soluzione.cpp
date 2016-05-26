@@ -40,7 +40,7 @@ int acronimi(char A[], char S[]) {
 int main() {
     FILE *fr, *fw;
 
-#ifdef EVAL
+#ifndef USE_STDIN
     fr = fopen("input.txt", "r");
     fw = fopen("output.txt", "w");
 #else

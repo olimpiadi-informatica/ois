@@ -33,7 +33,7 @@ int main() {
     FILE *fr, *fw;
     int K, N, M, i;
 
-#ifdef EVAL
+#ifndef USE_STDIN
     fr = fopen("input.txt", "r");
     fw = fopen("output.txt", "w");
 #else
