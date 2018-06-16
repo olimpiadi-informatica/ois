@@ -1,0 +1,55 @@
+% autore: Giulio Carlassare
+
+\createsection{\Codice}{{\small{$\blacksquare$}} \normalsize Codice C++}
+\createsection{\SolN}{{\small{$\blacksquare$}} \normalsize Soluzione $O(n)$}
+
+\SolN
+
+Il problema può essere risolto \textit{''simulando''} il viaggio di Gabriele, avanzando fino a quando è necessario fare benzina.
+
+
+Si analizzino i distributori in ordine, controllando per ognuno se quello sucessivo rientra ancora nella distanza percorribile e può quindi essere raggiunto.\newline
+In caso positivo è possibile continuare a viaggiare; in caso contrario bisogna \textbf{fermarsi al distributore corrente}, perchè altrimenti la benzina finirebbe nel tragitto fino al prossimo.\newline
+Una volta effettuato il pieno si riparte con lo stesso metodo, ma considerando la posizione a cui ci siamo fermati come se fosse l'inizio del viaggio.\newline
+Un'eccezione si incontra all'ultimo distributore: è necessario controllare se è possibile arrivare alla fine del viaggio senza fermarsi. In caso negativo bisogna fermarsi per fare benzina.\newline
+Alla fine le fermate ai distributori saranno il numero minimo per arrivare alla distanza prestabilita.
+
+\textbf{Secondo caso di prova:}
+
+\begin{verbatim}
+Distanza massima con un pieno:	30
+Distanza da raggiungere:				100
+
+Distributori                     Inizio	  Fermate   Commenti
+
+1 31 33 38 62 69 93 97 98 99     0        0         Inizio del viaggio
+
+1 31 33 38 62 69 93 97 98 99     1        1         Bisogna fermarsi
+^                                                   (non si riesce ad arrivare al prossimo)
+1 31 33 38 62 69 93 97 98 99     31       2         Bisogna fermarsi
+  ^
+1 31 33 38 62 69 93 97 98 99     31       2         Si puo raggiungere il prossimo,
+     ^                                              si va anvanti
+1 31 33 38 62 69 93 97 98 99     38       3         Bisogna fermarsi
+        ^
+1 31 33 38 62 69 93 97 98 99     62       4         Bisogna fermarsi
+           ^
+1 31 33 38 62 69 93 97 98 99     69       5         Bisogna fermarsi
+              ^
+1 31 33 38 62 69 93 97 98 99     69       5         Si va avanti
+                 ^
+1 31 33 38 62 69 93 97 98 99     69       5         Si va avanti
+                 ^
+1 31 33 38 62 69 93 97 98 99     69       5         Si va avanti
+                    ^
+1 31 33 38 62 69 93 97 98 99     69       5         Si va avanti
+                       ^
+1 31 33 38 62 69 93 97 98 99     99       6         Bisogna fermarsi perchè altrimenti
+                          ^                         non si riesce ad arrivare a 100
+\end{verbatim}
+Sono state quindi necessarie \textbf{sei} fermate.
+Questo algoritmo ha complessità $O(n)$ ed è quello ottimo.
+
+\Codice
+
+\includegraphics{code.pdf}

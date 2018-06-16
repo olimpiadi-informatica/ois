@@ -1,0 +1,19 @@
+% autore: Andrea Pantieri
+
+\createsection{\SolRadLog}{{\small{$\blacksquare$}} \normalsize Una soluzione $O(\sqrt{N}*\log{N})$, efficiente}
+\createsection{\SolTrucco}{{\small{$\blacksquare$}} \normalsize Una soluzione con stessa complessità, ma con una variazione}
+\createsection{\CodeRadLog}{{\small{$\blacksquare$}} \normalsize Codice  $O(\sqrt{N}*\log{N})$ C++}
+\createsection{\CodePoca}{{\small{$\blacksquare$}} \normalsize Codice con variazione C++}
+\SolRadLog
+L'idea per risolvere questo problema è di provare tutte le basi da 2 fino a $\sqrt{N}$, estremi inclusi, con ciascun esponente e tenersi salvato la massima potenza <= a N.
+Le basi non possono superare $\sqrt{N}$, perchè la massima potenza che può rimanere entro il limite N è $\sqrt{N}^2$.
+\newline
+Questo algoritmo, visto che ripete un ciclo $\sqrt{N}$ volte ha una complessita $O(\sqrt{N}*\log{N})$.
+\newline
+\SolTrucco
+Un altro modo per risolvere il problema è osservare che nel caso peggiore, ovvero con N = 100 000, la potenza più piccola maggiore di N è $2^{17}$, perciò basta provare solo gli esponenti da 2 a 16 e per ciascuno di essi si provano tutte le basi finchè la potenza non supera N.
+\newline
+\CodeRadLog
+\includegraphics{codeEff}
+\CodePoca
+\includegraphics{codePoca}

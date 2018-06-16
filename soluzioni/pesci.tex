@@ -1,0 +1,31 @@
+% autore: Andrea Pantieri
+
+\createsection{\SolN}{{\small{$\blacksquare$}} \normalsize Una soluzione $O(N)$}
+\createsection{\SolNN}{{\small{$\blacksquare$}} \normalsize Soluzione $O(N^2)$}
+\createsection{\CodeN}{{\small{$\blacksquare$}} \normalsize Codice $O(N)$ C++}
+\createsection{\CodeNN}{{\small{$\blacksquare$}} \normalsize Codice $O(N^2)$ C++}
+\SolNN
+La prima idea, per risolvere il problema, è una \textbf{brute force}: continuare a percorrere l'array finchè non possono essere mangiati più pesci.
+Ogni volta si parte sempre dall'indice 0 arrivando fino alla fine e quando si verifica uno scontro togliamo dall'array il pesce che viene mangiato.\newline
+Ci fermeremo soltanto quando non si saranno verificati più scontri.
+\newline\newline\newline
+\textbf{Spiegazione del codice.}
+\newline\newline
+Teniamo salvati in due \textbf{vector} i valori delle dimensioni e delle direzioni dei pesci.
+Per capire se controllare di nuovo i vector, usiamo una variabile intera che, ogni volta verificatosi uno scontro la incrementiamo di 1.
+Se dopo il ciclo sarà uguale a 0, allora non è necessario ricontrollare i vector.
+La risposta finale al problema sarà la lunghezza di uno dei due vector.
+\newline
+\SolN
+Una intuizione per risolvere il problema con una complessità lineare, è quella di usare la struttura \textbf{stack}.
+La \textbf{stack}, in italiano \textit{pila}, è una struttura dati dinamica, nella quale i dati inseriti vengono posizionati in fondo e si può modificare solo l'ultimo elemento.\newline\newline
+L'idea è quella di inserire nella pila solo i pesci che vanno verso destra, con direzione = 0, e ogni volta che si incontra un pesce che va verso sinistra, si continua a controllare l'elemento in cima alla stack finchè o quest'ultima è vuota o il pesce in cima è di dimensione maggiore.\newline
+Se, invece, il pesce in cima ha dimensione minore allora quest'ultimo sarà mangiato..
+\newline\newline
+Ogni volta che si controlla la stack e questa diventa vuota, si deve incrementare di 1 una variabile, chiamata convenzionalmente \textit{sin}, dove si tiene salvato il valore dei pesci rivolti verso sinistra che rimangono in vita.\newline
+La risposta al problema sarà la \textbf{somma} tra la dimensione della stack, ovvero i pesci rimasti vivi che si muovono verso destra, e sin.
+\newpage
+\CodeNN
+\includegraphics{code1}
+\CodeN
+\includegraphics{code}

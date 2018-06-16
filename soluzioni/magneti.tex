@@ -1,0 +1,20 @@
+% autore: Giulio Carlassare
+
+\createsection{\Codice}{{\small{$\blacksquare$}} \normalsize Codice C++}
+\createsection{\SolN}{{\small{$\blacksquare$}} \normalsize Soluzione $O(n)$}
+
+Il problema chiede di fare in modo che, al termine dell'elaborazione, tutti i magneti siano ruotati nello \textbf{stesso verso}.
+
+\SolN
+
+Si può notare che sarà necessario girare \textbf{tutti e soli} i magneti che sono inizialmente posizionati in un certo verso.\newline
+Ad esempio si potranno girare tutti i $\mpm$ e farli diventare $\mmp$.\newline
+Dato che è richiesto il numero minimo di rotazioni, si dovrà contare il numero di magneti $\mpm$ e il numero di $\mmp$ e decidere ovviamente qual è il minimo.
+
+Si nota facilmente che avendo in tutto $N$ magneti, e $M$ magneti $\mpm$, quelli $\mmp$ saranno $N-M$.
+
+Questo algoritmo risolve il problema con complessità $O(N)$ ed è quello ottimo.
+
+\Codice
+
+\includegraphics{code.pdf}

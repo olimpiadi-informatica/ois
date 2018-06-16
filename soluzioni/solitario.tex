@@ -1,0 +1,28 @@
+% autore: Carlo Buccisano
+
+\createsection{\CodiceDP}{{\small{$\blacksquare$}} \normalsize Codice C++ (DP): }
+\createsection{\CodiceEsp}{{\small{$\blacksquare$}} \normalsize Codice C++ (Bruteforce): }
+\createsection{\Esponenziale}{{\small{$\blacksquare$}} \normalsize Soluzione Esponenziale}
+\createsection{\SolDP}{{\small{$\blacksquare$}} \normalsize Soluzione Dinamica}
+\newcommand{\tab}{\hspace{30px}}
+
+Il problema chiede di calcolare il massimo numero di "X" che si può inserire in una griglia $N \times M$ in modo tale da non realizzare mai tris, ovvero 3 (o più) "X" consecutive in orizzontale, verticale o diagonale. Si analizza prima una soluzione bruteforce esponenziale, che poi si potrà ottimizzare attraverso la programmazione dinamica top-down.\newline
+
+\Esponenziale
+
+Per realizzare una bruteforce, che quindi prova tutti i casi possibili e tiene traccia del massimo, si può pensare che in ogni casella può essere messa o non messa la X. Ovviamente nel momento in cui viene inserita la X bisognerà controllare che non si stiano realizzando tris. La complessità è $O(2^{N \cdot M})$  dunque quando $N \times M > 20$ la soluzione sarà troppo lenta. La soluzione esponenziale risolve i primi 4 subtask, totalizzando 90 punti su 100. \newline
+
+\CodiceEsp
+\colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=.8]{codiceEsp.pdf}}}
+
+\SolDP
+
+L'osservazione cardine per ridurre la complessità del problema, e riuscire quindi a realizzare una dinamica top down, è questa:\newline
+Quando si inserisce una X in una casella generica $(i, j)$ si deve controllare che non realizzi un tris. Questa condizione, però, dipende solo dalle X che sono state inserite nella riga attuale e nelle due precedenti, e non dall'intera griglia. Dunque, anche se si è riempita la parte sovrastante della griglia in modo diverso, è sufficiente che nella riga attuale e nelle due precedenti ci siano esattamente le stesse X di prima e si avrà lo stesso risultato calcolato in precedenza.
+Detto questo è facile capire che lo \texttt{stato} della Dp è \texttt{ (Numero riga, Numero colonna, Riga attuale, Riga precedente, Riga prima della precedente) }.
+Per rappresentare le righe si possono utilizzare i \texttt{bitmask}. I bitmask sono interi a 32 bit dove ogni bit può essere $0$, spento, o $1$, acceso. Il bit nella posizione $i$ del bitmask sarà $1$ se in quella posizione si è inserita la X, o $0$ altrimenti. 
+Considerando che nella funzione ricorsiva non si fa altro che provare a mettere o non mettere la X, quindi $O(1)$, e che vi sono $O(N \cdot M \cdot 2^{3M} )$ stati, la complessità finale è $O(N \cdot M \cdot 2^{3M} )$, che permette di risolvere completamente il problema.\newline
+N.B. : per ridurre maggiormente la complessità sia come tempo sia  come spazio, se M>N si scambi N con M, dal momento che il problema è simmetrico rispetto ad essi.\newline
+
+\CodiceDP
+\colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=.8]{codiceDP.pdf}}}

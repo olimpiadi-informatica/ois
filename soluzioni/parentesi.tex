@@ -1,0 +1,58 @@
+% autore: Giulio Carlassare
+
+\createsection{\Codice}{{\small{$\blacksquare$}} \normalsize Codice C++}
+\createsection{\SolNQ}{{\small{$\blacksquare$}} \normalsize Soluzione $O(n^2)$}
+\createsection{\SolN}{{\small{$\blacksquare$}} \normalsize Soluzione $O(n)$}
+\newcommand{\tab}{\hspace{15px}}
+
+Per risolvere il problema dobbiamo controllare che ad ogni parentesi aperta ne corrisponda una chiusa dello stesso tipo.\newline
+Ad esempio l'espressione \texttt{(<>)} è corretta mentre \texttt{[(])} non lo è.
+\SolNQ
+Una soluzione semplice e abbastanza immediata consiste nell'eliminare mano mano le coppie di parentesi aperta-chiusa adiacenti.\newline
+\textbf{Esempio}\newline
+
+\texttt{
+`<({}[])>'\tab$\Rightarrow$\tab`<([])>'\tab$\Rightarrow$\tab`<()>'\tab$\Rightarrow$\tab`<>'\tab$\Rightarrow$\tab `\ '}
+
+
+Questo algoritmo ha complessità $O(n^2)$ ed è sufficiente a risolvere il problema.\newline
+Tuttavia è possibile risolverlo in modo più efficiente.
+
+\SolN
+Si riduca il problema considerando tutte le parentesi come se fossero dello stesso tipo (ad esempio tonde). Ora si può utilizzare una variabile \texttt{conta}: inizialmente vale $0$, poi scorrendo l'espressione verrà incrementata per ogni parentesi aperta e decrementata per ogni parentesi chiusa.\newline
+Se al termine \texttt{conta==0} l'espressione è corretta. È necessario però controllare anche che durante la scansione dell'espressione \texttt{conta} non scenda mai sotto lo $0$: in questo caso ci sarebbero più parentesi chiuse che aperte.\newline
+\newline
+Questo però non basta a risolvere il problema originale, che presenta quattro tipi diversi di parentesi. C'è bisogno di un ``contenitore'' per ricordare quante e quali parentesi aperte sono state già analizzate. La dimensione di questo contenitore corriponderà alla variabile \texttt{conta} utilizzata in precedenza.\newline
+La struttura dati che calza a pennello in questa situazione è lo stack (pila).\newline
+Ogni volta che si trova una parentesi aperta la si mette in pila, mentre per le parentesi chiuse si toglie l'ultimo elemento dello stack. Queste operazioni equivalgono a in/de-crementare \texttt{conta}. In questo caso però bisogna tenere conto del tipo delle parentesi, quindi prima di eliminarne una bisogna controllare che quella aperta e chiusa siano dello stesso tipo.\newline
+Anche qui è necessario controllare che lo stack non sia vuoto prima di eliminare un elemento (\texttt{conta} non deve mai essere minore di 0).\newline
+Alla fine della scansione lo stack deve essere vuoto, altrimenti l'espressione è \texttt{malformata}.\newline
+\newline
+\textbf{Esempio}
+\begin{verbatim}
+stack:              Lo stack è inizialmente vuoto
+espr:   <({})
+
+stack:  <           Si aggiunge allo stack (aperta)
+espr:   <({})
+        ^
+stack:  <(          Si aggiunge allo stack
+espr:   <({})
+         ^
+stack:  <({         Si aggiunge allo stack
+espr:   <({})
+          ^
+stack:  <(          È chiusa e dello stesso tipo dell'ultima letta
+espr:   <({})       quindi si toglie dallo stack
+           ^
+stack:  <           È chiusa e dello stesso tipo dell'ultima letta
+espr:   <({})       quindi si toglie dallo stack
+            ^
+Sono rimasti elementi nello stack quindi l'espressione è malformata.
+\end{verbatim}
+
+Siccome ogni elemento viene analizzato una sola volta l'algoritmo ha complessità $O(n)$.
+
+\Codice
+
+\includegraphics{code}

@@ -1,0 +1,31 @@
+% autore: Vincenzo Pandolfo
+
+\createsection{\Nquadra}{{\small{$\blacksquare$}} \normalsize Due soluzioni $O(N^2)$} 
+\createsection{\Lineare}{{\small{$\blacksquare$}} \normalsize Due soluzioni $O(N)$}
+Il problema chiede di trovare il numero minimo di trampolini su cui saltare per arrivare al tappetone, ovvero una qualsiasi posizione successiva all'ultimo trampolino.
+
+\Nquadra
+Un'idea a cui si può arrivare facilmente è quella di provare ricorsivamente ogni trampolino raggiungibile dalla posizione corrente. In questo modo si proveranno tutte le possibili sequenze di trampolini e si potrà selezionare la sequenza migliore. Questa soluzione ha però una complessità esponenziale ed è in grado di risolvere solo i casi di esempio.\\
+Una volta implementanta questa soluzione si noterà che ogni chiamata alla funzione ricorsiva per il trampolino $i$ restituirà la soluzione migliore al sottoproblema che ha $i$ come posizione iniziale. \\È abbastanza chiaro a questo punto che la soluzione esponenziale può essere migliorata mediante l'utilizzo della \textit{programmazione dinamica top-down} memorizzando per ogni sottoproblema la soluzione migliore trovata in modo da non doverla ricalcolare ad ogni chiamata alla funzione ricorsiva.\\
+Avendo al più $N$ sottoproblemi (uno per ogni possibile posizione) e al massimo $N$ stati da visitare per ognuno di essi ne deriva che la complessità di questa soluzione è pari a $O(N^2)$, sufficiente a risolvere i primi 3 subtask.
+
+Un'altra idea interessante è quella di modellare il problema come un \textit{DAG}, cioè un grafo aciclico diretto. I nodi saranno i trampolini ed il tappetone, mentre per ogni nodo ci saranno degli archi diretti verso i trampolini raggiungibili. Dalla figura è facile notare come eseguendo una semplice visita in ampiezza sul grafo sia possibile trovare la lunghezza della sequenza migliore. \\
+Avendo al massimo $N^2$ archi e sapendo che la complessità della BFS è $O(E)$ dove E rappresenta il numero di archi, ne deriva che la complessità di questa soluzione è anch'essa pari ad $O(N^2)$.
+
+--Inserire immagine di un grafo di questo problema colorato dall'esecuzione della BFS--
+
+\Lineare
+Per ottenere il punteggio massimo è però necessario implementare una soluzione con complessità lineare. Ci sono due approcci fondamentali per farlo: dal punto di vista dei trampolini e dal punto di vista di chi salta.
+
+Per il primo approccio l'idea è quella di segnare, per ogni trampolino, la distanza dall'inizio in un array di dimensione $N+1$, cioè $N$ trampolini più il tappetone.\\Si inizializza la distanza del primo trampolino a $0$ e quindi, per ogni trampolino $i$, ad ogni trampolino $j$ raggiungibile da $i$ verrà assegnata una distanza pari a $distanza[i] + 1$. Siccome la prima distanza assegnata ad ogni posizione sarà sicuramente la minore, bisogna anche memorizzare la posizione dell'ultimo trampolino a cui abbiamo assegnato una distanza. In questo modo si eviterà di riassegnare la stessa distanza o addirittura peggiorarla.\\Utilizzando questa ``frontiera'', si faranno al più $N$ assegnazioni in tempo costante, per una complessità pari dunque a $O(N)$.
+
+Il secondo approccio, invece, si basa sul fatto che è sempre possibile trovare una soluzione ottima tale che ad ogni passo il trampolino seguente sia quello che permette di arrivare il più lontano possibile al passo successivo.
+Per verificare l'esistenza di una tale soluzione, si dimostrerà che è possibile trasformare una qualsiasi soluzione ottima in una soluzione che abbia la proprietà che si è definito utilizzando lo stesso numero di trampolini.
+
+Sia $s$ una soluzione ottima, cioè una sequenza minima di trampolini.\\
+Se $s$ non ha la proprietà che cerchiamo, allora ci sarà almeno un trampolino $x$ in $s$ che abbia come successivo un trampolino $y'$ per cui $y' + E[y'] < y + E[y]$ dove $y'$ e $y$ sono entrambi trampolini raggiungibili da $x$ (cioè compresi tra $x + 1$ e $x + E[x]$) e $y$ è il trampolino massimo (cioè che per ogni trampolino $i$ raggiungibile da $x$, $y + E[y] \geq i + E[i]$)\\
+Siccome $y + E[y] > y' + E[y']$, il trampolino $z$ successivo a $y'$ sarà  sicuramente raggiungibile anche da $y$.\\Poiché abbiamo un numero finito di trampolini, è possibile effettuare questa correzione un numero finito di volte in modo da creare una nuova soluzione ottima $t$ che abbia la nostra proprietà.
+
+L'implementazione è molto semplice. Avendo dimostrato l'esistenza di una soluzione che ad ogni passo scelga il trampolino che permette di andare il più lontano possibile, semplicemente partendo dalla posizione iniziale $0$ si andrà ogni volta al trampolino massimo e si conteranno i trampolini visitati. Per evitare di controllare più volte gli stessi trampolini, utilizziamo anche qui una frontiera: se un trampolino era raggiungibile anche al passo precedente, allora sarà sicuramente peggiore del trampolino massimo che cerchiamo. Dovendo fare al più $N$ controlli, si evince che la complessità di questa soluzione è $O(N)$. In codice:
+
+\colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=.8]{codice_lineare.pdf}}}

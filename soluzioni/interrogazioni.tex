@@ -1,0 +1,27 @@
+% autore: Andrea Pantieri
+
+\createsection{\Code}{{\small{$\blacksquare$}} \normalsize Codice C++}
+Inanzitutto si nota che le domande possono essere scelte in qualsiasi ordine, non influenzando la soluzione del problema, e quindi per trovare più velocemente la  scontentezza minima possiamo \textbf{ordinare in modo crescente} l'array D, calcolando di volta in volta la differenza tra la domanda con difficoltà maggiore e quella minore.\newline
+Dopo aver ordinato ci basta trovare la \textbf{differenza minima} tra le difficoltà di una \textbf{domanda e quella K volte successiva}, in modo tale da riuscire a individuare le K domande con il minor valore di scontentezza.\newline\newline
+Per fare ciò, occorre impostare un ciclo. \newline
+Per evitare possibili errori di memoria, il segnale di errore 11, è necessario limitare il numero di iterazioni del ciclo.\newline
+Normalmente si è soliti far ripetere il ciclo N volte, però, considerando che nel corpo di quest'ultimo si andranno a vedere in lettura anche gli elementi ad indici superiori ad i, è necessario che si ripeta \textit{N - K + 1} volte.\newline
+In ciasuna iterazione calcolare la  differenza tra il valore corrente (di indice \textit{i}) e quello con indice = \textit{i + K - 1} e salvare ogni volta la scontentezza minima calcolata, in una variabile (di nome \textit{minimo}), mantendo solo la più piccola.\newline
+Con questa procedura si usa una soluzione che è in grado di risolvere e restare nei limiti di memoria e tempo dei vari subtask.
+\newline\newline
+Ricapitolando:
+\begin{verbatim}
+    Ordinare array D in modo crescente
+    
+    Creare la variabile minimo e inizializzarla ad un valore molto elevato
+    
+    Eseguire un ciclo da 0 fino a N - K + 1
+        Differenza fra D[i + K - 1] e D[i]
+        
+        Se differenza < minimo
+            minimo = differenza
+    
+    Restituire minimo
+\end{verbatim}
+\Code
+\includegraphics{code}

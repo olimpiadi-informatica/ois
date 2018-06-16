@@ -1,0 +1,31 @@
+% autore: Andrea Pantieri
+
+\createsection{\Code}{{\small{$\blacksquare$}} \normalsize Codice C++}
+L'idea per risolvere questo problema è controllare la stringa \textit{remix} da sinistra verso destra, utilizzando un singolo ciclo, e aggiungere alla stringa \textit{testo} solo le parti che non sono gli \textit{effetti sonori}.\newline
+Questa procedura ha una complessità O(N), perciò è la più efficiente.
+Per spiegare meglio, se si trova una sottostringa uguale a "PaH" o a "TuNZ" non bisogna aggiungerla, altrimenti sì.\newline
+Tra due parole è sempre presente uno o più effeti sonori ad indicare che lì ci va aggiunto uno spazio, per capire quando aggiungerne uno si necessita dell'utilizzo di una variabile booleana ad indicare la fine di una parola corretta e l'inizio di un effetto sonoro.\newline
+Occorre tenere salvato in una variabile l'indice corrente in qui bisogna scrivere la successiva lettera.\newline\newline
+Dopo aver fatto queste considerazioni il codice risulta semplice da implementare:\newline
+\begin{verbatim}
+    Variabile per l'indice corente, inizializzata a 0, dove scrivere (letteraCorrente)
+    Variabile per la gestione degli spazi, inizializzata a false (spazio)
+    
+    Ciclo da 0 a N - 1
+        Se non c'è un effetto sonoro
+            Aggiungo la lettera attuale a testo
+            Incremento di 1 letteraCorrente
+            Assegno a spazio il valore true
+        Altrimenti
+            Se la l'effetto sonoro è "PaH"
+                Aumento l'indice del ciclo di 2
+            Altrimenti
+                Aumento l'indice del ciclo di 3
+            
+            Se spazio è true
+                Aggiungo uno spazio a testo
+                Incremento di 1 letteraCorrente
+                Assegno a spazio il valore false
+\end{verbatim}
+\Code
+\includegraphics{code}

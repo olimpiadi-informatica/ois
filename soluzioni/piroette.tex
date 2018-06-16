@@ -1,0 +1,10 @@
+% autore: Luca Arnaboldi
+
+Dobbiamo trovare il massimo multiplo di 180 conoscendo le cifre da permutare. Scomponendo 180 in fattori primi otteniamo $2^2\cdot3^2\cdot5$ che possiamo riscrivere come $10\cdot9\cdot2$. Affinché un numero sia divisibile per 10, deve terminare per 0, quindi il problema si riduce a trovare il massimo divisibile per 18 usando le cifre date nell'array \verb|G[]|, tolto uno 0 (è garantito che ci sai dato che tra le assunzioni è garantito che il problema abbia sempre soluzione).
+Per avere un multiplo di 9 è sufficiente la somma delle cifre del numero sia a sua volta un multiplo di 9, ma ciò accade sicuramente dato che il problema ha sempre soluzione, quindi non ci resta che fare in modo che il numero sia divisibile per due, condizione vera quando termina con una cifra pari.
+
+Per ottenere il massimo numero dobbiamo ordinare le cifre in ordine decrescente, escludendo la minima cifra pari che andrà al posto della cifra delle decine. Quindi prima di effettuare il \verb|sort|, cercheremo la minore cifra pari, ad eccezione di uno zero che andrà in fondo. Se invece ci sono più zeri, soltanto uno deve essere escluso dal trovare il minimo numero pari. Si definisce quindi una variabile booleana che vale inizialmente 1, e diventerà 0 appena viene trovato uno 0. Trovato il minimo pari, lo si sostituisce con 0, in modo che con il \verb|sort| viene spostato in fondo, di fianco all'altro 0, e dopo aver ordinato lo si sostituisce con il valore originale.
+
+A questo punto è sufficiente eguagliare l'array iniziale modificato con l'array della risposta. La soluzione contiene un \verb|sort|, quindi la complessità è $O\left ( N \log N\right )$.
+
+Il codice C++:

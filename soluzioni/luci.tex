@@ -1,0 +1,153 @@
+% autore: Andrea Ciprietti
+
+\createsection{\NKLenta}{{\small{$\blacksquare$}} \normalsize Una soluzione $O(N \cdot K)$ poco efficiente}
+\createsection{\NQuadroLenta}{{\small{$\blacksquare$}} \normalsize Una soluzione $O(N^2)$}
+\createsection{\NlogN}{{\small{$\blacksquare$}} \normalsize Un algoritmo più efficiente, con complessità $O(N \log N)$}
+\createsection{\sqrtNlogNVeloce}{{\small{$\blacksquare$}} \normalsize Soluzioni $O(\sqrt N)$ e $O(\log N)$}
+
+    Questo problema può, ad una prima lettura, apparire decisamente più ostico di quel che è in realtà. Ciò si deve prevalentemente alla presenza di parametri inutili e ai limiti sulle dimensioni dell'input apparentemente esagerati.
+    
+    Attraverso una serie di osservazioni, tuttavia, è possibile ricondursi a un problema equivalente molto più semplice, una cui soluzione efficiente può essere implementata in poche righe di codice. \\
+    
+    \NKLenta
+    
+    Un primo approccio alla risoluzione del problema (quello che in effetti è il più intuitivo, ma anche il più complesso dal punto di vista dell'implementazione) consiste nella simulazione diretta della situazione descritta nel testo.
+    Di seguito mostriamo l'implementazione dell'algoritmo in \texttt{C++}.
+    
+    \colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=.8]{cip1.pdf}}}
+    
+    \begin{comment}
+        \begin{lstlisting}[language=C++]
+const int MAXN = 1000001;
+
+// Definiscono lo stato delle lampadine e degli interruttori
+bool luci[MAXN], interruttori[MAXN];
+
+int spegni(int N, int M, int K) {
+    // corrente contiene l'indice del prossimo interruttore premuto
+    int corrente = M, ans = 0;
+
+    for (int i = 1; i <= N; i++) {
+        // Preme l'interruttore corrente
+        interruttori[corrente] = true;
+        // Accende tutte le lampadine multiple di corrente
+        for (int j = corrente; j <= N; j += corrente)
+            luci[j] ^= true;
+        // Trova il K-esimo interruttore non premuto
+        for (int j = 0; i < N && j < K; j++) { 
+            corrente = (corrente % N) + 1;
+            while (interruttori[corrente])
+                corrente = (corrente % N) + 1;
+        }
+    }
+
+    // Conta le lampadine accese
+    for (int i = 1; i <= N; i++)
+        ans += !luci[i];
+
+    return ans;
+}
+        \end{lstlisting}
+    \end{comment}
+    
+    La complessità di questo algoritmo è $O(N \cdot K)$, dal momento che il ciclo \texttt{for} alla riga 11 compie $N$ iterazioni, ciascuna delle quali impiega un tempo lineare in $K$ per aggiornare l'interruttore (\texttt{for} a riga 18). In questo modo si possono ottenere i punti per i primi due SubTask.
+    
+    \NQuadroLenta
+    
+    La soluzione appena descritta può essere in parte ottimizzata -- in modo da riuscire a prendere quasi tutte le istanze del SubTask 3 -- notando che, nel computare il $K$-esimo interruttore non premuto, è sufficiente iterare $K \mod{N - i}$ volte, al posto delle precedenti $K$. Questo perché, dopo $N - i$ passaggi (ricordiamo che $i$ sono gli interruttori già premuti), si ritorna inevitabilmente all'ultimo interruttore non premuto che precede \texttt{corrente}.
+    
+    L'unico caso cui si deve prestare attenzione è quello in cui $K$ è multiplo di $N - i$: in questo caso, bisogna necessariamente iterare almeno $N - i$ volte.
+    
+    Non mostriamo il codice per questo algoritmo, la cui implementazione è lasciata come semplice esercizio al lettore.
+    
+    \NlogN
+    
+    Il prossimo passo consiste nell'osservare i due fatti seguenti:
+    \begin{enumerate}
+        \item Vengono sempre premuti tutti gli interruttori, ciascuno una e una sola volta (questo indipendentemente da $K$ ed $M$).
+        \item Lo stato finale di una lampadina dipende unicamente dal numero dei suoi cambiamenti di stato (in realtà, è sufficiente conoscerne la parità), non dall'ordine degli stessi.
+    \end{enumerate}
+    
+    Ci si rende dunque conto che i parametri $K$ ed $M$ sono del tutto ininfluenti per la soluzione, la quale è univocamente determinata una volta noto il valore di $N$.
+    
+    Il problema si riduce dunque a trovare il numero di lampadine accese, una volta che sono stati premuti tutti gli interruttori. La principale differenza con l'algoritmo precedente sta nel fatto che questa volta simuleremo la pressione degli interruttori in modo lineare (dal primo all'ultimo), portando a termine la ``ricerca del prossimo'' in tempo costante.
+    
+    Riportiamo di seguito l'implementazione della sola funzione \texttt{spegni}:
+    
+    \colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=.8]{cip2.pdf}}}
+    
+    \begin{comment}
+        \begin{lstlisting}[language=C++]
+int spegni(int N) {
+    int ans = 0;
+    
+    // Preme l'i-esimo interruttore
+    for (int i = 1; i <= N; i++)
+        // Inverte tutte le lampadine multiple di i
+        for (int j = i; j <= N; j += i)
+            luci[j] ^= true;
+
+    for (int i = 1; i <= N; i++)
+        ans += !luci[i];
+
+    return ans;
+}
+        \end{lstlisting}
+    \end{comment}
+    
+    Le lampadine da aggiornare dopo aver premuto l'interruttore $i$ sono esattamente $\displaystyle \left \lfloor \frac N i \right \rfloor$ (con $\lfloor x \rfloor$ si indica la funzione parte intera di $x$, cioè il più grande intero $\leq x$). Questo implica che il numero di operazioni compiute dall'algoritmo è proporzionale a \[N + \left \lfloor \frac N 2 \right \rfloor + \left \lfloor \frac N 3 \right \rfloor + \dots + 1 \approx N \left ( 1 + \frac 1 2 + \frac 1 3 + \dots + \frac 1 N \right )\]
+    Senza entrare nel dettaglio, possiamo assumere che la somma $\displaystyle 1 + \frac 1 2 + \frac 1 3 + \dots + \frac 1 N$ vada a $\ln (N)$ per $N$ che tende a $+ \infty$\footnote{Per approfondimenti, si veda \href{https://docs.google.com/file/d/0Bz82dCddeD8ieVZyUU9VMVI5bjA/view}{\textcolor{blue}{qui}} (pag. 6) e \href{http://en.wikipedia.org/wiki/Euler\%E2\%80\%93Mascheroni_constant}{\textcolor{blue}{qui}}.} (in generale, comunque, è sempre minore di $\log_2 N + 1$). La complessità dell'algoritmo è dunque $O(N \log N)$, sufficiente per ottenere full score in tutti i SubTask eccetto l'ultimo.
+    
+    \sqrtNlogNVeloce
+    
+    L'osservazione che permette di risolvere completamente il problema è la seguente: non è importante considerare quali interruttori cambiano lo stato di una certa lampadina, né quanti di essi; è sufficiente sapere se il loro numero è pari o dispari.
+
+\begin{wrapfigure}{r}{8.6cm}
+\vspace*{-.1cm}
+\mdfdefinestyle{tight}{
+	leftmargin=0cm,rightmargin=0cm,%
+	innerleftmargin=0cm,innerrightmargin=0cm,roundcorner=0pt, %
+	innertopmargin=0cm, innerbottommargin=10px, backgroundcolor=white!90!black
+}
+    \begin{minipage}{8.5cm}
+    	\FrameSep0pt
+    	\begin{mdframed}[style=tight]
+    		\begingroup
+    		\setlength{\fboxsep}{0pt}%  
+    		\colorbox{black!50!white}{\makebox[8.48cm]{\textcolor{white}{\parbox[c][.8cm][c]{\linewidth}{\centering\textsf{APPROFONDIMENTO}}}}}
+    		\endgroup
+    		\hrule\vspace*{2mm}
+    		\hspace{.03\linewidth}\begin{minipage}{.94\linewidth}
+    La chiave dell'algoritmo risolutivo è l'osservazione che i numeri aventi un numero dispari di divisori sono tutti e soli i quadrati perfetti. Ne forniamo, di seguito, una semplice dimostrazione.
+    
+    Si consideri un intero positivo $n$. Sia $d$ un suo divisore positivo strettamente minore di $\sqrt n$: allora, anche $n/d$ è un divisore di $n$, questa volta strettamente maggiore di $\sqrt n$. Ne consegue che vi è una corrispondenza biunivoca tra i divisori $< \sqrt n$ e quelli $> \sqrt n$. Se $n$ non è un quadrato perfetto, è possibile partizionare l'insieme dei suoi divisori positivi in quello dei divisori maggiori della radice, e in quello dei divisori minori di essa (dal momento che $\sqrt n$, non essendo intero, non può neppure dividere $n$). Poiché i due insiemi hanno la stessa cardinalità (ossia hanno lo stesso numero di elementi), $n$ ha un numero pari di divisori.
+    
+    Se, al contrario, $n$ è un quadrato perfetto, allora tra i suoi divisori è presente anche $\sqrt n$. Quest'ultimo, tuttavia, non ha un ``corrispondente'' come accade per gli altri divisori, poiché $n / \sqrt n$ è uguale a $\sqrt n$ stesso. Ne consegue che, in questo caso, il numero dei divisori è dispari.
+    
+    
+    		\end{minipage}
+    	\end{mdframed}
+    \end{minipage}
+\end{wrapfigure}
+    
+    Infatti, lo stato della lampadina $i$-esima viene invertito tante volte quanti sono i divisori (positivi) di $i$. È inoltre noto che un intero positivo ha un numero dispari di divisori se e solo se è un quadrato perfetto. Poiché una lampadina resta accesa quando viene accesa/spenta un numero pari di volte, risulta ovvio -- date le considerazioni precedenti -- che le lampadine che saranno accese al termine sono tutte e sole quelle il cui indice non è un quadrato.
+    
+    Il seguente algoritmo ha complessità $O(\sqrt N)$, il che è più che sufficiente per totalizzare il massimo dei punti.
+    
+    \colorbox{white}{\makebox[.48\textwidth][l]{\includegraphics[scale=.8]{cip3.pdf}}}
+    
+    \begin{comment}
+        \begin{lstlisting}[language=C++]
+int spegni(int N) {
+    int i;
+
+    for (i = 1; i * i <= N; i++);
+
+    return N - i + 1;
+}
+        \end{lstlisting}
+    \end{comment}
+    
+    Esiste anche una soluzione asintoticamente migliore, di complessità $O(\log N)$, che si ottiene implementando una ricerca dicotomica (\textit{binary search}) per il calcolo della radice. La lasciamo come esercizio per i lettori più audaci.
+    
+    ~

@@ -1,0 +1,48 @@
+% autore: Filippo Soldati
+
+\createsection{\casebycase}{{\small{$\blacksquare$}} \normalsize Una soluzione $O(N)$ con implementazione ``manuale'' di ogni lettera}
+\createsection{\somma}{{\small{$\blacksquare$}} \normalsize Una soluzione $O(N)$ che utilizza gli operatori dei char}
+\createsection{\funzioni}{{\small{$\blacksquare$}} \normalsize Una soluzione $O(N)$ che sfrutta funzioni standard}
+\casebycase
+È possibile utilizzare uno switch che controlli, caso per caso, a quale lettera minuscola/maiuscola corrisponda ciascun char dell'array e modificarla di conseguenza.
+
+Tuttavia, questa soluzione richiede di utilizzare un numero elevato di controlli, non è quindi molto efficiente e richiede di scrivere molte righe di codice per qualcosa che possiamo fare in modi molto più semplici.
+\somma
+Con un minimo di conoscenze di codici ASCII, è facile capire che la differenza tra i codici ASCII di una lettera maiuscola e della rispettiva minuscola sia costante: possiamo esprimere questo "offset" come $a$ - $A$. Inoltre, i codici ASCII delle lettere rispecchiano l'ordine alfabetico: avremo quindi dall'ASCII 65 all'ASCII 90 tutte le lettere maiuscole, da $A$ a $Z$, mentre dall'ASCII 97 all'ASCII 122 tutte le le minuscole da $a$ a $z$.
+Detto ciò, ci bastera sommare o sottrarre l'offset di cui abbiamo parlato prima da ciascun char dell'array, basandoci sull'intervallo al quale appartiene.
+\newline
+\newline
+\colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=1]{somme.pdf}}}
+\begin{comment}
+   \begin{lstlisting}[language=C++]
+void aggiusta(int N, char s[]) {
+	for (int i = 0; i < N; i++) {
+        char c = s[i];
+        if (c >= 'a' && c <= 'z')
+            s[i] = c - 'a' + 'A';
+        else if (c >= 'A' && c <= 'Z')
+            s[i] = c - 'A' + 'a';
+    }
+}
+    \end{lstlisting}
+\end{comment}
+\funzioni
+Con un minimo di conoscenze in più invece, è possibile reallizare una soluzione che utilizza alcune funzioni presenti nelle librerie standard.\newline
+Infatti, nella libreria \textbf{cctype} possiamo trovare quello che fa al caso nostro:\begin{itemize}
+\item \textbf{$char$ toupper}, che restituisce la versione maiuscola del char passato come parametro o il char stesso nel caso in cui questo non sia una lettera minuscola.
+\item \textbf{$char$ tolower}, che esegue l'inverso, restituendo la versione minuscola nel caso in cui questa dovesse esistere.
+\item\textbf{$bool$ islower}, che restituisce un booleano se il char ricevuto rappresenta una lettera minuscola.
+\end{itemize}
+Esiste anche la funzione \textbf{isupper} ma non sarà necessario utilizzarla: infatti, se il carattere che stiamo considerando non è una lettera minuscola, basterà allora utilizzare la funzione tolower anziché toupper, dato che essa modifica effettivamente il char restituito solo se esso rappresenta una lettera maiuscola; i caratteri diversi dalle lettere non verranno modificati in alcun caso.
+\newline\newline
+\colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=1]{funzioni.pdf}}}
+\begin{comment}
+   \begin{lstlisting}[language=C++]
+#include <cctype>
+
+void aggiusta(int N, char S[]){
+    for(int i = 0; i < N; i++)
+        S[i] = islower(S[i]) ? toupper(S[i]) : tolower(S[i]);
+}
+    \end{lstlisting}
+\end{comment}

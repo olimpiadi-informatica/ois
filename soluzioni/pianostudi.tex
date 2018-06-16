@@ -1,0 +1,83 @@
+% autore: William Di Luigi
+
+\createsection{\Brute}{{\small{$\blacksquare$}} \normalsize Soluzione bruteforce}
+\createsection{\VeloceUnweighted}{{\small{$\blacksquare$}} \normalsize Una soluzione efficiente (ma corretta solo se tutti i corsi hanno lo stesso valore)}
+\createsection{\Quadratica}{{\small{$\blacksquare$}} \normalsize Una soluzione quadratica}
+
+Abbiamo in input un insieme $C$ contenente tutti i corsi erogati, supponiamo di produrre (eliminando zero o più corsi da $C$) un nuovo insieme $S$ (che sarà quindi un sottinsieme di $C$) tale che, per ogni coppia di corsi $a, b \in S$ si ha che $a$ e $b$ sono \emph{compatibili}, ovvero non si sovrappongono. Il nostro obiettivo è trovare, tra tutti i possibili sottinsiemi $S$, quello che massimizza la somma dei crediti dei suoi corsi.
+
+Naturalmente, potrebbero esistere due (o più) sottinsiemi di $C$ che hanno la stessa somma, tuttavia la soluzione è sempre univoca dal momento che il testo del problema ci richiede solo di trovare la somma dei crediti di un sottoinsieme massimale, non i corsi che ne fanno effettivamente parte.
+
+\Brute
+Una soluzione intuitiva è quella in cui iteriamo su \emph{tutti} i possibili sottinsiemi (ad esempio partendo dal sottinsieme vuoto $S = \varnothing$ che non contiene alcun corso, fino ad arrivare al sottinsieme $S = C$ che contiene tutti i corsi). Per ogni sottinsieme verifichiamo che questo non contenga corsi sovrapposti e, in tal caso, teniamo conto della somma dei suoi corsi (magari aggiornando la somma migliore incontrata ``fin ora''). L'unico problema di questo approccio è che il numero di sottinsiemi di un insieme $C$ è pari a $2^{|C|}$, dove con $|C|$ indichiamo la cardinalità di $C$ (ovvero il numero di corsi che contiene).
+
+\begin{warning}
+Ci sono diversi modi per convincersi che il numero di sottinsiemi di un insieme $C$ sia pari a $2^{|C|}$. Un modo per farlo è seguire un ragionamento induttivo: dividiamo il ``gruppo di sottinsiemi di $C$'' in due gruppi più piccoli \emph{disgiunti} (ovvero che non condividono alcun sottinsieme). Ad esempio, fissato un elemento $c \in C$:
+\begin{enumerate}
+\item Il gruppo di tutti i sottinsiemi di $C$ che \emph{contengono} il corso $c$.
+\item Il gruppo di tutti i sottinsiemi di $C$ che \emph{non contengono} il corso $c$.
+\end{enumerate}
+
+A questo punto è sufficiente mostrare, usando l'ipotesi induttiva, che ciascuno dei due gruppi contiene $2^{|C|-1}$ sottinsiemi (è una buona idea provare a farlo come esercizio) e concludere la dimostrazione osservando che $2^{|C|-1}+2^{|C|-1}=2^{|C|}$. $\blacksquare$
+
+Un altro modo per dimostrarlo è ragionare sui numeri in base $2$ (ovvero i numeri binari). Immaginiamo di avere, ad esempio, una variabile senza segno \texttt{unsigned super int} (il nome è inventato!) che, invece di avere i ``soliti'' 32 o 64 bit, ha esattamente $|C|$ bit. Osserviamo che, se vogliamo, possiamo associare un sottoinsieme di $C$ a ciascun valore che questa variabile può assumere, ad esempio: se l'$i$-esimo bit fosse $1$ allora Gabriele sceglierebbe l'$i$-esimo corso dall'insieme $C$, se invece il bit fosse $0$ allora Gabriele non sceglierebbe quel corso. Quindi se avessimo il numero \texttt{1010101010...} allora Gabriele sceglierebbe ``un corso sì ed uno no''.
+
+È facile convincersi che in questo modo ``vediamo'' tutti i possibili sottinsiemi (tutti i bit a zero = nessun corso; tutti i bit a uno = tutti i corsi). È altrettanto facile vedere il nostro risultato a questo punto, dato che come sappiamo il valore massimo che una variabile \texttt{unsigned int} da $|C|$ bit può contenere è $2^{|C|}-1$. $\blacksquare$
+\end{warning}
+
+Consigliamo, anche solo come esercizio, di scrivere sia una soluzione ricorsiva (basata sul ragionamento induttivo) sia una soluzione iterativa (basata sul ragionamento con i numeri binari) che risolvano il problema tentando tutti i possibili sottoinsiemi. Chiaramente, essendo soluzioni con un tempo di esecuzione \textit{esponenziale} nel numero di corsi, i subtask per cui possiamo aspettarci di eseguire ``stando nei tempi'' sono quelli fino al \textbf{Subtask 2} (i quali ci garantiscono $N \le 10$).
+
+\VeloceUnweighted
+Per cercare un algoritmo che non richieda di iterare su tutti i sottinsiemi dei corsi, consideriamo una versione semplificata del problema. Studiamo il caso in cui tutti i corsi hanno lo stesso peso in termini di crediti: in questo caso il problema si riduce a cercare di massimizzare il numero di corsi scelti. In altre parole, vogliamo massimizzare la cardinalità di un sottinsieme i cui corsi non si sovrappongono.
+
+L'idea che c'è dietro a questa soluzione è che, dal momento che non esistono corsi ``più importanti'' di altri, siamo abbastanza sicuri che non ha senso scegliere un certo corso se, ad esempio, comincia prestissimo e dura tantissimo.
+
+\begin{center}
+\asyinclude{asy_pianostudi/intervals1.asy}
+\end{center}
+
+Intuitivamente, per seguire il maggior numero possibile di corsi, ci verrebbe da adottare la strategia ``preferisci, tra i corsi che puoi ancora scegliere, \textit{quello che dura di meno}'', che sembra funzionare bene:
+
+\begin{center}
+\asyinclude{asy_pianostudi/intervals2.asy}
+\end{center}
+
+Purtroppo però questa strategia si dimostra sbagliata piuttosto facilmente. Infatti in quest'altro caso, per scegliere il corso più corto, ci troviamo a dover rinunciare a ben due corsi compatibili tra loro:
+
+\begin{center}
+\asyinclude{asy_pianostudi/intervals3.asy}
+\end{center}
+
+\subsection*{Una strategia greedy ottimale}
+Un'altra strategia che sembra funzionare piuttosto bene (gestisce correttamente il caso in cui non conviene scegliere il corso più corto) è la strategia ``preferisci, tra i corsi che puoi ancora scegliere, \textit{quello che finisce prima}''. Diversamente della precedente, questa strategia ci garantisce di ottenere una soluzione ottima.
+
+\begin{warning}
+È bene dimostrare formalmente che questa strategia è ottimale. Supponiamo di dover fare la nostra prima scelta: guardiamo la lista dei possibili corsi, scegliamo quello che finisce per primo, chiamiamolo $x$. Adesso \textit{supponiamo per assurdo} che questa sia stata una cattiva scelta, vale a dire, \textit{esiste} una soluzione $S$ che riesce a prendere una quantità di corsi che non potremo mai raggiungere avendo scelto il corso $x$.
+
+Proviamo ad immaginare come è fatta questa ipotetica soluzione $S$. Guardiamo qual è, tra i corsi che prende, quello che finisce per primo: per ipotesi, sappiamo che non è $x$. Ma allora questo corso finisce ``più tardi'' rispetto a $x$ (o al massimo finiscono insieme), dal momento che noi avevamo esplicitamente scelto il corso che finiva per primo!
+
+Questo ci porta a fare un'importante osservazione: possiamo rimuovere da $S$ il ``suo'' corso che finisce per primo, e poi mettere $x$ al posto del corso appena rimosso. Possiamo farlo perché tutti gli altri corsi contenuti in $S$ saranno compatibili con $x$ (lo erano col corso che abbiamo rimosso, a maggior ragione lo saranno con $x$, che finisce prima!).
+
+Dal momento che abbiamo ottenuto una nuova soluzione $S^\star$ a partire da $S$ togliendole un corso e aggiungendole il nostro corso $x$, possiamo affermare che $|S^\star| = |S|$ quindi se $S$ era una soluzione ottima allora lo è anche $S^\star$. In definitiva, abbiamo contraddetto l'ipotesi per assurdo. $\blacksquare$
+
+Quiz per controllare di aver capito la dimostrazione: dobbiamo per forza scegliere il corso che finisce per primo? Supponiamo di avere una lista di corsi e di aver scelto \textit{quello che finisce per secondo} (e diciamo che questo si sovrappone a quello che finisce per primo): dobbiamo necessariamente cambiare questa scelta per ottenere una soluzione ottima?
+\end{warning}
+
+Ricapitolando, l'algoritmo sarà:
+\begin{enumerate}
+\item Ordina l'insieme dei corsi in base al tempo di ``fine''.
+\item Scorri da sinistra a destra prendendo ogni corso che non si sovrappone ai corsi già presi.
+\end{enumerate}
+
+Il tempo di esecuzione richiesto da questo algoritmo è $O(N \log N)$, tuttavia non sempre è garantito che i pesi dei corsi siano uguali. Combinando questa soluzione con la precedente (facendo un controllo sul valore di $N$ e decidendo se usare l'algoritmo esponenziale) possiamo risolvere fino al \textbf{Subtask 3}.
+
+\Quadratica
+Torniamo alla versione originale del problema in cui ogni corso ha un certo peso e in cui cerchiamo di massimizzare la somma dei pesi. È facile notare che la strategia ``preferisci, tra i corsi che puoi ancora scegliere, \textit{quello che finisce prima}'' non funziona più. Infatti, potrebbe esistere un corso che inizia prestissimo, dura tantissimo, però ha un valore talmente alto che conviene comunque sceglierlo:
+
+\begin{center}
+\asyinclude{asy_pianostudi/intervals4.asy}
+\end{center}
+
+TODO
+
+\textbf{Nota:} il problema che abbiamo appena risolto è molto famoso in letteratura, dove prende il nome di \emph{Activity selection problem}, o \emph{Weighted activity selection problem} nel caso in cui i corsi hanno un ``peso'' diverso in termini di crediti.

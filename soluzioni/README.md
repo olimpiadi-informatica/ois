@@ -1,0 +1,1 @@
+L'ideale sarebbe mettere su una specie di wiki dove tutti possono modificare. Magari va bene anche scrivere le soluzioni in markdown e metterle in topic appositi nel forum. Per il momento però c'è questa cartella, utile per evitare di perderci soluzioni contribuite da ex-partecipanti (sharelatex sembra non essere particolarmente immune al link-rot)

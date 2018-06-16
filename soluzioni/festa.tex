@@ -1,0 +1,11 @@
+% autore: Gabriele Farina
+
+Dato in input il grafo $G$ delle amicizie, si vuole determinare il più grande sottografo privo di foglie.
+
+La soluzione efficiente di questo problema si basa su questa unica, cruciale osservazione: se una persona è una foglia di $G$ o un nodo isolato, questa sicuramente non sarà invitata alla festa. In altre parole, dato $G$, possiamo subito scartare le foglie e i nodi isolati, in quanto queste sicuramente non appartengono al sottografo che stiamo cercando. 
+
+Possiamo allora determinare il sottografo a cui siamo interessati, continuando a strappare ricorsivamente tutte le foglie e i nodi isolati del grafo, finchè non ne rimangono più. Dal momento che non visitiamo ogni arco più di 2 volte, l'algoritmo è lineare nella dimensione del grafo in input, ovvero $O(N + M)$.
+
+\createsection{\Implementazione}{{\small{$\blacksquare$}} \normalsize Implementazione}
+\Implementazione
+\colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=.8]{code_festa.pdf}}}

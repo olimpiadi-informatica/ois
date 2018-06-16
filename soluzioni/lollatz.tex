@@ -1,0 +1,31 @@
+% autore: Luca Arnaboldi
+
+Il testo del problema indica i passaggi da eseguire per trovare la soluzione. Ripetendoli fino a quando non si troverà un multiplo di 10, si avrà il numero desiderato. Itereremo questi passaggi su un unica variabile, $N$.
+
+Dobbiamo ricavare l'ultima cifra di $N$. Per fare ciò è sufficiente prendere il resto della divisione per 10 di $N$, ovvero $N$ modulo 10. Ad esempio 5359 diviso 10 dà come risultato 535 resto 9, dove 9 è appunto l'ultima cifra del numero di partenza. Nel C++ esiste l'operazione modulo e si indica con il simbolo \%, seguendo l'esempio precedente 5359\%10=9. 
+
+Dopo il primo passaggio si ottiene sempre un numero pari, quindi dividendo per 2 non si hanno approssimazioni. Questo perchè se $N$ inizialmente è pari moltiplicandolo per un qualsiasi altro numero si ottiene un numero pari. Se invece $N$ è dispari significa che l'ultima cifra del numero è dispari, dato che la parità di un numero dipende soltanto dalla cifra delle unità. Sottraendo 1 ad un numero dispari si ha un numero certamente pari, quindi facendo il prodotto tra $N$ ed un numero pari, il numero che ne risulterà è pari.
+
+Per eseguire i passaggi fino a quando $N$ è divisibile per 10 si utilizza un ciclo while, dove la condizione è che $N$ modulo 10 sia diverso da 0. La complessità della soluzione dipende linearmente dal numero di passaggi eseguiti. Dato che $N$ iniziale è un quadrato perfetto, la cifra delle unità può essere soltanto: 0, 1, 5, 6, 4, o 9. Sfruttando il fatto che ai fini della soluzione conta soltanto l'ultima cifra del numero, discutiamo i casi singolarmente:
+\begin{itemize}
+		\item $0$: tutti i numeri che terminano per 0 sono già divisibili per 10, quindi non viene eseguita nessuna iterazione.
+		\item $1$: al primo passaggio $N$ viene moltiplicato per 0, si ricade quindi nel caso precedente.
+		\item $5$: se $N$ termina per 5 significa che è anche divisibile per 5. Con il primo step $N$ viene moltiplicato per 4, e diviso per 2, che equivale a dire che viene moltiplicato per 2. Si può quindi affermare che $N$ è divisibile sia per 2 che per 5, che è sufficente per dire che è anche divisibile per 10.
+		\item $6$: durante la prima iterazione $N$ viene moltiplicato per 5, si hanno quindi 2 casi: il numero è già divisibile per 10 oppure è divisibile per 5 (che equivale a dire che l'ultima cifra è 5), caso già discusso.
+
+	\item $4$: si moltiplica per 3 e si divide per 2. Ci sono 2 casi: l'ultima cifra è 1 oppure 6, entrambi casi già discussi.
+	
+	\item $9$: si moltiplica per 8 e si divide per 2 ottenendo 36. L'ultima cifra è un 6, che è un caso già discusso.
+\end{itemize}
+Si ottiene quindi la soluzione in al più tre passaggi, restando quindi ampiamente all'interno dei tempi richiesti.
+
+%Dato $N$ con un ciclo while si ripetono le seguenti due operazioni, finchè $N$ sarà congruo a 0 modulo 10:
+%\begin{itemize}
+%		\item $N$ è uguale al prodotto tra se stesso e $(N$ mod $10)-1$.
+%		\item $N$ è uguale alla metà di sé stesso.
+%\end{itemize}
+%Si nota facilmente che dopo la prima operazione $N$ è sempre pari, quindi dividendo per due non si avranno approssimazioni.
+
+Traducendo in codice quanto detto:
+
+\colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=.8]{codice.pdf}}}

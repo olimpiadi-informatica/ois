@@ -1,0 +1,11 @@
+% autore: Mirko Giacchini
+
+\createsection{\Codice}{{\small{$\blacksquare$}} \normalsize Codice C++}
+
+Per prima cosa dobbiamo costruire l'albero rappresentante l'organigramma dell'azienda (un albero è un grafo in cui ogni nodo, tranne la radice, ha un solo arco entrante. La radice non ha archi entranti mentre le foglie non hanno archi uscenti). 
+
+Per trovare la soluzione al problema dobbiamo contare quanti nodi figli hanno un valore di bravura superiore a quello dei loro genitori (diretti o indiretti). Possiamo usare una ricerca in ampiezza (o in profondità) partendo dalla radice dell'albero (il presidente dell'azienda) e per ogni nodo $n$ si ``licenziano'' i figli diretti aventi una bravura superiore a quella di $n$, questa soluzione non funziona quando un nodo ha bravura inferiore a quella del suo genitore diretto ma non a quella dei suoi genitori indiretti (vedi il secondo esempio a pagina 3). Si può facilmente notare che se un nodo $n$ ha una bravura inferiore a quella del suo genitore diretto $g$ e se $g$ non è stato ``licenziato'' allora la bravura di $n$ è inferiore anche a quella di tutti i suoi genitori indiretti. Nel caso in cui un nodo $n$ venga ``licenziato'', i figli di $n$ dovranno essere ``licenziati'' solo nel caso in cui abbiano una bravura superiore a quella del più vicino genitore indiretto non licenziato: per gestire questo caso, quando si ``licenzia'' un nodo si sostituisce il suo valore di bravura con quello del suo genitore, in questo modo il nodo conterrà il valore di bravura del più vicino genitore indiretto non ``licenziato''.
+
+Il problema può quindi essere risolto usando una BFS (o DFS) e ``licenziando'' ogni nodo con bravura superiore a quella del genitore diretto, quando si licenzia un nodo si incrementa un contatore e si sostituisce la bravura del nodo con quella del genitore.
+\Codice
+\colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=.8]{bfs.pdf}}} 

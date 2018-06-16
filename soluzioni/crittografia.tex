@@ -1,0 +1,17 @@
+% autore: Luca Arnaboldi
+
+La richiesta è di trovare l'inverso del numero $N$ e sommarlo al numero di partenza. Di conseguenza per risolvere il problema bisogna scrivere una procedura che inverta il numero.
+Una soluzione è quella di scomporre $N$ in cifre, scriverle su un array e scorrerlo in senso inverso da quello di scrittura per comporre il numero inverso di $N$. 
+
+La cifra delle unità di un numero è data dal resto della divisione per 10 del numero stesso. L'operazione su C o C++ si indica con $a\%b$, che restituisce l'ultima cifra verso destra di $a$. Per ogni cifra di $N$ si ricava l'ultima cifra, la si salva su un array partendo dall'indice 0, che chiameremo \textit{inverso}, poi divideremo $N$ per 10, in modo da escludere l'ultima cifra già letta. Una volta completata la scrittura su \textit{inverso}, lo leggeremo e ogni cifra salvata la moltiplicheremo per la corrispondente potenza di 10. Aggiungeremo il risultato parziale ad $N$, in modo che al termine del secondo ciclo \textit{for} $N$ sarà la somma del numero iniziale e del suo inverso.
+
+L'array è inizializzato in modo che la cifra delle unità di $N$ sia in 0, quella delle decine in 1 e così via. Nel secondo \textit{for} all'indice $i$ corrisponde il numero $10^{cifre-i-1}$, che va moltiplicato per \textit{inverso}[i].
+
+Per maggiore chiarezza prendiamo come esempio N=1234. Dopo il primo \textit{for} l'array risulterà [4,3,2,1]. Con il secondo invece otterremo $4000+300+20+1$ che è uguale a 4321, ovvero l'inverso di $N$. Aggiungendolo a 1234 otteniamo 5555, la risposta al problema in questo caso.
+
+Per trovare il numero di cifre di un intero si usa il logaritmo in base 10. Infatti $\log_{10} \left (N \right )+ 1$ è appunto il numero di cifre di N.
+
+Traducendo in codice tutto quanto detto:
+
+
+\colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=.8]{codice.pdf}}}

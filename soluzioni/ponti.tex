@@ -1,0 +1,41 @@
+% autore: Andrea Battistello
+
+\createsection{\Implementazione}{{\small{$\blacksquare$}} \normalsize Implementazione}
+\createsection{\Codice}{{\small{$\blacksquare$}} \normalsize Codice di esempio}
+
+Per risolvere questo problema cominciamo definendo il concetto di componente connessa. 
+
+Una \textit{componente connessa} C di un grafo è un insieme \textbf{massimale} di nodi tali per cui esiste almeno un percorso che collega ogni coppia di nodi appartententi a C. 
+
+Nel nostro caso, in modo abbastanza intuitivo, una componente connessa è formata da tutte le isole che si possono raggiungere partendo da un'isola qualsiasi con i ponti disponibili. 
+
+Per definizione, quindi, se due isole appartengono alla stessa componente connessa non c'è bisogno di costruire nessun ponte, pertanto se tutte le isole appartenessero ad un'unica componente la risposta è banalmente 0.
+
+
+Nel caso più generale in cui ci sono più componenti connesse, il problema diventa quello di capire come collegarle tra di loro.
+Se trattiamo ogni componente connessa come un super-nodo che contiene al suo interno tutti nodi di cui è composta, abbiamo che il numero minimo di ponti che servono per collegare tra di loro questi super-nodi è esattamente uguale al numero di super-nodi (componenti connesse) - 1. 
+
+Il problema diventa quindi quello di contare il numero di componenti connesse.
+
+\Implementazione
+
+L'idea per contare velocemente il numero di componenti connesse in un grafo è di iniziare dal nodo 1 e fare una visita in profondità (o in ampiezza) marchiando come visitati tutti i nodi che in qualche modo sono collegati con il nodo 1 (cioè tutti i nodi della componente connessa in cui appartiene il nodo 1). 
+
+Dopodiché, per ogni nodo successivo al primo ci possono essere due casi:
+\begin{itemize}
+\item \textbf{Il nodo è già stato visitato:}
+
+Questo vuol dire che questo nodo fa parte di una componente connessa già contata precedentemente, quindi lo ignoriamo e procediamo al prossimo nodo.
+
+\item \textbf{Il nodo non è stato visitato:}
+
+Abbiamo trovato una nuova componente connessa. Incrementiamo il nostro contatore ed esploriamo tutti i nodi a cui si può accedere partendo da questo nodo (marchiandoli come visitati). Procediamo poi al prossimo nodo.
+\end{itemize}
+
+Procedendo iterativamente per tutti i nodi del grafo otteniamo così il numero di componenti connesse in $O$($N$).
+
+\Codice
+
+
+
+\includegraphics[scale=1]{codice.pdf}

@@ -1,0 +1,38 @@
+% autore: Nicolò Mazzucato
+
+ \createsection{\N2Lenta}{{\small{$\blacksquare$}}                             \normalsize Una soluzione $O(N^2)$ }
+ 
+  \createsection{\NlogN}{{\small{$\blacksquare$}}                             \normalsize Una soluzione $O(NlogN)$ }
+   \createsection{\NLineare}{{\small{$\blacksquare$}}                             \normalsize Una soluzione $O(N)$ }
+ \N2Lenta
+ Una soluzione molto intuitiva può essere quella di partire da ogni punto dello strudel e prendere \textit{1, 2, 3, ...} fette consecutive, verificando ogni volta che la quantità di cannella sia almeno uguale alla quantità di mandorle nella porzione. Fatto questo si tiene conto della fetta di dimensione più grande.
+Si possono effettuare diverse ottimizzazioni a questo metodo, riuscendo comunque a superare al massimo i primi 3 testcase.
+
+\NlogN
+Per semplicità d'ora in avanti sostituiremo i due array riguardanti la quantità di cannella e mandorle in ogni fetta con un terzo, che chiameremo \textit{bonta} dove ad ogni posizione \textit{i} corrisponderà \textit{cannella[i]-mandorle[i]}.
+Il problema è ora ridotto al trovare una sequenza continua di valori all'interno del nostro array \textit{bonta} in cui la somma dei singoli elementi sia maggiore di zero.
+Per far questo possiamo aiutarci con le somme cumulate:
+creiamo un nuovo vettore \textit{sum} di dimensioni N, e lo riempiamo in modo tale che valga la proprietà:     \[sum[k] =  \sum_{i=0}^k bonta[i]\]
+
+Ora per trovare la somma degli elementi in un intervallo delimitato dagli indici \textit{i} e \textit{j con i $\le$ j} (escluso i)  basterà fare \textit{sum[j] - sum[i]}, ovvero sottrarre  alla somma di tutti gli elementi fino a \textit{j} (fine della sequenza), la somma di tutti gli elementi antecedenti a \textit{i} (inizio della sequenza).
+
+Ora possiamo notare facilmente che  la somma dei valori dell'array originario \textit{bonta} tra due indici \textit{i} e \textit{j con i $\le$ j} sarà 0 quando i due valori nel corrispettivo array \textit{sum} saranno uguali:
+ \[sum [j] = sum[i] \rightarrow sum[j] - sum[i] = 0\]
+Sarà maggiore di 0 quanto all'indice \textit{i}  di \textit{sum} c'è un valore minore che all'indice \textit{j}.
+Sfruttando questra prorietà riduciamo il problema al trovare una coppia di indici la cui distanza sia la maggiore (in quanto viene chiesto di trovare la fetta più lunga) e la loro differenza sia maggiore o uguale a 0 ( la quantità di cannella dev'essere almeno uguale alla quantità di mandorle).
+Un modo per trovare la risposta è considerare ogni coppia di indici, analogamente alla prima soluzione $O(N^2)$, procedimento troppo dispendioso in termini di tempo.
+Possiamo notare un'altra particolarità.
+Possiamo ridurre i possibili punti di partenza trovando dei candidati punti di partenza, attraverso i "minimi parziali". 
+Creiamo un vettore chiamato \textit{minimi\_parziali} e mettiamoci il primo elemento di \textit{sum}. Ora iteriamo su tutti i restanti elementi di \textit{sum}, inserendoli in \textit{minimi\_parziali} solo se minori dell'ultimo elemento contenuto.
+Perchè fare questo? Perchè in questo modo avremo una lista ordinata in modo decrescente di candidati punti di partenza; è semplice notare che non avrebbe senso considerare punti di inizio all'infuori di quelli nel vettore \textit{minimi\_parziali}, in quanto questi soddisfano la condizione di essere i minori in un dato intervallo. Se si dovesse scegliere un altro punto \textit{x} esterno alla lista, sarebbe facile dimostrare che prendere il primo punto in \textit{minimi\_parziali} con indice minore di \textit{x} migliorerebbe la soluzione, in quanto renderebbe l'intervallo più lungo, mantenendo un valore minore o uguale ad \textit{x}.
+Ora per ogni indice \textit{i} di \textit{sum} dovremo trovare il valore contenuto in \textit{minimi\_parziali} che sottratto a \textit{sum[i]} dia un valore maggiore o uguale a 0, più distante da \textit{i} . Per far questo possiamo avvalerci di una ricerca dicotomica all'interno dell'array \textit{minimi\_parziali}.
+Descrivendo brevemente il procedimento, dobbiamo trovare l'indice \textit{p} di partenza per l'indice \textit{d} di destinazione (indice che itererà su tutti gli elementi).
+Inizieremo stimando che il valore ricercato sia al centro dell'array \textit{minimi\_parziali}, e verificheremo la condizione che caratterizza la soluzione, ovvero se il valore \textit{sum[d]} $\ge$ \textit{sum[p]}. In caso affermativo avremo una possibile soluzione, ciò che dobbiamo verificare è se questa è migliorabile, attraverso lo stesso procedimento, cambiando l'intervallo di ricerca.
+
+\NLineare
+Prendendo spunto dalla soluzione precedente, ci si può rendere conto che si può effettuare lo stesso procedimento fatto con i punti di partenza, con i punti di destinazinoe della soluzione, con la differenza di trovare i massimi parziali, iniziando però dalla fine dell'array \textit{sum}.
+una volta fatto questo si avranno due vettori, con tutti i candidati punti di partenza e arrivo.
+Entrami saranno ordinati: i minimi saranno in ordine decrescente, e i massimi in ordine crescente.
+Ora si può effettuare un procedimento che può ricordare il \textit{merge} tra i due array, spostando semplicemente due indici, e tenendo conto della soluzione migliore.
+
+\colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=.73]{codice.pdf}}}

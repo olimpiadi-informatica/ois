@@ -1,0 +1,15 @@
+% autore: Luca Arnaboldi
+
+\createsection{\Codice}{{\small{$\blacksquare$}} \normalsize Codice C++}
+\createsection{\Implementazione}{{\small{$\blacksquare$}} \normalsize Implementazione}
+
+Il problema può essere ridotto a trovare il minimo cammino in un grafo non pesato che collega il vertice 1 al vertice $N$, con il vincolo di passare da almeno un vertice tra quelli presenti in una lista data.
+
+Per trovare il minimo cammino tra due nodi passante per un particolare vertice si può prima trovare il percorso minimo che collega il primo nodo al vertice per cui bisogna passare, e poi il minimo cammino che collega quest'ultimo al nodo finale.
+Trovando quindi il percorso minimo tra il vertice 1 e i supermercati, e ripetendo la stessa cosa partendo dal vertice $N$, si ricavano i percorsi minimi tra i vertici 1 ed $N$ passanti per ognuno dei supermercati.
+
+La ricerca in ampiezza (BFS) è l'algoritmo migliore per trovare il percoso minimo in questo caso, dato che i collegamenti non hanno peso. 
+
+
+\Codice
+\colorbox{white}{\makebox[.99\textwidth][l]{\includegraphics[scale=.8]{pdf/codice.pdf}}}
