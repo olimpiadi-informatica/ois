@@ -1,0 +1,38 @@
+% autore: Giulio Carlassare
+
+\createsection{\SolNQ}{{\small{$\blacksquare$}} \normalsize Soluzione $O(N^2)$}
+\createsection{\SolNQOtt}{{\small{$\blacksquare$}} \normalsize Soluzione $O(N^2)$ ottimizzata}
+\createsection{\Codice}{{\tiny{$\blacksquare$}} \small Codice C++}
+\createsection{\SolLin}{{\small{$\blacksquare$}} \normalsize Soluzione lineare}
+
+\SolNQ
+Il metodo più immediato per risolvere il problema è quello di calcolare il numero di grattacieli visibili dalla cima di ogni costruzione, e poi prendere il massimo.\newline
+È possibile quindi scrivere una funzione che calcoli i grattacieli visibili sulla destra e sulla sinistra del grattacielo specificato.
+
+Si utilizzi una variabile \texttt{limite} per memorizzare l'altezza al di sotto della quale i grattacieli sono coperti.\newline
+Inizialmente il \texttt{limite} sarà uguale a $0$. Ogni qualvolta si troverà un grattacielo con le caratteristiche per coprirne altri, questa altezza verrà salvata in \texttt{limite}.
+
+Considerando quanto sopra detto, per ogni grattacielo si contino i grattacieli visibili sulla destra (\texttt{dx}) e quelli visibili sulla sinistra (\texttt{sx}): in totale si potranno vedere $\texttt{sx} + \texttt{dx} + 1$ per contare anche il grattacielo su cui si trova in quel momento Giorgio.
+
+Tra i valori così calcolati verrà stampato in output il \textbf{maggiore}.
+
+Questo algoritmo ha complessità $O(N^2)$ e non è sufficiente a prendere il punteggio massimo.
+
+\Codice
+
+
+\SolNQOtt
+Si può notare che il grattacielo con la vista migliore sarà \textbf{sicuramente} uno di quelli più alti (cioè uno di quelli che sono tutti alti uguali e la cui altezza è la maggiore nella fila di grattacieli).\newline
+Si cerchino inizialmente i grattacieli con altezza maggiore e per ognuno di essi si ripeta il procedimento spiegato in precedenza, salvando poi il maggiore.
+
+\SolLin
+Considerando meglio la situazione, ci si accorge che \textbf{solamente un altro dei grattacieli più alti può coprire la vista} se siamo in uno dei più alti, dato che deve essere almeno alto quanto quello su cui si trova l'osservatore.\newline
+Da questo si deduce quindi che, considerando $max$ come l'altezza massima che possiamo trovare nello skyline, trovandoci su un grattacielo alto $max$ saranno visibili tutti i grattacieli fino al sucessivo alto $max$.
+
+Esempio
+
+\includegraphics{esempio.pdf}
+
+Questo algoritmo ha \textbf{complessità lineare} ed è quello ottimale.
+
+\Codice
